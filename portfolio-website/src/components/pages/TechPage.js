@@ -2,37 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const TechPage = ({ currentSection, technologies }) => {
-  // 기술스택을 카테고리별로 분류
-  const categorizedTechs = {
-    "Front-end": [
-      { name: "React", image: "/images/tech/react.png" },
-      { name: "JavaScript", image: "/images/tech/javascript.png" },
-      { name: "TypeScript", image: "/images/tech/typescript.png" },
-      { name: "TailwindCSS", image: "/images/tech/tailwind.png" },
-      { name: "HTML", image: "/images/tech/html.png" },
-      { name: "CSS", image: "/images/tech/css.png" },
-    ],
-    "Back-end": [
-      { name: "Python", image: "/images/tech/python.png" },
-      { name: "Django", image: "/images/tech/django.png" },
-      { name: "FastAPI", image: "/images/tech/fastapi.png" },
-      { name: "Node.js", image: "/images/tech/nodejs.png" },
-      { name: "Express", image: "/images/tech/express.png" },
-    ],
-    "Database": [
-      { name: "MongoDB", image: "/images/tech/mongodb.png" },
-      { name: "MySQL", image: "/images/tech/mysql.png" },
-      { name: "PostgreSQL", image: "/images/tech/postgresql.png" },
-      { name: "Redis", image: "/images/tech/redis.png" },
-    ],
-    "Tools": [
-      { name: "Git", image: "/images/tech/git.png" },
-      { name: "Docker", image: "/images/tech/docker.png" },
-      { name: "AWS", image: "/images/tech/aws.png" },
-      { name: "VS Code", image: "/images/tech/vscode.png" },
-      { name: "Figma", image: "/images/tech/figma.png" },
-    ]
-  };
+  // 주요 기술스택들을 그리드로 표시 (실제 보유 기술)
+  const mainTechnologies = [
+    { name: "Python", image: "/images/tech/python.png", color: "from-blue-500 to-yellow-500" },
+    { name: "Django", image: "/images/tech/django.png", color: "from-green-600 to-green-800" },
+    { name: "React.js", image: "/images/tech/react.png", color: "from-cyan-400 to-blue-500" },
+    { name: "JavaScript", image: "/images/tech/javascript.png", color: "from-yellow-400 to-yellow-600" },
+    { name: "HTML", image: "/images/tech/html.png", color: "from-orange-500 to-red-600" },
+    { name: "CSS", image: "/images/tech/css.png", color: "from-blue-400 to-blue-600" },
+    { name: "MySQL", image: "/images/tech/mysql.png", color: "from-orange-500 to-blue-600" },
+    { name: "Docker", image: "/images/tech/docker.png", color: "from-blue-500 to-cyan-600" }
+  ];
 
   return (
     <section className="h-screen bg-white flex items-center">
@@ -46,76 +26,103 @@ const TechPage = ({ currentSection, technologies }) => {
           }}
           transition={{ duration: 0.8 }}
         >
-          TECH STACK
+          Skills & Technologies
         </motion.h3>
 
-        {/* 카테고리별 세로 카드 레이아웃 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          {Object.entries(categorizedTechs).map(([category, techs], categoryIndex) => (
-            <motion.div 
-              key={category}
-              className="bg-gray-50 rounded-2xl p-6 h-fit"
-              initial={{ opacity: 0, y: 50 }}
+        {/* 메인 기술스택 그리드 */}
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto mb-12"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ 
+            opacity: currentSection === 3 ? 1 : 0, 
+            y: currentSection === 3 ? 0 : 50 
+          }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          {mainTechnologies.map((tech, index) => (
+            <motion.div
+              key={tech.name}
+              className="bg-gray-50 rounded-3xl p-6 flex flex-col items-center justify-center text-center hover:shadow-lg transition-all duration-300 group cursor-pointer min-h-[160px]"
+              initial={{ opacity: 0, scale: 0.8 }}
               animate={{ 
-                opacity: currentSection === 3 ? 1 : 0, 
-                y: currentSection === 3 ? 0 : 50 
+                opacity: currentSection === 3 ? 1 : 0,
+                scale: currentSection === 3 ? 1 : 0.8
               }}
-              transition={{ duration: 0.8, delay: categoryIndex * 0.1 }}
+              transition={{ 
+                duration: 0.5, 
+                delay: currentSection === 3 ? 0.4 + index * 0.1 : 0 
+              }}
+              whileHover={{ 
+                scale: 1.05, 
+                y: -5,
+                boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
+              }}
             >
-              {/* 카테고리 제목 */}
-              <h4 className="text-xl font-bold text-gray-800 mb-4 text-center pb-3 border-b border-gray-200">
-                {category}
-              </h4>
-              
-              {/* 기술스택 세로 나열 */}
-              <div className="space-y-3">
-                {techs.map((tech, techIndex) => (
-                  <motion.div
-                    key={tech.name}
-                    className="bg-white p-3 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer group flex items-center gap-3"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ 
-                      opacity: currentSection === 3 ? 1 : 0,
-                      x: currentSection === 3 ? 0 : -20
-                    }}
-                    transition={{ 
-                      duration: 0.5, 
-                      delay: currentSection === 3 ? 0.3 + categoryIndex * 0.1 + techIndex * 0.05 : 0 
-                    }}
-                    whileHover={{ 
-                      scale: 1.02, 
-                      x: 5,
-                      boxShadow: "0 8px 20px rgba(0,0,0,0.1)"
-                    }}
-                  >
-                    {/* 기술스택 이미지 */}
-                    <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                      <img 
-                        src={tech.image} 
-                        alt={tech.name}
-                        className="w-full h-full object-contain group-hover:scale-110 transition-transform"
-                        onError={(e) => {
-                          // 이미지 로드 실패시 폴백 처리
-                          e.target.style.display = 'none';
-                          e.target.parentNode.innerHTML = `
-                            <div class="w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium">
-                              ${tech.name.slice(0, 2)}
-                            </div>
-                          `;
-                        }}
-                      />
-                    </div>
-                    
-                    {/* 기술명 */}
-                    <h5 className="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">
-                      {tech.name}
-                    </h5>
-                  </motion.div>
-                ))}
+              {/* 기술 아이콘/이미지 */}
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <img 
+                  src={tech.image} 
+                  alt={tech.name}
+                  className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                  onError={(e) => {
+                    // 이미지 로드 실패시 그라디언트 원형 아이콘으로 폴백
+                    e.target.style.display = 'none';
+                    e.target.parentNode.innerHTML = `
+                      <div class="w-16 h-16 bg-gradient-to-br ${tech.color} rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                        ${tech.name.slice(0, 2)}
+                      </div>
+                    `;
+                  }}
+                />
               </div>
+              
+              {/* 기술명 */}
+              <h4 className="text-lg font-semibold text-gray-800 group-hover:text-gray-900 transition-colors">
+                {tech.name}
+              </h4>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
+
+        {/* 추가 기술스택 (작은 버전) */}
+        <motion.div
+          className="max-w-5xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ 
+            opacity: currentSection === 3 ? 1 : 0, 
+            y: currentSection === 3 ? 0 : 30 
+          }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <h4 className="text-xl font-semibold text-gray-700 text-center mb-6">
+            AI/ML & Development Tools
+          </h4>
+          
+          <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-7 gap-4">
+            {[
+              "R", "PyTorch", "Keras", "MariaDB", "Linux", "VS Code", "GitHub"
+            ].map((tech, index) => (
+              <motion.div
+                key={tech}
+                className="bg-gray-50 rounded-xl p-3 text-center hover:bg-gray-100 transition-colors cursor-pointer group"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ 
+                  opacity: currentSection === 3 ? 1 : 0,
+                  scale: currentSection === 3 ? 1 : 0.9
+                }}
+                transition={{ 
+                  duration: 0.3, 
+                  delay: currentSection === 3 ? 0.8 + index * 0.05 : 0 
+                }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+                  {tech}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
 
         {/* 하단 설명 텍스트 */}
         <motion.div 
@@ -125,7 +132,7 @@ const TechPage = ({ currentSection, technologies }) => {
             opacity: currentSection === 3 ? 1 : 0, 
             y: currentSection === 3 ? 0 : 30 
           }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
         >
           <p className="text-base text-gray-600 max-w-3xl mx-auto">
             다양한 기술 스택을 활용하여 <span className="font-semibold text-blue-600">효율적이고 확장 가능한 솔루션</span>을 개발합니다.
