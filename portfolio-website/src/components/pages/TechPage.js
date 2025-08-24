@@ -1,17 +1,27 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+// 이미지 import
+import pythonImg from '../../images/tech/python.png';
+import djangoImg from '../../images/tech/django.png';
+import reactImg from '../../images/tech/react.png';
+import javascriptImg from '../../images/tech/javascript.jpg';
+import htmlImg from '../../images/tech/html.png';
+import cssImg from '../../images/tech/css.jpg';
+import mysqlImg from '../../images/tech/mysql.jpg';
+import dockerImg from '../../images/tech/docker.png';
+
 const TechPage = ({ currentSection, technologies }) => {
   // 주요 기술스택들을 그리드로 표시 (실제 보유 기술)
   const mainTechnologies = [
-    { name: "Python", image: "/images/tech/python.png", color: "from-blue-500 to-yellow-500" },
-    { name: "Django", image: "/images/tech/django.png", color: "from-green-600 to-green-800" },
-    { name: "React.js", image: "/images/tech/react.png", color: "from-cyan-400 to-blue-500" },
-    { name: "JavaScript", image: "/images/tech/javascript.png", color: "from-yellow-400 to-yellow-600" },
-    { name: "HTML", image: "/images/tech/html.png", color: "from-orange-500 to-red-600" },
-    { name: "CSS", image: "/images/tech/css.png", color: "from-blue-400 to-blue-600" },
-    { name: "MySQL", image: "/images/tech/mysql.png", color: "from-orange-500 to-blue-600" },
-    { name: "Docker", image: "/images/tech/docker.png", color: "from-blue-500 to-cyan-600" }
+    { name: "Python", image: pythonImg, color: "from-blue-500 to-yellow-500" },
+    { name: "Django", image: djangoImg, color: "from-green-600 to-green-800" },
+    { name: "React.js", image: reactImg, color: "from-cyan-400 to-blue-500" },
+    { name: "JavaScript", image: javascriptImg, color: "from-yellow-400 to-yellow-600" },
+    { name: "HTML", image: htmlImg, color: "from-orange-500 to-red-600" },
+    { name: "CSS", image: cssImg, color: "from-blue-400 to-blue-600" },
+    { name: "MySQL", image: mysqlImg, color: "from-orange-500 to-blue-600" },
+    { name: "Docker", image: dockerImg, color: "from-blue-500 to-cyan-600" }
   ];
 
   return (
@@ -42,7 +52,7 @@ const TechPage = ({ currentSection, technologies }) => {
           {mainTechnologies.map((tech, index) => (
             <motion.div
               key={tech.name}
-              className="bg-gray-50 rounded-3xl p-6 flex flex-col items-center justify-center text-center hover:shadow-lg transition-all duration-300 group cursor-pointer min-h-[160px]"
+              className="bg-gray-50 rounded-3xl p-6 flex flex-col items-center justify-center text-center hover:shadow-lg transition-all duration-300 group cursor-pointer min-h-[120px]"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ 
                 opacity: currentSection === 3 ? 1 : 0,
@@ -57,9 +67,10 @@ const TechPage = ({ currentSection, technologies }) => {
                 y: -5,
                 boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
               }}
+              title={tech.name} // 호버 시 툴팁으로 이름 표시
             >
               {/* 기술 아이콘/이미지 */}
-              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+              <div className="w-16 h-16 flex items-center justify-center">
                 <img 
                   src={tech.image} 
                   alt={tech.name}
@@ -75,11 +86,6 @@ const TechPage = ({ currentSection, technologies }) => {
                   }}
                 />
               </div>
-              
-              {/* 기술명 */}
-              <h4 className="text-lg font-semibold text-gray-800 group-hover:text-gray-900 transition-colors">
-                {tech.name}
-              </h4>
             </motion.div>
           ))}
         </motion.div>

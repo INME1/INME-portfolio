@@ -158,7 +158,7 @@ const ProjectsPage = ({
         >
           <p className="text-gray-600 mb-4">더 많은 프로젝트를 보고 싶으신가요?</p>
           <a 
-            href="https://github.com/your-username"
+            href="https://github.com/INME1"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
