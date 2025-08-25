@@ -7,8 +7,8 @@ import djangoImg from '../../images/tech/django.png';
 import reactImg from '../../images/tech/react.png';
 import javascriptImg from '../../images/tech/javascript.jpg';
 import htmlImg from '../../images/tech/html.png';
-import cssImg from '../../images/tech/css.jpg';
-import mysqlImg from '../../images/tech/mysql.jpg';
+import cssImg from '../../images/tech/css.png';
+import mysqlImg from '../../images/tech/mysql.png';
 import dockerImg from '../../images/tech/docker.png';
 
 const TechPage = ({ currentSection, technologies }) => {
@@ -70,16 +70,21 @@ const TechPage = ({ currentSection, technologies }) => {
               title={tech.name} // 호버 시 툴팁으로 이름 표시
             >
               {/* 기술 아이콘/이미지 */}
-              <div className="w-16 h-16 flex items-center justify-center">
+              <div className="w-16 h-16 flex items-center justify-center bg-gray-50 rounded-xl">
                 <img 
                   src={tech.image} 
                   alt={tech.name}
-                  className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                  className="w-14 h-14 object-contain group-hover:scale-110 transition-transform duration-300"
+                  style={{ 
+                    maxWidth: '56px', 
+                    maxHeight: '56px',
+                    objectFit: 'contain'
+                  }}
                   onError={(e) => {
                     // 이미지 로드 실패시 그라디언트 원형 아이콘으로 폴백
                     e.target.style.display = 'none';
                     e.target.parentNode.innerHTML = `
-                      <div class="w-16 h-16 bg-gradient-to-br ${tech.color} rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                      <div class="w-14 h-14 bg-gradient-to-br ${tech.color} rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg">
                         ${tech.name.slice(0, 2)}
                       </div>
                     `;
@@ -101,12 +106,13 @@ const TechPage = ({ currentSection, technologies }) => {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <h4 className="text-xl font-semibold text-gray-700 text-center mb-6">
-            AI/ML & Development Tools
+            Additional Technologies
           </h4>
           
-          <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-7 gap-4">
+          <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-4">
             {[
-              "R", "PyTorch", "Keras", "MariaDB", "Linux", "VS Code", "GitHub"
+              "R", "PyTorch", "Keras", "MariaDB", "Linux", 
+              "VS Code", "GitHub", "Redis", "Celery", "Nginx"
             ].map((tech, index) => (
               <motion.div
                 key={tech}

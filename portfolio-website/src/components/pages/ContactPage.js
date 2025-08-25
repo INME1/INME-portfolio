@@ -1,25 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Mail, ExternalLink } from 'lucide-react';
+import { Github, Mail, MapPin, ExternalLink, Send, Phone, Calendar } from 'lucide-react';
 
 const ContactPage = ({ currentSection }) => {
+  const [hoveredCard, setHoveredCard] = useState(null);
+
+  const contactMethods = [
+    {
+      id: 'email',
+      icon: Mail,
+      title: 'Email',
+      subtitle: 'Drop me a line',
+      value: 'contact@inme.dev',
+      href: 'mailto:contact@inme.dev',
+      color: 'from-blue-500 to-blue-600',
+      bgColor: 'bg-blue-50',
+      textColor: 'text-blue-600'
+    },
+    {
+      id: 'github',
+      icon: Github,
+      title: 'GitHub',
+      subtitle: 'Check out my work',
+      value: '@inme',
+      href: 'https://github.com/inme',
+      color: 'from-gray-700 to-gray-900',
+      bgColor: 'bg-gray-50',
+      textColor: 'text-gray-700'
+    },
+    {
+      id: 'location',
+      icon: MapPin,
+      title: 'Location',
+      subtitle: 'Based in',
+      value: 'Seoul, Korea',
+      href: '#',
+      color: 'from-green-500 to-green-600',
+      bgColor: 'bg-green-50',
+      textColor: 'text-green-600'
+    }
+  ];
+
   return (
-    <section className="h-screen bg-white flex items-center">
-      <div className="max-w-6xl mx-auto px-4 w-full">
-        <motion.h3 
-          className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center"
-          initial={{ opacity: 0, y: 50 }}
+    <section className="h-screen bg-white flex items-center justify-center relative overflow-hidden">
+      {/* 배경 그래픽 요소 */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-50 to-purple-50 rounded-full opacity-60"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-green-50 to-blue-50 rounded-full opacity-60"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-purple-50 to-pink-50 rounded-full opacity-30"></div>
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 w-full">
+        
+        {/* 헤더 섹션 */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ 
             opacity: currentSection === 5 ? 1 : 0, 
-            y: currentSection === 5 ? 0 : 50 
+            y: currentSection === 5 ? 0 : 30 
           }}
           transition={{ duration: 0.8 }}
         >
-          CONTACT
-        </motion.h3>
-        
-        <motion.div 
-          className="bg-gray-50 rounded-xl p-8 md:p-12 max-w-4xl mx-auto text-center"
+          <h1 className="text-6xl md:text-7xl font-bold text-gray-900 mb-6">
+            Let's
+            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
+              Connect
+            </span>
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            I'm always excited to discuss new opportunities, collaborate on interesting projects, 
+            or simply have a conversation about technology and innovation.
+          </p>
+        </motion.div>
+
+        {/* 연락 방법 카드들 */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
           initial={{ opacity: 0, y: 50 }}
           animate={{ 
             opacity: currentSection === 5 ? 1 : 0, 
@@ -27,34 +84,112 @@ const ContactPage = ({ currentSection }) => {
           }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <p className="text-gray-600 text-lg md:text-xl mb-8">
-            새로운 프로젝트나 협업 기회에 대해 이야기하고 싶으시다면 언제든 연락주세요.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          {contactMethods.map((method, index) => {
+            const IconComponent = method.icon;
+            return (
+              <motion.a
+                key={method.id}
+                href={method.href}
+                target={method.id === 'github' ? '_blank' : undefined}
+                rel={method.id === 'github' ? 'noopener noreferrer' : undefined}
+                className={`group relative p-8 rounded-3xl border border-gray-100 hover:border-transparent transition-all duration-300 cursor-pointer overflow-hidden ${
+                  hoveredCard === method.id ? 'shadow-2xl scale-105' : 'hover:shadow-xl'
+                }`}
+                style={{
+                  backgroundColor: hoveredCard === method.id ? 'white' : '#fafafa'
+                }}
+                onMouseEnter={() => setHoveredCard(method.id)}
+                onMouseLeave={() => setHoveredCard(null)}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ 
+                  opacity: currentSection === 5 ? 1 : 0, 
+                  y: currentSection === 5 ? 0 : 30 
+                }}
+                transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+                whileHover={{ y: -8 }}
+              >
+                {/* 배경 그라디언트 */}
+                <div 
+                  className={`absolute inset-0 bg-gradient-to-br ${method.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
+                />
+                
+                {/* 아이콘 */}
+                <div className={`w-16 h-16 ${method.bgColor} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <IconComponent className={`w-8 h-8 ${method.textColor}`} />
+                </div>
+
+                {/* 콘텐츠 */}
+                <div className="relative z-10">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{method.title}</h3>
+                  <p className="text-gray-500 text-sm mb-3">{method.subtitle}</p>
+                  <p className={`font-semibold ${method.textColor} group-hover:text-gray-900 transition-colors`}>
+                    {method.value}
+                  </p>
+                </div>
+
+                {/* 호버 시 화살표 */}
+                <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <ExternalLink className="w-5 h-5 text-gray-400" />
+                </div>
+              </motion.a>
+            );
+          })}
+        </motion.div>
+
+        {/* CTA 섹션 */}
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ 
+            opacity: currentSection === 5 ? 1 : 0, 
+            y: currentSection === 5 ? 0 : 30 
+          }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <div className="inline-flex items-center space-x-4 bg-white rounded-full px-8 py-4 shadow-lg border border-gray-100">
             <motion.a
-              href="mailto:your.email@example.com"
-              className="flex items-center gap-3 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              href="mailto:contact@inme.dev"
+              className="inline-flex items-center space-x-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Mail className="w-5 h-5" />
-              <span>이메일 보내기</span>
+              <Send className="w-5 h-5" />
+              <span>Send Message</span>
             </motion.a>
             
+            <div className="w-px h-8 bg-gray-200"></div>
+            
             <motion.a
-              href="https://github.com/yourusername"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors"
+              href="#"
+              className="inline-flex items-center space-x-3 text-gray-700 hover:text-gray-900 px-6 py-4 rounded-full hover:bg-gray-50 transition-all duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Github className="w-5 h-5" />
-              <span>GitHub 보기</span>
+              <Calendar className="w-5 h-5" />
+              <span>Schedule Call</span>
             </motion.a>
           </div>
         </motion.div>
+
+        {/* Footer */}
+        <motion.footer
+          className="mt-20 pt-8"
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: currentSection === 5 ? 1 : 0 
+          }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          <div className="flex flex-col items-center space-y-2">
+            <div className="flex items-center space-x-2 text-gray-500 text-sm">
+              <span>Crafted with passion by</span>
+              <span className="font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                INME
+              </span>
+            </div>
+            <p className="text-gray-400 text-xs">© 2025 • All rights reserved</p>
+          </div>
+        </motion.footer>
       </div>
     </section>
   );
