@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Download } from 'lucide-react';
+import aboutimg from '../../images/aboutme.jpg';
 
 const AboutPage = ({ currentSection }) => {
   return (
@@ -17,7 +18,7 @@ const AboutPage = ({ currentSection }) => {
         >
           ABOUT ME
         </motion.h3>
-
+        
         <motion.div 
           className="bg-white rounded-xl p-8 md:p-12 shadow-lg max-w-5xl mx-auto"
           initial={{ opacity: 0, y: 50 }}
@@ -30,14 +31,15 @@ const AboutPage = ({ currentSection }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             {/* 이미지 영역 */}
             <div className="order-2 lg:order-1">
-              <div className="w-full h-64 lg:h-80 bg-gray-100 rounded-xl flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">👨‍💻</div>
-                  <p className="text-gray-400 text-sm">Developer Illustration</p>
-                </div>
+              <div className="w-full h-64 lg:h-80 rounded-xl overflow-hidden shadow-md">
+                <img 
+                  src={aboutimg} 
+                  alt="About Me" 
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
-
+            
             {/* 텍스트 영역 */}
             <div className="order-1 lg:order-2 space-y-6">
               <div className="space-y-4 text-gray-600 leading-relaxed">
@@ -63,7 +65,7 @@ const AboutPage = ({ currentSection }) => {
                   사용자에게 가치 있는 경험을 제공하는 것을 목표로 하고 있습니다.
                 </p>
               </div>
-
+              
               {/* CV 다운로드 버튼 */}
               <motion.button
                 className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"

@@ -9,8 +9,8 @@ const ContactPage = ({ currentSection }) => {
     {
       id: 'email',
       icon: Mail,
-      title: 'Email',
-      subtitle: 'Drop me a line',
+      title: '이메일',
+      subtitle: '언제든 연락주세요',
       value: 'contact@inme.dev',
       href: 'mailto:contact@inme.dev',
       color: 'from-blue-500 to-blue-600',
@@ -21,7 +21,7 @@ const ContactPage = ({ currentSection }) => {
       id: 'github',
       icon: Github,
       title: 'GitHub',
-      subtitle: 'Check out my work',
+      subtitle: '제 작업을 확인해보세요',
       value: '@inme',
       href: 'https://github.com/inme',
       color: 'from-gray-700 to-gray-900',
@@ -31,13 +31,13 @@ const ContactPage = ({ currentSection }) => {
     {
       id: 'location',
       icon: MapPin,
-      title: 'Location',
-      subtitle: 'Based in',
-      value: 'Seoul, Korea',
+      title: '위치',
+      subtitle: '현재 거주지',
+      value: '서울, 대한민국',
       href: '#',
-      color: 'from-green-500 to-green-600',
-      bgColor: 'bg-green-50',
-      textColor: 'text-green-600'
+      color: 'from-blue-500 to-blue-600',
+      bgColor: 'bg-blue-50',
+      textColor: 'text-blue-600'
     }
   ];
 
@@ -63,20 +63,20 @@ const ContactPage = ({ currentSection }) => {
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-6xl md:text-7xl font-bold text-gray-900 mb-6">
-            Let's
-            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
-              Connect
+            함께
+            <span className="block bg-gradient-to-r from-blue-600 via-blue-600 to-blue-600 bg-clip-text text-transparent">
+              소통해요
             </span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            I'm always excited to discuss new opportunities, collaborate on interesting projects, 
-            or simply have a conversation about technology and innovation.
+            새로운 기회나 흥미로운 프로젝트에 대해 이야기하거나, 
+            기술과 개발에 관한 대화를 나누는 것을 항상 기다리고 있습니다.
           </p>
         </motion.div>
 
         {/* 연락 방법 카드들 */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32"
           initial={{ opacity: 0, y: 50 }}
           animate={{ 
             opacity: currentSection === 5 ? 1 : 0, 
@@ -121,7 +121,7 @@ const ContactPage = ({ currentSection }) => {
                 {/* 콘텐츠 */}
                 <div className="relative z-10">
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{method.title}</h3>
-                  <p className="text-gray-500 text-sm mb-3">{method.subtitle}</p>
+                  <p className="text-gray-600 text-sm mb-3">{method.subtitle}</p>
                   <p className={`font-semibold ${method.textColor} group-hover:text-gray-900 transition-colors`}>
                     {method.value}
                   </p>
@@ -136,44 +136,9 @@ const ContactPage = ({ currentSection }) => {
           })}
         </motion.div>
 
-        {/* CTA 섹션 */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ 
-            opacity: currentSection === 5 ? 1 : 0, 
-            y: currentSection === 5 ? 0 : 30 
-          }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <div className="inline-flex items-center space-x-4 bg-white rounded-full px-8 py-4 shadow-lg border border-gray-100">
-            <motion.a
-              href="mailto:contact@inme.dev"
-              className="inline-flex items-center space-x-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Send className="w-5 h-5" />
-              <span>Send Message</span>
-            </motion.a>
-            
-            <div className="w-px h-8 bg-gray-200"></div>
-            
-            <motion.a
-              href="#"
-              className="inline-flex items-center space-x-3 text-gray-700 hover:text-gray-900 px-6 py-4 rounded-full hover:bg-gray-50 transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Calendar className="w-5 h-5" />
-              <span>Schedule Call</span>
-            </motion.a>
-          </div>
-        </motion.div>
-
         {/* Footer */}
         <motion.footer
-          className="mt-20 pt-8"
+          className="border-t border-gray-200 pt-8"
           initial={{ opacity: 0 }}
           animate={{ 
             opacity: currentSection === 5 ? 1 : 0 
@@ -181,13 +146,13 @@ const ContactPage = ({ currentSection }) => {
           transition={{ duration: 0.8, delay: 0.8 }}
         >
           <div className="flex flex-col items-center space-y-2">
-            <div className="flex items-center space-x-2 text-gray-500 text-sm">
+            <div className="flex items-center space-x-2 text-gray-600 text-sm">
               <span>Crafted with passion by</span>
-              <span className="font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="font-semibold text-blue-600">
                 INME
               </span>
             </div>
-            <p className="text-gray-400 text-xs">© 2025 • All rights reserved</p>
+            <p className="text-gray-500 text-xs">© 2025 • All rights reserved</p>
           </div>
         </motion.footer>
       </div>

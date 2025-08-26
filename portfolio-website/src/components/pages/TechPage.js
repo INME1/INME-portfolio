@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import pythonImg from '../../images/tech/python.png';
 import djangoImg from '../../images/tech/django.png';
 import reactImg from '../../images/tech/react.png';
-import javascriptImg from '../../images/tech/javascript.jpg';
+import javascriptImg from '../../images/tech/javascript.png';
 import htmlImg from '../../images/tech/html.png';
 import cssImg from '../../images/tech/css.png';
 import mysqlImg from '../../images/tech/mysql.png';
@@ -14,14 +14,14 @@ import dockerImg from '../../images/tech/docker.png';
 const TechPage = ({ currentSection, technologies }) => {
   // 주요 기술스택들을 그리드로 표시 (실제 보유 기술)
   const mainTechnologies = [
-    { name: "Python", image: pythonImg, color: "from-blue-500 to-yellow-500" },
-    { name: "Django", image: djangoImg, color: "from-green-600 to-green-800" },
-    { name: "React.js", image: reactImg, color: "from-cyan-400 to-blue-500" },
-    { name: "JavaScript", image: javascriptImg, color: "from-yellow-400 to-yellow-600" },
-    { name: "HTML", image: htmlImg, color: "from-orange-500 to-red-600" },
-    { name: "CSS", image: cssImg, color: "from-blue-400 to-blue-600" },
-    { name: "MySQL", image: mysqlImg, color: "from-orange-500 to-blue-600" },
-    { name: "Docker", image: dockerImg, color: "from-blue-500 to-cyan-600" }
+    { name: "Python", image: pythonImg, color: "from-blue-500 to-yellow-500", proficiency: 5 },
+    { name: "Django", image: djangoImg, color: "from-green-600 to-green-800", proficiency: 4 },
+    { name: "React.js", image: reactImg, color: "from-cyan-400 to-blue-500", proficiency: 4 },
+    { name: "JavaScript", image: javascriptImg, color: "from-yellow-400 to-yellow-600", proficiency: 4 },
+    { name: "HTML", image: htmlImg, color: "from-orange-500 to-red-600", proficiency: 5 },
+    { name: "CSS", image: cssImg, color: "from-blue-400 to-blue-600", proficiency: 4 },
+    { name: "MySQL", image: mysqlImg, color: "from-orange-500 to-blue-600", proficiency: 4 },
+    { name: "Docker", image: dockerImg, color: "from-blue-500 to-cyan-600", proficiency: 3 }
   ];
 
   return (
@@ -52,7 +52,7 @@ const TechPage = ({ currentSection, technologies }) => {
           {mainTechnologies.map((tech, index) => (
             <motion.div
               key={tech.name}
-              className="bg-gray-50 rounded-3xl p-6 flex flex-col items-center justify-center text-center hover:shadow-lg transition-all duration-300 group cursor-pointer min-h-[120px]"
+              className="bg-gray-50 rounded-3xl p-6 flex flex-col items-center justify-center text-center hover:shadow-lg transition-all duration-300 group cursor-pointer min-h-[140px]"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ 
                 opacity: currentSection === 3 ? 1 : 0,
@@ -67,10 +67,10 @@ const TechPage = ({ currentSection, technologies }) => {
                 y: -5,
                 boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
               }}
-              title={tech.name} // 호버 시 툴팁으로 이름 표시
+              title={`${tech.name} - ${tech.proficiency}/5`}
             >
               {/* 기술 아이콘/이미지 */}
-              <div className="w-16 h-16 flex items-center justify-center bg-gray-50 rounded-xl">
+              <div className="w-16 h-16 flex items-center justify-center bg-gray-50 rounded-xl mb-3">
                 <img 
                   src={tech.image} 
                   alt={tech.name}
@@ -90,6 +90,20 @@ const TechPage = ({ currentSection, technologies }) => {
                     `;
                   }}
                 />
+              </div>
+
+              {/* 숙련도 표시 점들 */}
+              <div className="flex justify-center space-x-2">
+                {[1, 2, 3, 4, 5].map((level) => (
+                  <div
+                    key={level}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                      level <= tech.proficiency 
+                        ? 'bg-blue-500 group-hover:bg-blue-600' 
+                        : 'bg-gray-200 group-hover:bg-gray-300'
+                    }`}
+                  />
+                ))}
               </div>
             </motion.div>
           ))}
