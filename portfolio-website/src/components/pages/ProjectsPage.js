@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Github } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import LACIDImg from '../../images/projects/LACID.png';
+
 const ProjectsPage = ({ 
   currentSection, 
   projects, 
@@ -86,26 +87,42 @@ const ProjectsPage = ({
               whileHover={{ y: -8 }}
             >
               {/* 프로젝트 이미지 */}
-              <div className="h-48 bg-gradient-to-br from-gray-200 to-gray-300 relative overflow-hidden">
+              <div className="h-48 bg-gradient-to-br from-gray-200 to-gray-300 relative overflow-hidden flex items-center justify-center">
                 <img 
                   src={project.image} 
                   alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     e.target.parentNode.innerHTML = `
-                      <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                        <div class="text-blue-600 text-4xl font-bold">${project.title.split(' ').map(w => w[0]).join('')}</div>
+                      <div class="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
+                        <div class="text-purple-600 text-4xl font-bold">${project.title.split(' ').map(w => w[0]).join('')}</div>
                       </div>
                     `;
                   }}
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
               </div>
 
               {/* 프로젝트 정보 */}
               <div className="p-6">
-                <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                <h4 
+                  className="text-xl font-bold text-gray-900 mb-2 transition-colors"
+                  style={{
+                    color: 'inherit'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = 'linear-gradient(135deg, #8B5CF6, #A855F7)';
+                    e.target.style.webkitBackgroundClip = 'text';
+                    e.target.style.webkitTextFillColor = 'transparent';
+                    e.target.style.backgroundClip = 'text';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'none';
+                    e.target.style.webkitTextFillColor = 'inherit';
+                    e.target.style.color = '#111827';
+                  }}
+                >
                   {project.title}
                 </h4>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
@@ -117,7 +134,11 @@ const ProjectsPage = ({
                   {project.technologies.map((tech, techIndex) => (
                     <span 
                       key={techIndex}
-                      className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium"
+                      className="px-3 py-1 rounded-full text-xs font-medium text-white"
+                      style={{
+                        background: 'linear-gradient(135deg, #8B5CF6, #A855F7)',
+                        boxShadow: '0 2px 8px rgba(139, 92, 246, 0.3)'
+                      }}
                     >
                       {tech}
                     </span>
@@ -128,44 +149,23 @@ const ProjectsPage = ({
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleReadMore(project.id)}
-                    className="flex-1 bg-gray-900 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors"
+                    className="flex-1 px-4 py-2 bg-gray-900 hover:bg-black rounded-lg font-medium text-white transition-all duration-300"
                   >
                     READ MORE
                   </button>
-                  <a 
+                  
+                  <a
                     href={project.githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
-                    onClick={(e) => e.stopPropagation()}
+                    className="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors flex items-center gap-2"
                   >
-                    <Github className="w-4 h-4 text-gray-600" />
+                    <Github className="w-4 h-4" />
                   </a>
                 </div>
               </div>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* 추가 프로젝트 보기 버튼 */}
-        <motion.div 
-          className="text-center mt-12"
-          initial={{ opacity: 0 }}
-          animate={{ 
-            opacity: currentSection === 4 ? 1 : 0 
-          }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <p className="text-gray-600 mb-4">더 많은 프로젝트를 보고 싶으신가요?</p>
-          <a 
-            href="https://github.com/INME1"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
-          >
-            <Github className="w-4 h-4" />
-            GitHub에서 모든 프로젝트 보기
-          </a>
         </motion.div>
       </div>
     </section>

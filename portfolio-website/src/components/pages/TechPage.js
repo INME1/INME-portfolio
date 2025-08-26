@@ -14,14 +14,14 @@ import dockerImg from '../../images/tech/docker.png';
 const TechPage = ({ currentSection, technologies }) => {
   // 주요 기술스택들을 그리드로 표시 (실제 보유 기술)
   const mainTechnologies = [
-    { name: "Python", image: pythonImg, color: "from-blue-500 to-yellow-500", proficiency: 5 },
+    { name: "Python", image: pythonImg, color: "from-purple-500 to-yellow-500", proficiency: 5 },
     { name: "Django", image: djangoImg, color: "from-green-600 to-green-800", proficiency: 4 },
-    { name: "React.js", image: reactImg, color: "from-cyan-400 to-blue-500", proficiency: 4 },
+    { name: "React.js", image: reactImg, color: "from-cyan-400 to-purple-500", proficiency: 4 },
     { name: "JavaScript", image: javascriptImg, color: "from-yellow-400 to-yellow-600", proficiency: 4 },
     { name: "HTML", image: htmlImg, color: "from-orange-500 to-red-600", proficiency: 5 },
-    { name: "CSS", image: cssImg, color: "from-blue-400 to-blue-600", proficiency: 4 },
-    { name: "MySQL", image: mysqlImg, color: "from-orange-500 to-blue-600", proficiency: 4 },
-    { name: "Docker", image: dockerImg, color: "from-blue-500 to-cyan-600", proficiency: 3 }
+    { name: "CSS", image: cssImg, color: "from-purple-400 to-purple-600", proficiency: 4 },
+    { name: "MySQL", image: mysqlImg, color: "from-orange-500 to-purple-600", proficiency: 4 },
+    { name: "Docker", image: dockerImg, color: "from-purple-500 to-cyan-600", proficiency: 3 }
   ];
 
   return (
@@ -99,7 +99,7 @@ const TechPage = ({ currentSection, technologies }) => {
                     key={level}
                     className={`w-2 h-2 rounded-full transition-colors duration-300 ${
                       level <= tech.proficiency 
-                        ? 'bg-blue-500 group-hover:bg-blue-600' 
+                        ? 'bg-purple-500 group-hover:bg-purple-600' 
                         : 'bg-gray-200 group-hover:bg-gray-300'
                     }`}
                   />
@@ -161,7 +161,13 @@ const TechPage = ({ currentSection, technologies }) => {
           transition={{ duration: 0.8, delay: 0.8 }}
         >
           <p className="text-base text-gray-600 max-w-3xl mx-auto">
-            다양한 기술 스택을 활용하여 <span className="font-semibold text-blue-600">효율적이고 확장 가능한 솔루션</span>을 개발합니다.
+            다양한 기술 스택을 활용하여 
+            <span 
+              className="font-semibold bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent"
+            >
+              효율적이고 확장 가능한 솔루션
+            </span>
+            을 개발합니다.
           </p>
         </motion.div>
       </div>

@@ -68,8 +68,15 @@ const AboutPage = ({ currentSection }) => {
               
               {/* CV 다운로드 버튼 */}
               <motion.button
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                whileHover={{ scale: 1.02 }}
+                className="flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-white transition-all duration-300"
+                style={{
+                  background: 'linear-gradient(135deg, #8B5CF6, #A855F7, #9333EA)',
+                  boxShadow: '0 4px 15px rgba(139, 92, 246, 0.3)'
+                }}
+                whileHover={{ 
+                  scale: 1.02,
+                  boxShadow: '0 8px 25px rgba(139, 92, 246, 0.4)'
+                }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => {
                   // CV 다운로드 로직
