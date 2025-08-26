@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Github } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
+import LACIDImg from '../../images/projects/LACID.png';
 const ProjectsPage = ({ 
   currentSection, 
   projects, 
@@ -16,11 +16,11 @@ const ProjectsPage = ({
   const featuredProjects = [
     {
       id: 1,
-      title: "Project Management Application",
-      subtitle: "Collaborative project management tool with real-time project updates",
-      image: "/images/projects/project-management.jpg",
-      technologies: ["Django", "MySQL", "Docker"],
-      githubLink: "https://github.com/your-username/project-management"
+      title: "LACID",
+      subtitle: "흉부 X-ray 기반 이상탐지 CDSS 시스템",
+      image: LACIDImg,
+      technologies: ["Django", "React", "OpenMRS", "Orthanc", "MySQL", "Docker", "Redis", "nginx", "Celery", "Python", "Keras", "Pytorch", "PostgreSQL"],
+      githubLink: "https://github.com/INME1/medical_system"
     },
     {
       id: 2,

@@ -63,9 +63,9 @@ const ContactPage = ({ currentSection }) => {
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-6xl md:text-7xl font-bold text-gray-900 mb-6">
-            함께
+            Contact 
             <span className="block bg-gradient-to-r from-blue-600 via-blue-600 to-blue-600 bg-clip-text text-transparent">
-              소통해요
+              with
             </span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">

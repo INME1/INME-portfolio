@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Github, FileText, ExternalLink, Calendar, Users, Code, Award } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import LACIDImg from '../../images/projects/LACID.png';
 const ProjectDetailPage = () => {
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -32,17 +32,17 @@ const ProjectDetailPage = () => {
   // 프로젝트 데이터 (실제로는 props나 API에서 받아옴)
   const projectData = {
     1: {
-      title: "Project Management Application",
-      subtitle: "Collaborative project management tool with real-time project updates",
-      image: "/images/projects/project-management.jpg",
-      period: "2024.03 - 2024.08",
-      team: "4명 (팀 리더)",
+      title: "LACID",
+      subtitle: "흉부 X-ray 기반 이상탐지 CDSS 시스템",
+      image: LACIDImg,
+      period: "2025.05 - 2025.07",
+      team: "4명 (팀원)",
       status: "완료",
-      technologies: ["Django", "MySQL", "Docker", "WebSocket", "Redis", "React"],
+      technologies: ["Django", "React", "OpenMRS", "Orthanc", "MySQL", "Docker", "Redis", "nginx", "Celery", "Python", "Keras", "Pytorch", "PostgreSQL"],
       githubLink: "https://github.com/your-username/project-management",
       presentationLink: "https://your-presentation-link.com/project-management.ppt",
       demoLink: "https://your-demo.com",
-      overview: `실시간 협업이 가능한 프로젝트 관리 도구로, 팀원들이 효율적으로 업무를 관리하고 진행상황을 공유할 수 있도록 개발했습니다. 기존의 복잡한 프로젝트 관리 도구들의 단점을 보완하여 직관적이고 사용하기 쉬운 인터페이스를 제공합니다.`,
+      overview: `사용자 경험에 맞춘 UI와 함께 흉부 X-ray 기반 이상탐지와 여러 검사결과에 기반한 AI 분석 시스템을 제공합니다.`,
       description: `현대적인 팀 협업의 필요성에서 출발한 이 프로젝트는 분산된 팀 환경에서도 효율적인 프로젝트 관리를 가능하게 합니다.
 
 주요 혁신점:

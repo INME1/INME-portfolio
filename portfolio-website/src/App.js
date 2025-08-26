@@ -14,7 +14,7 @@ import ContactPage from './components/pages/ContactPage';
 import ProjectDetailPage from './components/pages/ProjectDetailPage';
 
 // 이미지 import
-import coverImage from './images/projects/cover.png';
+import coverImage from './images/projects/LACID.png';
 import profileImage from './images/김상묵사진.jpg';
 
 // 메인 포트폴리오 컴포넌트 (기존 single-page 방식)
