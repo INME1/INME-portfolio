@@ -13,9 +13,9 @@ const ContactPage = ({ currentSection }) => {
       subtitle: '언제든 연락주세요',
       value: 'contact@inme.dev',
       href: 'mailto:contact@inme.dev',
-      color: 'from-blue-500 to-blue-600',
-      bgColor: 'bg-blue-50',
-      textColor: 'text-blue-600'
+      color: 'from-purple-500 to-purple-600',
+      bgColor: 'bg-purple-50',
+      textColor: 'text-purple-600'
     },
     {
       id: 'github',
@@ -35,9 +35,9 @@ const ContactPage = ({ currentSection }) => {
       subtitle: '현재 거주지',
       value: '서울, 대한민국',
       href: '#',
-      color: 'from-blue-500 to-blue-600',
-      bgColor: 'bg-blue-50',
-      textColor: 'text-blue-600'
+      color: 'from-purple-500 to-purple-600',
+      bgColor: 'bg-purple-50',
+      textColor: 'text-purple-600'
     }
   ];
 
@@ -45,8 +45,8 @@ const ContactPage = ({ currentSection }) => {
     <section className="h-screen bg-white flex items-center justify-center relative overflow-hidden">
       {/* 배경 그래픽 요소 */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-50 to-purple-50 rounded-full opacity-60"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-green-50 to-blue-50 rounded-full opacity-60"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-purple-50 to-pink-50 rounded-full opacity-60"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-green-50 to-purple-50 rounded-full opacity-60"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-purple-50 to-pink-50 rounded-full opacity-30"></div>
       </div>
 
@@ -64,7 +64,15 @@ const ContactPage = ({ currentSection }) => {
         >
           <h1 className="text-6xl md:text-7xl font-bold text-gray-900 mb-6">
             Contact 
-            <span className="block bg-gradient-to-r from-blue-600 via-blue-600 to-blue-600 bg-clip-text text-transparent">
+            <span 
+              className="block bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent"
+              style={{
+                background: 'linear-gradient(135deg, #8B5CF6, #A855F7)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}
+            >
               with
             </span>
           </h1>
@@ -80,7 +88,7 @@ const ContactPage = ({ currentSection }) => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ 
             opacity: currentSection === 5 ? 1 : 0, 
-            y: currentSection === 5 ? 0 : 50 
+            y: currentSection === 5 ? 0 : 30 
           }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
@@ -148,7 +156,15 @@ const ContactPage = ({ currentSection }) => {
           <div className="flex flex-col items-center space-y-2">
             <div className="flex items-center space-x-2 text-gray-600 text-sm">
               <span>Crafted with passion by</span>
-              <span className="font-semibold text-blue-600">
+              <span 
+                className="font-semibold bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent"
+                style={{
+                  background: 'linear-gradient(135deg, #8B5CF6, #A855F7)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}
+              >
                 INME
               </span>
             </div>

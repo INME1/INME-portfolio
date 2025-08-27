@@ -1,104 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Github, FileText, ExternalLink, Calendar, Users, Code, Award } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
-import LACIDImg from '../../images/projects/LACID.png';
+import { ArrowLeft, Calendar, Users, Award, Github, FileText, ExternalLink } from 'lucide-react';
+
 const ProjectDetailPage = () => {
   const { projectId } = useParams();
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState('overview');
 
-  // 페이지 진입 시 스크롤바 복원 및 정상 페이지로 설정
-  useEffect(() => {
-    // body와 html의 스크롤을 다시 활성화
-    document.body.style.overflow = 'auto';
-    document.documentElement.style.overflow = 'auto';
-    document.body.style.height = 'auto';
-    document.documentElement.style.height = 'auto';
-    document.body.style.position = 'static';
-    document.body.style.width = 'auto';
-    
-    // 페이지 맨 위로 스크롤
-    window.scrollTo(0, 0);
-    
-    // 컴포넌트 언마운트 시에는 정리하지 않음 (라우터가 처리)
-  }, []);
-
-  // 뒤로가기 함수 - Featured Projects 섹션으로 직접 이동
-  const handleBack = () => {
-    navigate('/?section=projects');
-  };
-
-  // 프로젝트 데이터 (실제로는 props나 API에서 받아옴)
-  const projectData = {
+  // 프로젝트 데이터 (실제로는 API에서 가져올 수 있음)
+  const projects = {
     1: {
       title: "LACID",
       subtitle: "흉부 X-ray 기반 이상탐지 CDSS 시스템",
-      image: LACIDImg,
-      period: "2025.05 - 2025.07",
-      team: "4명 (팀원)",
+      image: "/images/projects/LACID.png",
+      period: "2024.03 - 2024.11",
+      team: "4명",
       status: "완료",
       technologies: ["Django", "React", "OpenMRS", "Orthanc", "MySQL", "Docker", "Redis", "nginx", "Celery", "Python", "Keras", "Pytorch", "PostgreSQL"],
-      githubLink: "https://github.com/your-username/project-management",
-      presentationLink: "https://your-presentation-link.com/project-management.ppt",
-      demoLink: "https://your-demo.com",
-      overview: `사용자 경험에 맞춘 UI와 함께 흉부 X-ray 기반 이상탐지와 여러 검사결과에 기반한 AI 분석 시스템을 제공합니다.`,
-      description: `현대적인 팀 협업의 필요성에서 출발한 이 프로젝트는 분산된 팀 환경에서도 효율적인 프로젝트 관리를 가능하게 합니다.
-
-주요 혁신점:
-• 실시간 협업: WebSocket을 활용한 즉시 업데이트
-• 직관적 UI: 복잡한 기능을 단순하게 표현
-• 모바일 최적화: 언제 어디서나 접근 가능
-• 확장성: 대규모 팀과 프로젝트 지원
-
-이 시스템을 통해 팀의 생산성이 평균 40% 향상되었으며, 프로젝트 지연율을 25% 감소시키는 성과를 달성했습니다.`,
+      githubLink: "https://github.com/INME1/medical_system",
+      presentationLink: "/files/lacid-presentation.pdf",
+      demoLink: null,
+      overview: "의료진의 진단 정확도 향상을 위한 AI 기반 흉부 X-ray 이상 탐지 시스템입니다. OpenMRS와 Orthanc PACS 서버를 통합하여 의료 데이터를 효율적으로 관리하고, 딥러닝 모델을 활용해 실시간으로 이상 소견을 탐지합니다.",
+      description: "LACID(Lung Abnormality Clinical Intelligence Dashboard)는 의료 현장에서 흉부 X-ray 영상 판독의 정확성과 효율성을 높이기 위해 개발된 임상 의사결정 지원 시스템(CDSS)입니다.\n\n시스템은 크게 세 가지 핵심 구성요소로 이루어져 있습니다:\n\n1. **데이터 관리 시스템**: OpenMRS를 기반으로 한 환자 정보 관리와 Orthanc PACS 서버를 통한 의료 영상 저장 및 검색\n2. **AI 분석 엔진**: CNN 기반의 딥러닝 모델을 활용한 흉부 X-ray 이상 소견 자동 탐지\n3. **웹 인터페이스**: React 기반의 직관적인 사용자 인터페이스를 통한 진단 결과 시각화",
       features: [
-        "실시간 프로젝트 상태 업데이트 및 알림",
-        "팀원별 업무 할당 및 진행률 추적",
-        "간트 차트를 통한 일정 시각화",
-        "파일 첨부 및 공유 기능",
-        "팀 채팅 및 댓글 시스템",
-        "모바일 반응형 디자인",
-        "권한별 접근 제어",
-        "프로젝트 보고서 자동 생성"
+        "실시간 흉부 X-ray 이상 탐지",
+        "OpenMRS 기반 환자 정보 관리",
+        "Orthanc PACS 서버 연동",
+        "AI 모델 성능 모니터링",
+        "진단 결과 시각화 대시보드",
+        "의료진 권한별 접근 제어"
       ],
       challenges: [
         {
-          title: "실시간 데이터 동기화",
-          problem: "다수의 사용자가 동시에 데이터를 수정할 때 발생하는 충돌과 일관성 문제",
-          solution: "WebSocket을 활용한 실시간 양방향 통신 구현 및 Redis를 통한 세션 관리 최적화. 낙관적 락킹을 통해 데이터 충돌을 방지하고, 이벤트 소싱 패턴을 적용하여 모든 변경사항을 추적 가능하게 했습니다.",
-          result: "동시 사용자 100명 기준 99.9%의 데이터 일관성 달성"
+          title: "의료 데이터 표준화 문제",
+          problem: "다양한 병원에서 사용하는 DICOM 형식과 메타데이터 구조가 상이하여 데이터 통합에 어려움이 있었습니다.",
+          solution: "DICOM 표준을 준수하면서도 유연한 데이터 파싱 로직을 구현하고, Orthanc의 Lua 스크립트를 활용하여 데이터 전처리를 자동화했습니다.",
+          result: "95% 이상의 DICOM 파일을 성공적으로 처리할 수 있게 되었으며, 데이터 품질이 크게 향상되었습니다."
         },
         {
-          title: "대용량 파일 업로드 처리",
-          problem: "프로젝트 관련 대용량 파일(설계도, 영상 등) 업로드 시 서버 부하 및 타임아웃 문제",
-          solution: "청크 업로드 방식 도입으로 파일을 작은 단위로 분할하여 업로드. AWS S3와 CloudFront CDN을 활용한 파일 저장 및 배포 최적화. 업로드 진행률 표시 및 중단/재개 기능 구현.",
-          result: "최대 1GB 파일도 안정적 업로드 가능, 업로드 속도 60% 향상"
-        },
-        {
-          title: "복잡한 권한 관리",
-          problem: "프로젝트별, 기능별로 다른 권한 설정이 필요하며 동적으로 권한이 변경되는 상황",
-          solution: "역할 기반 접근 제어(RBAC) 시스템 구현. 계층적 권한 구조 설계 및 동적 권한 할당 기능 개발. Django의 권한 시스템을 확장하여 세분화된 권한 제어 실현.",
-          result: "프로젝트별 맞춤형 권한 설정으로 보안성 강화 및 사용 편의성 증대"
+          title: "AI 모델의 실시간 처리 성능 최적화",
+          problem: "고해상도 의료 영상에 대한 AI 추론 시간이 길어 실제 임상 환경에서 사용하기 어려웠습니다.",
+          solution: "모델 양자화와 TensorRT 최적화를 적용하고, Redis를 활용한 결과 캐싱 시스템을 구축했습니다.",
+          result: "추론 시간을 평균 5초에서 1.2초로 단축시켜 실시간 진단이 가능해졌습니다."
         }
       ],
       contribution: {
         overall: "85%",
-        responsibilities: [
-          "프로젝트 전체 아키텍처 설계 및 기술 스택 선정",
-          "Django REST Framework 기반 백엔드 API 설계 및 구현",
-          "WebSocket을 활용한 실시간 통신 시스템 개발",
-          "사용자 인증 및 권한 관리 시스템 구축",
-          "데이터베이스 설계 및 쿼리 최적화",
-          "Docker를 활용한 개발/배포 환경 구축",
-          "팀 프로젝트 관리 및 코드 리뷰 진행",
-          "API 문서화 및 테스트 코드 작성"
-        ],
         achievements: [
-          { metric: "백엔드 개발 기여율", value: "85%" },
-          { metric: "API 응답 시간 개선", value: "40% 단축" },
-          { metric: "시스템 안정성", value: "99.9%" },
-          { metric: "코드 커버리지", value: "92%" }
+          { metric: "백엔드 개발", value: "90%" },
+          { metric: "AI 모델 통합", value: "80%" },
+          { metric: "시스템 아키텍처", value: "85%" }
+        ],
+        responsibilities: [
+          "Django 기반 백엔드 API 설계 및 구현",
+          "OpenMRS와 Orthanc PACS 서버 연동",
+          "AI 모델 서빙 시스템 구축",
+          "Docker 컨테이너 기반 배포 환경 구성",
+          "Redis 캐시 시스템 설계"
         ]
       }
     },
@@ -106,141 +65,139 @@ const ProjectDetailPage = () => {
       title: "E-Commerce Application",
       subtitle: "Full-featured e-commerce store with multi role user authentication functionality",
       image: "/images/projects/ecommerce.jpg",
-      period: "2023.09 - 2024.01",
-      team: "3명 (풀스택 개발자)",
+      period: "2023.09 - 2023.12",
+      team: "3명",
       status: "완료",
-      technologies: ["Django REST", "Python", "PostgreSQL", "Redis", "Celery", "Stripe API"],
+      technologies: ["Django REST", "Python", "PostgreSQL"],
       githubLink: "https://github.com/your-username/ecommerce",
-      presentationLink: "https://your-presentation-link.com/ecommerce.ppt",
-      overview: "다중 사용자 역할을 지원하는 완전한 기능의 이커머스 플랫폼으로, 판매자와 구매자 모두에게 최적화된 경험을 제공합니다.",
-      description: `현대 이커머스의 복잡한 요구사항을 모두 충족하는 종합적인 온라인 쇼핑몰 플랫폼입니다. 단순한 상품 판매를 넘어서 다양한 사용자 역할(관리자, 판매자, 구매자)을 지원하며, 각 역할에 맞는 최적화된 인터페이스를 제공합니다.
-
-특히 중소 판매자들이 쉽게 온라인 진출할 수 있도록 돕는 것을 목표로 하여, 복잡한 설정 없이도 바로 상품을 등록하고 판매할 수 있는 환경을 구축했습니다.`,
+      presentationLink: "/files/ecommerce-presentation.pdf",
+      demoLink: "https://ecommerce-demo.example.com",
+      overview: "다양한 사용자 역할을 지원하는 완전한 기능의 전자상거래 플랫폼입니다. 관리자, 판매자, 구매자 권한을 구분하여 각각에 맞는 기능을 제공하며, 안전한 결제 시스템과 재고 관리 시스템을 포함합니다.",
+      description: "현대적인 전자상거래 플랫폼으로, 다중 역할 사용자 인증 시스템을 핵심으로 구축되었습니다.\n\n주요 특징:\n\n1. **다중 역할 시스템**: 관리자, 판매자, 구매자별 차별화된 대시보드와 기능\n2. **실시간 재고 관리**: 자동 재고 업데이트 및 부족 알림 시스템\n3. **안전한 결제**: 다양한 결제 수단 지원 및 보안 강화\n4. **반응형 디자인**: 모바일과 데스크톱 환경 모두 최적화",
       features: [
-        "다중 사용자 역할 기반 인증 시스템",
-        "상품 등록 및 관리 시스템",
-        "장바구니 및 위시리스트 기능",
-        "다양한 결제 수단 지원",
-        "실시간 재고 관리 및 알림",
-        "주문 추적 및 배송 관리",
-        "판매자용 대시보드 및 통계",
-        "리뷰 및 평점 시스템"
+        "다중 사용자 역할 관리 (관리자/판매자/구매자)",
+        "실시간 재고 관리 시스템",
+        "안전한 결제 처리",
+        "상품 검색 및 필터링",
+        "주문 추적 시스템",
+        "반응형 웹 디자인"
       ],
       challenges: [
         {
-          title: "결제 시스템 보안",
-          problem: "민감한 결제 정보 처리 및 PCI DSS 준수 요구사항",
-          solution: "Stripe API를 활용한 안전한 결제 처리 구현. 모든 민감 정보는 서버에 저장하지 않고 토큰화하여 처리. SSL/TLS 암호화 및 CSRF 보호 강화.",
-          result: "PCI DSS Level 1 준수 달성 및 결제 성공률 99.8% 기록"
-        },
-        {
-          title: "재고 동시성 문제",
-          problem: "인기 상품의 동시 주문 시 재고 부족 및 overselling 문제",
-          solution: "낙관적 락킹과 데이터베이스 트랜잭션을 활용한 원자적 재고 업데이트. Redis를 활용한 분산 락 구현으로 동시성 제어 강화.",
-          result: "동시 주문 처리 정확도 100% 달성, overselling 완전 방지"
+          title: "동시성 제어 문제",
+          problem: "여러 사용자가 동시에 같은 상품을 주문할 때 재고 부족 문제가 발생했습니다.",
+          solution: "데이터베이스 트랜잭션과 락 메커니즘을 활용하여 동시성 제어를 구현했습니다.",
+          result: "재고 관리 정확도가 99.9%로 향상되었으며, 중복 주문 문제가 해결되었습니다."
         }
       ],
       contribution: {
-        overall: "75%",
-        responsibilities: [
-          "백엔드 API 설계 및 구현 (Django REST Framework)",
-          "사용자 인증 및 권한 관리 시스템 개발",
-          "결제 시스템 연동 및 보안 강화 (Stripe API)",
-          "재고 관리 시스템 및 동시성 제어 구현",
-          "주문 처리 워크플로우 설계",
-          "데이터베이스 설계 및 성능 최적화",
-          "RESTful API 문서화 (Swagger)",
-          "배포 환경 구축 및 모니터링 시스템 설정"
-        ],
+        overall: "70%",
         achievements: [
-          { metric: "백엔드 개발 기여율", value: "75%" },
-          { metric: "API 응답 속도", value: "200ms 이하" },
-          { metric: "결제 성공률", value: "99.8%" },
-          { metric: "시스템 가용성", value: "99.9%" }
+          { metric: "백엔드 API", value: "80%" },
+          { metric: "사용자 인증", value: "90%" },
+          { metric: "결제 시스템", value: "60%" }
+        ],
+        responsibilities: [
+          "Django REST Framework 기반 API 개발",
+          "다중 역할 사용자 인증 시스템 구축",
+          "PostgreSQL 데이터베이스 설계",
+          "결제 모듈 통합"
+        ]
+      }
+    },
+    3: {
+      title: "Expense Tracker Application",
+      subtitle: "Real time personal finance management tool with responsive reporting features",
+      image: "/images/projects/expense-tracker.jpg",
+      period: "2023.06 - 2023.08",
+      team: "2명",
+      status: "완료",
+      technologies: ["Django", "Chart.js", "MySQL"],
+      githubLink: "https://github.com/your-username/expense-tracker",
+      presentationLink: "/files/expense-tracker-presentation.pdf",
+      demoLink: null,
+      overview: "개인 재무 관리를 위한 실시간 가계부 애플리케이션입니다. 직관적인 차트와 보고서를 통해 지출 패턴을 분석하고, 예산 관리 기능을 제공하여 효율적인 재무 계획을 세울 수 있도록 도와줍니다.",
+      description: "개인의 재무 상황을 한눈에 파악할 수 있는 종합적인 가계부 애플리케이션입니다.\n\n핵심 기능:\n\n1. **실시간 지출 기록**: 간편한 지출 입력과 카테고리 분류\n2. **시각적 분석**: Chart.js를 활용한 다양한 차트와 그래프\n3. **예산 관리**: 월별/카테고리별 예산 설정 및 알림\n4. **보고서 생성**: 기간별 상세 리포트 자동 생성",
+      features: [
+        "실시간 수입/지출 기록",
+        "카테고리별 지출 분석",
+        "월별/연별 보고서 생성",
+        "예산 대비 지출 추적",
+        "차트를 통한 시각적 분석",
+        "데이터 내보내기 (CSV/PDF)"
+      ],
+      challenges: [
+        {
+          title: "대용량 데이터 처리 최적화",
+          problem: "수년간의 거래 데이터가 축적되면서 차트 로딩 속도가 현저히 느려졌습니다.",
+          solution: "데이터 페이지네이션과 캐싱을 도입하고, Chart.js 설정을 최적화했습니다.",
+          result: "차트 로딩 시간이 5초에서 0.8초로 개선되어 사용자 경험이 크게 향상되었습니다."
+        }
+      ],
+      contribution: {
+        overall: "80%",
+        achievements: [
+          { metric: "전체 개발", value: "80%" },
+          { metric: "차트 구현", value: "95%" },
+          { metric: "데이터 분석", value: "85%" }
+        ],
+        responsibilities: [
+          "Django 기반 웹 애플리케이션 개발",
+          "Chart.js를 활용한 데이터 시각화",
+          "MySQL 데이터베이스 설계 및 최적화",
+          "반응형 UI/UX 구현"
         ]
       }
     }
   };
 
-  const project = projectData[projectId];
+  const project = projects[projectId];
+  
+  useEffect(() => {
+    if (!project) {
+      navigate('/');
+    }
+  }, [project, navigate]);
 
-  if (!project) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">프로젝트를 찾을 수 없습니다</h2>
-          <button 
-            onClick={handleBack}
-            className="text-blue-600 hover:text-blue-700 flex items-center gap-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            홈으로 돌아가기
-          </button>
-        </div>
-      </div>
-    );
-  }
+  if (!project) return null;
 
   const sections = [
     { id: 'overview', label: '개요', icon: '📋' },
-    { id: 'description', label: '상세설명', icon: '📝' },
-    { id: 'features', label: '핵심기능', icon: '⚡' },
-    { id: 'challenges', label: '문제해결', icon: '🔧' },
-    { id: 'contribution', label: '나의기여', icon: '👤' }
+    { id: 'description', label: '상세 설명', icon: '📝' },
+    { id: 'features', label: '핵심 기능', icon: '⚡' },
+    { id: 'challenges', label: '문제 해결', icon: '🔧' },
+    { id: 'contribution', label: '나의 기여', icon: '👨‍💻' }
   ];
 
   return (
     <div className="min-h-screen bg-white">
       {/* 헤더 */}
       <motion.header 
-        className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm"
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
+        className="bg-white border-b border-gray-200 sticky top-0 z-40"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
       >
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <button 
-              onClick={handleBack}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              <span className="font-medium">Back to Portfolio</span>
-            </button>
-            
-            <div className="flex items-center gap-4">
-              <a 
-                href={project.githubLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
-              >
-                <Github className="w-4 h-4" />
-                GitHub
-              </a>
-              <a 
-                href={project.presentationLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                <FileText className="w-4 h-4" />
-                PPT
-              </a>
-            </div>
-          </div>
+        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+          <button
+            onClick={() => navigate('/?section=projects')}
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span>포트폴리오로 돌아가기</span>
+          </button>
         </div>
       </motion.header>
 
-      {/* 프로젝트 헤로 섹션 */}
+      {/* 프로젝트 헤더 섹션 */}
       <motion.section 
-        className="bg-gray-50 py-16"
-        initial={{ opacity: 0, y: 20 }}
+        className="py-16 bg-gradient-to-br from-gray-50 to-white"
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.8 }}
       >
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* 프로젝트 정보 */}
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                 {project.title}
@@ -281,7 +238,11 @@ const ProjectDetailPage = () => {
                   {project.technologies.map((tech, index) => (
                     <span 
                       key={index}
-                      className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
+                      className="px-3 py-1 rounded-full text-sm font-medium text-white"
+                      style={{
+                        background: 'linear-gradient(135deg, #8B5CF6, #A855F7)',
+                        boxShadow: '0 2px 8px rgba(139, 92, 246, 0.3)'
+                      }}
                     >
                       {tech}
                     </span>
@@ -292,16 +253,16 @@ const ProjectDetailPage = () => {
             
             {/* 프로젝트 이미지 */}
             <div className="relative">
-              <div className="aspect-[4/3] bg-gradient-to-br from-gray-200 to-gray-300 rounded-2xl overflow-hidden shadow-xl">
+              <div className="aspect-[4/3] bg-gradient-to-br from-gray-200 to-gray-300 rounded-2xl overflow-hidden shadow-xl flex items-center justify-center">
                 <img 
                   src={project.image} 
                   alt={project.title}
-                  className="w-full h-full object-cover"
+                  className="max-w-full max-h-full object-contain"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     e.target.parentNode.innerHTML = `
-                      <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                        <div class="text-blue-600 text-6xl font-bold">${project.title.split(' ').map(w => w[0]).join('')}</div>
+                      <div class="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
+                        <div class="text-purple-600 text-6xl font-bold">${project.title.split(' ').map(w => w[0]).join('')}</div>
                       </div>
                     `;
                   }}
@@ -327,7 +288,7 @@ const ProjectDetailPage = () => {
                 onClick={() => setActiveSection(section.id)}
                 className={`py-4 px-2 whitespace-nowrap border-b-2 font-medium text-sm transition-colors ${
                   activeSection === section.id
-                    ? 'border-blue-500 text-blue-600'
+                    ? 'border-purple-500 text-purple-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
@@ -380,7 +341,7 @@ const ProjectDetailPage = () => {
                     transition={{ delay: index * 0.1 }}
                   >
                     <div className="flex items-start gap-3">
-                      <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></span>
                       <span className="text-gray-700 font-medium">{feature}</span>
                     </div>
                   </motion.div>
@@ -419,8 +380,8 @@ const ProjectDetailPage = () => {
                         <p className="text-gray-700">{challenge.solution}</p>
                       </div>
                       
-                      <div className="border-l-4 border-blue-500 pl-4">
-                        <h4 className="font-semibold text-blue-800 mb-2">📊 결과</h4>
+                      <div className="border-l-4 border-purple-500 pl-4">
+                        <h4 className="font-semibold text-purple-800 mb-2">📊 결과</h4>
                         <p className="text-gray-700">{challenge.result}</p>
                       </div>
                     </div>
@@ -436,16 +397,16 @@ const ProjectDetailPage = () => {
               
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* 기여도 통계 */}
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl">
-                  <h3 className="text-lg font-bold text-blue-900 mb-4">전체 기여도</h3>
-                  <div className="text-4xl font-bold text-blue-600 mb-2">
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl">
+                  <h3 className="text-lg font-bold text-purple-900 mb-4">전체 기여도</h3>
+                  <div className="text-4xl font-bold text-purple-600 mb-2">
                     {project.contribution.overall}
                   </div>
                   <div className="space-y-3">
                     {project.contribution.achievements.map((achievement, index) => (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-sm text-blue-800">{achievement.metric}</span>
-                        <span className="font-semibold text-blue-900">{achievement.value}</span>
+                        <span className="text-sm text-purple-800">{achievement.metric}</span>
+                        <span className="font-semibold text-purple-900">{achievement.value}</span>
                       </div>
                     ))}
                   </div>
@@ -504,7 +465,19 @@ const ProjectDetailPage = () => {
                 href={project.presentationLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-2 text-white px-6 py-3 rounded-lg transition-colors"
+                style={{
+                  background: 'linear-gradient(135deg, #8B5CF6, #A855F7)',
+                  boxShadow: '0 2px 10px rgba(139, 92, 246, 0.3)'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 4px 15px rgba(139, 92, 246, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 2px 10px rgba(139, 92, 246, 0.3)';
+                }}
               >
                 <FileText className="w-5 h-5" />
                 발표 자료 다운로드
