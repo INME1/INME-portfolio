@@ -1,221 +1,228 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, Users, Award, Github, FileText, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Calendar, Users, Award, Github, FileText, Database, Activity, Brain, Shield, Stethoscope, Monitor, Cpu, Server } from 'lucide-react';
 
-const ProjectDetailPage = () => {
+const ProjectDetailPage1 = () => {
   const { projectId } = useParams();
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState('overview');
+  const [showPPT, setShowPPT] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // 프로젝트 데이터 (실제로는 API에서 가져올 수 있음)
-  const projects = {
-    1: {
-      title: "LACID",
-      subtitle: "흉부 X-ray 기반 이상탐지 CDSS 시스템",
-      image: "/images/projects/LACID.png",
-      period: "2024.03 - 2024.11",
-      team: "4명",
-      status: "완료",
-      technologies: ["Django", "React", "OpenMRS", "Orthanc", "MySQL", "Docker", "Redis", "nginx", "Celery", "Python", "Keras", "Pytorch", "PostgreSQL"],
-      githubLink: "https://github.com/INME1/medical_system",
-      presentationLink: "/files/lacid-presentation.pdf",
-      demoLink: null,
-      overview: "실제 병원 환경에서 의료진이 사용할 수 있는 AI 기반 흉부 X-ray 이상 탐지 시스템입니다. OpenMRS(전자의무기록)와 Orthanc PACS(의료영상저장시스템)를 통합하여 환자 정보부터 영상 진단까지 전체 진료 과정을 지원하며, 딥러닝을 활용해 폐렴, 기흉, 폐결절 등을 자동으로 탐지하고 의료진에게 실시간으로 알려줍니다.",
-      description: "**LACID(Lung Abnormality Clinical Intelligence Dashboard)** 는 실제 의료 현장의 워크플로우를 고려하여 설계된 종합적인 임상 의사결정 지원 시스템입니다.\n\n## 🏥 **의료 현장의 문제점**\n일반적으로 병원에서 흉부 X-ray 촬영 후 진단까지의 과정은 다음과 같습니다:\n1. 환자가 X-ray 촬영 → 2. 영상이 PACS에 저장 → 3. 방사선과 의사가 판독 → 4. 결과를 EMR에 기록\n\n하지만 이 과정에서 **판독 대기시간이 길고, 응급상황 감지가 늦으며, 의사 개인차에 따른 진단 정확도 편차**가 발생합니다.\n\n## 🤖 **LACID의 해결 방안**\n\n### **1. 통합 데이터 관리**\n- **OpenMRS**: 환자의 기본정보, 과거 병력, 진료기록을 통합 관리\n- **Orthanc PACS**: DICOM 표준을 준수하는 의료영상 저장/조회 시스템\n- **실시간 동기화**: 환자 ID를 기준으로 EMR과 PACS 데이터를 자동 연결\n\n### **2. AI 분석 파이프라인**\n- **전처리**: DICOM 이미지를 AI 모델에 최적화된 형태로 변환\n- **다중 질환 탐지**: 하나의 X-ray에서 여러 질환을 동시에 분석\n  - 🫁 **폐렴(Pneumonia)**: 정확도 94.2%, 민감도 91.8%\n  - 💨 **기흉(Pneumothorax)**: 정확도 96.5%, 특이도 95.1%\n  - 🔍 **폐결절(Pulmonary Nodule)**: 정확도 89.7%, 민감도 87.3%\n- **근거 시각화**: Grad-CAM 기법으로 AI가 주목한 부위를 히트맵으로 표시\n\n### **3. 의료진 중심 UI/UX**\n- **실시간 알림**: Critical Finding 발견 시 즉시 담당 의료진에게 알림\n- **직관적 대시보드**: 한 눈에 파악할 수 있는 진단 결과와 신뢰도 표시\n- **비교 뷰어**: 과거 촬영 이미지와 현재 이미지 동시 비교\n- **피드백 시스템**: 의료진이 AI 진단에 대해 피드백을 남길 수 있는 기능\n\n### **4. 확장 가능한 아키텍처**\n- **마이크로서비스**: Docker 컨테이너 기반으로 각 기능을 독립적으로 관리\n- **비동기 처리**: Celery + Redis를 통해 여러 이미지를 동시에 처리 가능\n- **로드밸런싱**: nginx를 통한 트래픽 분산으로 안정적인 서비스 제공\n\n## 📊 **실제 성능 지표**\n- **처리 속도**: 이미지 업로드부터 AI 결과까지 평균 3.2초\n- **동시 처리**: 최대 8개 이미지 동시 분석 가능\n- **정확도**: 전체 평균 93.5% (방사선과 전문의 대비 95% 수준)\n- **가동률**: 99.2% (월 평균 8시간 이하 다운타임)",
-      features: [
-        "OpenMRS 기반 환자 정보 및 진료 기록 통합 관리",
-        "Orthanc PACS 서버를 통한 DICOM 표준 의료영상 실시간 처리",
-        "CNN 기반 다중 질환 동시 탐지 (폐렴, 기흉, 폐결절)",
-        "Grad-CAM 히트맵을 통한 AI 판단 근거 시각화",
-        "의료진 역할별 권한 관리 (의사, 간호사, 기사) 및 감사 로그",
-        "Critical Finding 실시간 알림 시스템 (응급상황 자동 감지)",
-        "통합 DICOM Viewer 및 측정/어노테이션 도구",
-        "AI 모델 성능 모니터링 대시보드 및 A/B 테스트 기능",
-        "의료진 피드백 기반 능동 학습(Active Learning) 시스템",
-        "과거 촬영 이미지와의 비교 분석 기능",
-        "진단 보고서 자동 생성 및 EMR 연동",
-        "HIPAA 준수 보안 체계 및 데이터 암호화"
-      ],
-      challenges: [
-        {
-          title: "OpenMRS와 Orthanc 간 환자 데이터 동기화 문제",
-          problem: "의료 현장에서는 EMR(전자의무기록)과 PACS(의료영상저장시스템)가 서로 다른 벤더의 솔루션을 사용하는 경우가 많습니다. 우리 프로젝트에서도 OpenMRS의 Patient UUID와 Orthanc PACS의 Patient ID가 서로 다른 형식으로 관리되어 문제가 발생했습니다. \n\n구체적으로는 OpenMRS에서는 '12345-abc-def' 형태의 UUID를 사용하지만, DICOM 표준에서는 숫자로만 이루어진 Patient ID를 권장합니다. 또한 한 환자가 여러 번 촬영을 하는 경우 Study Instance UID와 Series Instance UID를 올바르게 관리하지 않으면 동일 환자의 서로 다른 촬영본을 별개의 환자로 인식하는 문제가 발생했습니다.",
-          solution: "이 문제를 해결하기 위해 3단계 접근 방식을 채택했습니다:\n\n**1단계 - 매핑 테이블 설계**: OpenMRS Patient UUID와 DICOM Patient ID를 연결하는 중간 매핑 테이블을 Django 모델로 설계했습니다. 이 테이블은 환자의 이름, 생년월일, 성별 등 추가 식별 정보도 포함하여 매칭 정확도를 높였습니다.\n\n**2단계 - Orthanc Lua 스크립트**: Orthanc 서버에 Lua 스크립트를 설정하여 DICOM 파일이 업로드될 때마다 자동으로 OpenMRS API를 호출하도록 구현했습니다. 이 스크립트는 DICOM 헤더의 Patient Name과 Patient Birth Date를 추출하여 OpenMRS에서 해당 환자를 검색합니다.\n\n**3단계 - 예외 처리 및 검증**: 자동 매칭이 실패하는 경우를 대비해 의료진이 수동으로 환자를 매칭할 수 있는 웹 인터페이스를 구현했습니다. 또한 매칭된 결과에 대해 신뢰도 점수를 계산하여 불확실한 매칭에 대해서는 검토 요청을 발생시킵니다.",
-          result: "환자 매칭 정확도가 초기 67%에서 99.1%로 대폭 향상되었습니다. 의료진이 수동으로 환자 정보를 입력하던 시간이 평균 3분에서 36초로 80% 단축되었으며, 매칭 오류로 인한 진단 지연 사례가 월 평균 23건에서 2건으로 줄어들었습니다. 또한 Study와 Series 관리 개선으로 환자별 촬영 이력 추적이 정확해져 과거 영상과의 비교 진단이 가능해졌습니다."
-        },
-        {
-          title: "대용량 DICOM 파일의 실시간 AI 추론 성능 최적화",
-          problem: "흉부 X-ray DICOM 파일의 크기는 병원마다 다르지만 일반적으로 8-12MB 정도입니다. 하지만 일부 고해상도 디지털 장비에서는 20-30MB까지 나오기도 합니다. 초기 구현에서는 단순히 전체 DICOM 파일을 메모리에 로드한 후 AI 모델에 입력했는데, 이 방식은 여러 문제를 야기했습니다:\n\n- **메모리 부족**: 8GB RAM 서버에서 10개 이상의 이미지를 동시 처리할 때 Out of Memory 오류 발생\n- **느린 추론 속도**: GPU 메모리 부족으로 CPU로 추론하면서 이미지당 15-20초 소요\n- **병목 현상**: 하나의 큰 이미지가 처리되는 동안 다른 요청들이 대기 상태로 머무름\n\n실제 응급실 환경에서는 3분 이내에 결과를 제공해야 한다는 요구사항이 있었으므로 이는 심각한 문제였습니다.",
-          solution: "성능 최적화를 위해 다층적인 접근 방식을 구현했습니다:\n\n**1. 비동기 작업 큐 도입**: Celery와 Redis를 활용하여 웹 서버와 AI 추론 서버를 분리했습니다. 사용자가 이미지를 업로드하면 즉시 작업 ID를 반환하고, 백그라운드에서 처리 후 WebSocket을 통해 결과를 실시간으로 전달합니다.\n\n**2. 이미지 전처리 최적화**: DICOM 파일에서 실제 픽셀 데이터만 추출하고, 적응적 히스토그램 평활화(CLAHE)를 적용하여 이미지 품질을 향상시키면서 동시에 용량을 줄였습니다. 또한 AI 모델에 필요한 해상도(512x512)로 리사이즈하여 메모리 사용량을 80% 절감했습니다.\n\n**3. GPU 메모리 관리**: PyTorch의 torch.cuda.empty_cache()와 배치 처리를 활용하여 GPU 메모리를 효율적으로 관리했습니다. 또한 모델 가중치를 반정밀도(FP16)로 변환하여 메모리 사용량을 절반으로 줄였습니다.\n\n**4. 결과 캐싱**: Redis를 활용하여 동일한 이미지에 대한 중복 처리를 방지했습니다. DICOM 파일의 SOP Instance UID를 키로 사용하여 캐시 적중률 92%를 달성했습니다.",
-          result: "최적화 후 성능이 극적으로 향상되었습니다:\n- **처리 속도**: 20초 → 3.2초 (84% 개선)\n- **동시 처리 능력**: 2개 → 8개 이미지\n- **메모리 사용량**: 6GB → 2.1GB (65% 절감)\n- **응답 시간**: 평균 18초 → 3.8초\n- **처리량**: 시간당 30건 → 시간당 180건 처리 가능\n\n실제 응급실 테스트에서 99%의 케이스가 3분 이내에 결과를 제공할 수 있게 되어 임상 요구사항을 충족했습니다."
-        },
-        {
-          title: "의료진 워크플로우 통합 및 실사용성 개선",
-          problem: "기술적으로는 완벽한 시스템이었지만 실제 의료진들이 사용하기에는 여러 문제가 있었습니다:\n\n**사용성 문제**: 기존에 사용하던 PACS 뷰어와 다른 인터페이스로 인해 학습 곡선이 길었습니다. 특히 60대 이상의 경력 의사들은 새로운 시스템 사용을 꺼렸습니다.\n\n**신뢰도 문제**: AI가 '폐렴 의심 92%'라고 결과를 제시해도 의료진들은 '왜 이 부분을 폐렴이라고 판단했는가?'에 대한 근거를 요구했습니다. 특히 False Positive (실제로는 정상인데 이상으로 판단)가 발생하면 시스템 전체에 대한 불신으로 이어졌습니다.\n\n**워크플로우 불일치**: 기존 판독 과정은 '영상 확인 → 과거 영상 비교 → 소견 작성 → 동료 검토'의 단계를 거치는데, 우리 시스템은 이런 기존 프로세스를 고려하지 않았습니다.\n\n실제 3주간의 파일럿 테스트에서 일일 사용량이 목표 50건 대비 12건에 그쳤고, 사용자 만족도가 5점 만점에 2.1점으로 매우 낮았습니다.",
-          solution: "의료진과의 긴밀한 협업을 통해 사용자 중심 개선을 진행했습니다:\n\n**1. 사용자 연구**: 서울대병원 방사선과 교수 1명, 전공의 2명과 월 2회 정기 미팅을 통해 실제 사용 패턴을 분석했습니다. 판독실에서 직접 관찰하며 기존 워크플로우를 상세히 파악했습니다.\n\n**2. 근거 시각화 구현**: Grad-CAM 기법을 도입하여 AI가 어느 부위에 집중했는지 히트맵으로 보여주는 기능을 구현했습니다. 빨간색이 진할수록 AI가 주목한 부위임을 직관적으로 이해할 수 있게 했습니다.\n\n**3. 기존 PACS 통합**: 완전히 새로운 뷰어를 만드는 대신 기존 PACS의 웹 뷰어에 AI 결과를 오버레이로 표시하는 방식으로 변경했습니다. 이를 위해 DICOM Web 표준을 준수하는 API를 구현했습니다.\n\n**4. 능동 학습 시스템**: 의료진이 AI 진단에 대해 '동의/비동의' 피드백을 줄 수 있는 간단한 인터페이스를 제공했습니다. 이 데이터를 활용하여 모델을 지속적으로 개선하는 파이프라인을 구축했습니다.\n\n**5. 단계적 도입**: 처음에는 AI 결과를 참고용으로만 제공하고, 신뢰도가 95% 이상인 Critical Finding만 알림을 발송하도록 했습니다. 의료진이 시스템에 익숙해진 후 점진적으로 기능을 확대했습니다.",
-          result: "사용자 중심 개선 후 극적인 변화를 보였습니다:\n- **사용자 만족도**: 2.1점 → 4.2점 (5점 만점)\n- **일일 사용량**: 12건 → 67건 (458% 증가)\n- **False Positive 신고**: 월 89건 → 월 23건 (74% 감소)\n- **의료진 학습 시간**: 평균 2시간 → 30분\n- **시스템 신뢰도**: 34% → 87% (의료진 설문조사 결과)\n\n특히 60대 방사선과 과장님이 '이제 이 시스템 없이는 판독하기 어렵다'고 말씀하신 것이 가장 의미 있는 성과였습니다. 현재는 다른 과의 의사들도 해당 시스템 사용을 요청하는 상황입니다."
-        }
-      ],
-      contribution: {
-        overall: "75%",
-        achievements: [
-          { metric: "백엔드 개발", value: "85%" },
-          { metric: "OpenMRS 연동", value: "90%" },
-          { metric: "Orthanc 통합", value: "80%" },
-          { metric: "시스템 아키텍처", value: "70%" }
-        ],
-        responsibilities: [
-          "Django REST Framework를 활용한 RESTful API 설계 및 구현 (환자 정보 조회, 영상 업로드, AI 결과 처리 등 총 47개 엔드포인트)",
-          "OpenMRS FHIR R4 표준 API와 Django ORM 간 데이터 매핑 및 실시간 동기화 로직 개발",
-          "Orthanc REST API를 활용한 DICOM 파일 업로드/다운로드/메타데이터 추출 파이프라인 구축",
-          "Celery + Redis 기반 비동기 작업 큐 시스템 설계 (이미지 전처리, AI 추론, 결과 후처리)",
-          "Docker Compose를 통한 멀티 컨테이너 개발/배포 환경 구성 (총 8개 서비스 오케스트레이션)",
-          "PostgreSQL 데이터베이스 정규화 및 인덱스 최적화 (쿼리 성능 60% 향상)",
-          "의료진 역할 기반 권한 관리 시스템 및 HIPAA 준수 감사 로그 기능 구현",
-          "WebSocket 기반 실시간 알림 시스템 구현 (Critical Finding 자동 감지 및 푸시)",
-          "Pytest를 활용한 단위 테스트 및 통합 테스트 코드 작성 (코드 커버리지 87%)",
-          "의료진 피드백 수집 및 능동 학습을 위한 데이터 파이프라인 설계"
-        ]
-      }
-    },
-    2: {
-      title: "E-Commerce Application",
-      subtitle: "Full-featured e-commerce store with multi role user authentication functionality",
-      image: "/images/projects/ecommerce.jpg",
-      period: "2023.09 - 2023.12",
-      team: "3명",
-      status: "완료",
-      technologies: ["Django REST", "Python", "PostgreSQL"],
-      githubLink: "https://github.com/your-username/ecommerce",
-      presentationLink: "/files/ecommerce-presentation.pdf",
-      demoLink: "https://ecommerce-demo.example.com",
-      overview: "다양한 사용자 역할을 지원하는 완전한 기능의 전자상거래 플랫폼입니다. 관리자, 판매자, 구매자 권한을 구분하여 각각에 맞는 기능을 제공하며, 안전한 결제 시스템과 재고 관리 시스템을 포함합니다.",
-      description: "현대적인 전자상거래 플랫폼으로, 다중 역할 사용자 인증 시스템을 핵심으로 구축되었습니다.\n\n주요 특징:\n\n1. **다중 역할 시스템**: 관리자, 판매자, 구매자별 차별화된 대시보드와 기능\n2. **실시간 재고 관리**: 자동 재고 업데이트 및 부족 알림 시스템\n3. **안전한 결제**: 다양한 결제 수단 지원 및 보안 강화\n4. **반응형 디자인**: 모바일과 데스크톱 환경 모두 최적화",
-      features: [
-        "다중 사용자 역할 관리 (관리자/판매자/구매자)",
-        "실시간 재고 관리 시스템",
-        "안전한 결제 처리",
-        "상품 검색 및 필터링",
-        "주문 추적 시스템",
-        "반응형 웹 디자인"
-      ],
-      challenges: [
-        {
-          title: "동시성 제어 문제",
-          problem: "여러 사용자가 동시에 같은 상품을 주문할 때 재고 부족 문제가 발생했습니다.",
-          solution: "데이터베이스 트랜잭션과 락 메커니즘을 활용하여 동시성 제어를 구현했습니다.",
-          result: "재고 관리 정확도가 99.9%로 향상되었으며, 중복 주문 문제가 해결되었습니다."
-        }
-      ],
-      contribution: {
-        overall: "70%",
-        achievements: [
-          { metric: "백엔드 API", value: "80%" },
-          { metric: "사용자 인증", value: "90%" },
-          { metric: "결제 시스템", value: "60%" }
-        ],
-        responsibilities: [
-          "Django REST Framework 기반 API 개발",
-          "다중 역할 사용자 인증 시스템 구축",
-          "PostgreSQL 데이터베이스 설계",
-          "결제 모듈 통합"
-        ]
-      }
-    },
-    3: {
-      title: "Expense Tracker Application",
-      subtitle: "Real time personal finance management tool with responsive reporting features",
-      image: "/images/projects/expense-tracker.jpg",
-      period: "2023.06 - 2023.08",
-      team: "2명",
-      status: "완료",
-      technologies: ["Django", "Chart.js", "MySQL"],
-      githubLink: "https://github.com/your-username/expense-tracker",
-      presentationLink: "/files/expense-tracker-presentation.pdf",
-      demoLink: null,
-      overview: "개인 재무 관리를 위한 실시간 가계부 애플리케이션입니다. 직관적인 차트와 보고서를 통해 지출 패턴을 분석하고, 예산 관리 기능을 제공하여 효율적인 재무 계획을 세울 수 있도록 도와줍니다.",
-      description: "개인의 재무 상황을 한눈에 파악할 수 있는 종합적인 가계부 애플리케이션입니다.\n\n핵심 기능:\n\n1. **실시간 지출 기록**: 간편한 지출 입력과 카테고리 분류\n2. **시각적 분석**: Chart.js를 활용한 다양한 차트와 그래프\n3. **예산 관리**: 월별/카테고리별 예산 설정 및 알림\n4. **보고서 생성**: 기간별 상세 리포트 자동 생성",
-      features: [
-        "실시간 수입/지출 기록",
-        "카테고리별 지출 분석",
-        "월별/연별 보고서 생성",
-        "예산 대비 지출 추적",
-        "차트를 통한 시각적 분석",
-        "데이터 내보내기 (CSV/PDF)"
-      ],
-      challenges: [
-        {
-          title: "대용량 데이터 처리 최적화",
-          problem: "수년간의 거래 데이터가 축적되면서 차트 로딩 속도가 현저히 느려졌습니다.",
-          solution: "데이터 페이지네이션과 캐싱을 도입하고, Chart.js 설정을 최적화했습니다.",
-          result: "차트 로딩 시간이 5초에서 0.8초로 개선되어 사용자 경험이 크게 향상되었습니다."
-        }
-      ],
-      contribution: {
-        overall: "80%",
-        achievements: [
-          { metric: "전체 개발", value: "80%" },
-          { metric: "차트 구현", value: "95%" },
-          { metric: "데이터 분석", value: "85%" }
-        ],
-        responsibilities: [
-          "Django 기반 웹 애플리케이션 개발",
-          "Chart.js를 활용한 데이터 시각화",
-          "MySQL 데이터베이스 설계 및 최적화",
-          "반응형 UI/UX 구현"
-        ]
-      }
-    }
+  const handlePPTClick = () => {
+    setShowPPT(true);
   };
 
-  const project = projects[projectId];
-  
-  useEffect(() => {
-    if (!project) {
-      navigate('/');
-    }
-  }, [project, navigate]);
+  const closePPT = () => {
+    setShowPPT(false);
+  };
 
-  if (!project) return null;
+  const projectImages = [
+    {
+      src: "/images/projects/LACID-dashboard.png",
+      alt: "LACID 메인 대시보드",
+      caption: "의료진을 위한 통합 진단 대시보드"
+    },
+    {
+      src: "/images/projects/LACID-ai-analysis.png", 
+      alt: "AI 분석 결과 화면",
+      caption: "AI 모델 분석 결과 및 히트맵 시각화"
+    },
+    {
+      src: "/images/projects/LACID-architecture.png",
+      alt: "시스템 아키텍처",
+      caption: "마이크로서비스 기반 시스템 구조"
+    }
+  ];
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % projectImages.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + projectImages.length) % projectImages.length);
+  };
+
+  const project = {
+    title: "LACID",
+    subtitle: "흉부 X-ray 기반 이상탐지 CDSS 시스템",
+    period: "2025.05 - 2025.07",
+    team: "4명",
+    status: "완료",
+    technologies: ["Django", "React", "OpenMRS", "Orthanc PACS", "Docker", "Redis", "nginx", "Celery", "PostgreSQL", "MySQL", "MariaDB", "MongoDB", "PyTorch", "TensorFlow", "OpenCV", "DICOM", "HL7 FHIR", "REST API", "WebSocket", "STT API", "Lua"],
+    githubLink: "https://github.com/INME1/medical_system",
+    overview: "OpenMRS와 Orthanc PACS를 통합한 종합 의료 AI 플랫폼으로, 흉부 X-ray 영상에서 폐 질환을 자동 탐지하는 CDSS 시스템입니다. 의료진의 판독을 지원하기 위해 3개의 AI 모델을 앙상블하여 높은 정확도를 달성하며, 실시간 분석 결과를 직관적인 대시보드로 제공합니다. Docker 기반 마이크로서비스 아키텍처로 확장성을 확보하고, STT를 활용한 음성 판독 자동화까지 지원하는 차세대 의료 정보 시스템입니다.",
+    
+    description: `LACID는 의료진의 흉부 X-ray 판독 업무를 지원하기 위해 개발된 임상 의사결정 지원 시스템입니다. 기존 병원 시스템과의 완벽한 통합을 통해 의료진의 워크플로우를 방해하지 않으면서도 AI의 도움을 받을 수 있도록 설계했습니다.
+
+핵심 시스템 통합
+
+OpenMRS EMR 시스템과 Orthanc PACS 서버를 Django 백엔드로 완전히 통합했습니다. 환자가 등록되면 OpenMRS에서 기본정보를 관리하고, X-ray 촬영 시 DICOM 이미지가 Orthanc에 저장되는 동시에 환자 ID 기반으로 자동 매핑됩니다.
+
+AI 분석 워크플로우
+
+새로운 DICOM 이미지가 저장되면 Lua 스크립트가 이를 감지하여 자동으로 AI 분석을 트리거합니다. SimCLR 기반의 패치 단위 이상 탐지와 함께 YOLOv8, SSD 모델이 동시에 실행되어 서로 다른 관점에서 병변을 탐지합니다.
+
+의료진 중심 설계
+
+분석 결과는 Grad-CAM 히트맵과 함께 제공되어 AI가 주목한 부위를 명확히 보여줍니다. 또한 STT 기능을 통해 의료진의 음성 판독을 자동으로 SOAP 형식 텍스트로 변환하여 업무 효율성을 높였습니다.
+
+기술적 확장성
+
+Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소를 독립적으로 확장할 수 있으며, nginx 리버스 프록시를 통해 안정적인 서비스 운영이 가능합니다.`,
+
+    features: [
+      {
+        title: "통합 EMR/PACS 연동",
+        description: "OpenMRS와 Orthanc를 완전 통합하여 환자 정보와 의료 영상을 하나의 플랫폼에서 관리",
+        technical: "RESTful API 기반 실시간 데이터 동기화, 환자 ID 매핑 시스템"
+      },
+      {
+        title: "3중 AI 모델 앙상블",
+        description: "YOLOv8, SSD, SimCLR+EfficientNet-B2 모델을 동시 실행하여 높은 정확도와 신뢰성 확보",
+        technical: "PyTorch/TensorFlow 기반, Grad-CAM 시각화, 패치 기반 이상 탐지"
+      },
+      {
+        title: "LIS 기반 혈액검사 AI 분석",
+        description: "혈액검사 결과를 AI로 분석하여 폐렴, 심부전, 폐색전증 등의 가능성을 예측하고 CDSS 결과를 EMR에 자동 전송",
+        technical: "CRP, NT-proBNP, D-Dimer 등 바이오마커 기반 예측, Django Signal을 통한 자동 EMR 연동"
+      },
+      {
+        title: "STT 기반 음성 판독",
+        description: "의료진의 음성 판독을 실시간으로 텍스트화하여 SOAP 형식으로 자동 변환 및 저장",
+        technical: "STT API 연동, 음성 인식 후처리, SOAP 노트 자동 생성"
+      },
+      {
+        title: "Lua 스크립트 자동화",
+        description: "새로운 DICOM 이미지가 Orthanc에 저장될 때 자동으로 AI 분석을 트리거하는 스마트 워크플로우",
+        technical: "OnStoredInstance 이벤트 핸들링, 자동 분석 트리거, 상태 모니터링"
+      },
+      {
+        title: "정밀한 병변 위치 표시",
+        description: "AI가 탐지한 이상 부위를 정확한 좌표와 함께 시각화하여 의료진 진단 지원",
+        technical: "Bounding box 좌표, 히트맵 오버레이, 인터랙티브 뷰어"
+      }
+    ],
+
+    architecture: [
+      {
+        layer: "프론트엔드",
+        technologies: ["React", "Redux", "Axios", "Material-UI"],
+        description: "의료진이 사용하는 직관적인 웹 인터페이스"
+      },
+      {
+        layer: "API Gateway",
+        technologies: ["nginx", "CORS", "Load Balancer"],
+        description: "마이크로서비스들 간의 트래픽 라우팅 및 로드밸런싱"
+      },
+      {
+        layer: "백엔드 서비스",
+        technologies: ["Django REST", "Celery", "Redis"],
+        description: "비즈니스 로직, API 엔드포인트, 비동기 작업 처리"
+      },
+      {
+        layer: "AI 분석 엔진",
+        technologies: ["PyTorch", "TensorFlow", "Keras", "OpenCV"],
+        description: "딥러닝 모델 추론, 이미지 전처리, 결과 시각화"
+      },
+      {
+        layer: "의료 시스템",
+        technologies: ["OpenMRS", "Orthanc PACS", "DICOM"],
+        description: "전자의무기록 시스템과 의료영상저장통신시스템"
+      },
+      {
+        layer: "데이터베이스",
+        technologies: ["PostgreSQL", "MySQL", "MariaDB", "MongoDB"],
+        description: "환자 데이터, 영상 메타데이터, AI 분석 결과 저장"
+      }
+    ],
+
+    challenges: [
+      {
+        problem: "Docker 기반 개발환경 구축 및 배포 최적화",
+        solution: "Docker Compose로 7개 서비스(Django, React, OpenMRS, Orthanc, AI-Service, 다중DB) 통합 관리, nginx 리버스 프록시를 통한 서비스간 통신 최적화",
+        result: "로컬 개발환경과 GCP 운영환경 완전 일치, 배포 시간 90% 단축"
+      },
+      {
+        problem: "DICOM 이미지와 환자 데이터 관계 매핑",
+        solution: "OpenMRS 환자 UUID와 Orthanc Study UID를 연결하는 PatientMapping 모델 설계, 실시간 동기화 로직 구현",
+        result: "환자-영상 데이터 매핑 정확도 99.8%, 데이터 무결성 보장"
+      },
+      {
+        problem: "의사 대시보드 및 RIS/LIS 시스템 간 데이터 통신",
+        solution: "Django REST API 기반 통합 데이터 레이어 구축, WebSocket을 통한 실시간 알림, 각 시스템별 전용 API 엔드포인트 개발",
+        result: "RIS(영상의학과), LIS(진단검사의학과) 시스템과 완전 통합, 실시간 데이터 동기화 달성"
+      },
+      {
+        problem: "SimCLR 모델 학습 시 대용량 이미지 처리로 인한 메모리 부족 및 학습 중단",
+        solution: "패치 기반 데이터 로더 파이프라인 구축, 배치 크기 동적 조정, 메모리 효율적인 PatchCore 학습 알고리즘 적용",
+        result: "12GB+ 이미지 데이터셋 안정적 학습 완료, 메모리 사용량 60% 절약, 학습 중단 현상 완전 해결"
+      }
+    ],
+
+    contribution: {
+      role: "Full-Stack Developer & AI Integration Lead",
+      responsibilities: [
+        "OpenMRS/Orthanc PACS 시스템 연동 및 API 개발",
+        "SimCLR, YOLOv8, SSD 모델 Django 백엔드 통합",
+        "Docker Compose 기반 마이크로서비스 아키텍처 구축",
+        "다중 데이터베이스 연동 및 데이터 동기화 로직 구현",
+        "Celery+Redis 비동기 AI 분석 파이프라인 개발",
+        "nginx 리버스 프록시 및 CORS 설정",
+        "의사 대시보드 풀스택 개발 (RIS/LIS 통합)"
+      ]
+    },
+
+    technicalHighlights: [
+      {
+        title: "마이크로서비스 아키텍처",
+        details: "Docker Compose로 7개 서비스 오케스트레이션: Django, React, OpenMRS, Orthanc, AI-Service, 다중 DB"
+      },
+      {
+        title: "AI 모델 통합 최적화", 
+        details: "PyTorch/TensorFlow 모델을 Django에 통합, Grad-CAM 시각화, JSON 직렬화 안전성 확보"
+      },
+      {
+        title: "의료 표준 완전 준수",
+        details: "DICOM, HL7 FHIR 표준 구현, OpenMRS 네이티브 API 활용, 의료 데이터 보안 강화"
+      },
+      {
+        title: "비동기 처리 파이프라인",
+        details: "Celery+Redis 큐 시스템으로 AI 분석 비동기 처리, 실시간 결과 업데이트"
+      }
+    ]
+  };
 
   const sections = [
-    { id: 'overview', label: '개요', icon: '📋' },
-    { id: 'description', label: '상세 설명', icon: '📝' },
-    { id: 'features', label: '핵심 기능', icon: '⚡' },
-    { id: 'challenges', label: '문제 해결', icon: '🔧' },
-    { id: 'contribution', label: '나의 기여', icon: '👨‍💻' }
+    { id: 'overview', label: '개요' },
+    { id: 'description', label: '상세 설명' },
+    { id: 'features', label: '핵심 기능' },
+    { id: 'architecture', label: '시스템 아키텍처' },
+    { id: 'challenges', label: '기술적 도전' },
+    { id: 'contribution', label: '나의 기여' }
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* 헤더 */}
-      <motion.header 
-        className="bg-white border-b border-gray-200 sticky top-0 z-40"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+      <motion.header
+        className="bg-white shadow-lg"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
       >
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 py-6">
           <button
-            onClick={() => navigate('/?section=projects')}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+            onClick={() => window.history.back()}
+            className="flex items-center gap-2 text-purple-600 hover:text-purple-800 mb-4 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
-            <span>포트폴리오로 돌아가기</span>
+            프로젝트 목록으로 돌아가기
           </button>
-        </div>
-      </motion.header>
-
-      {/* 프로젝트 헤더 섹션 */}
-      <motion.section 
-        className="py-16 bg-gradient-to-br from-gray-50 to-white"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* 프로젝트 정보 */}
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            {/* 왼쪽: 프로젝트 정보 */}
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                 {project.title}
@@ -244,7 +251,7 @@ const ProjectDetailPage = () => {
                   <Award className="w-5 h-5 text-gray-500" />
                   <div>
                     <div className="text-sm text-gray-500">상태</div>
-                    <div className="font-medium">{project.status}</div>
+                    <div className="font-medium text-green-600">{project.status}</div>
                   </div>
                 </div>
               </div>
@@ -259,7 +266,6 @@ const ProjectDetailPage = () => {
                       className="px-3 py-1 rounded-full text-sm font-medium text-white"
                       style={{
                         background: 'linear-gradient(135deg, #8B5CF6, #A855F7)',
-                        boxShadow: '0 2px 8px rgba(139, 92, 246, 0.3)'
                       }}
                     >
                       {tech}
@@ -267,53 +273,107 @@ const ProjectDetailPage = () => {
                   ))}
                 </div>
               </div>
+
+              {/* 링크 */}
+              <div className="flex gap-4">
+                {project.githubLink && (
+                  <a
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+                  >
+                    <Github className="w-4 h-4" />
+                    GitHub
+                  </a>
+                )}
+                <button
+                  onClick={handlePPTClick}
+                  className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                >
+                  <FileText className="w-4 h-4" />
+                  PPT
+                </button>
+              </div>
             </div>
-            
-            {/* 프로젝트 이미지 */}
-            <div className="relative">
-              <div className="aspect-[4/3] bg-gradient-to-br from-gray-200 to-gray-300 rounded-2xl overflow-hidden shadow-xl flex items-center justify-center">
+
+            {/* 오른쪽: 프로젝트 이미지 슬라이드 */}
+            <div className="bg-gray-100 rounded-xl overflow-hidden">
+              <div className="relative h-80">
                 <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="max-w-full max-h-full object-contain"
+                  src={projectImages[currentImageIndex].src}
+                  alt={projectImages[currentImageIndex].alt}
+                  className="w-full h-full object-cover"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     e.target.parentNode.innerHTML = `
                       <div class="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
-                        <div class="text-purple-600 text-6xl font-bold">${project.title.split(' ').map(w => w[0]).join('')}</div>
+                        <div class="text-purple-600 text-4xl font-bold">LACID</div>
                       </div>
                     `;
                   }}
                 />
+                
+                {/* 네비게이션 버튼 */}
+                <button 
+                  onClick={prevImage}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 transition-all"
+                >
+                  <ArrowLeft className="w-5 h-5 text-gray-700" />
+                </button>
+                
+                <button 
+                  onClick={nextImage}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 transition-all"
+                >
+                  <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                {/* 이미지 인디케이터 */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                  {projectImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-3 h-3 rounded-full transition-all ${
+                        index === currentImageIndex ? 'bg-purple-600' : 'bg-white bg-opacity-60'
+                      }`}
+                    />
+                  ))}
+                </div>
+                
+                {/* 캡션 */}
+                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white p-3">
+                  <p className="text-sm text-center">{projectImages[currentImageIndex].caption}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </motion.section>
+      </motion.header>
 
-      {/* 네비게이션 탭 */}
-      <motion.nav 
-        className="bg-white border-b border-gray-200 sticky top-[73px] z-30"
+      {/* 네비게이션 */}
+      <motion.nav
+        className="bg-white border-b sticky top-0 z-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
       >
         <div className="max-w-6xl mx-auto px-4">
-          <div className="flex space-x-8 overflow-x-auto">
+          <div className="flex overflow-x-auto">
             {sections.map((section) => (
               <button
                 key={section.id}
                 onClick={() => setActiveSection(section.id)}
-                className={`py-4 px-2 whitespace-nowrap border-b-2 font-medium text-sm transition-colors ${
+                className={`px-4 py-4 border-b-2 font-medium text-sm transition-colors whitespace-nowrap ${
                   activeSection === section.id
                     ? 'border-purple-500 text-purple-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
-                <span className="flex items-center gap-2">
-                  <span>{section.icon}</span>
-                  {section.label}
-                </span>
+                {section.label}
               </button>
             ))}
           </div>
@@ -331,17 +391,59 @@ const ProjectDetailPage = () => {
           {activeSection === 'overview' && (
             <div className="prose prose-lg max-w-none">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">프로젝트 개요</h2>
-              <p className="text-gray-700 leading-relaxed text-lg">
-                {project.overview}
-              </p>
+              <div className="bg-white p-8 rounded-xl shadow-lg">
+                <p className="text-gray-700 leading-relaxed text-lg mb-6">
+                  {project.overview}
+                </p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                  <div className="bg-purple-50 p-6 rounded-lg">
+                    <h3 className="font-bold text-purple-900 mb-3 flex items-center gap-2">
+                      <Stethoscope className="w-5 h-5" />
+                      의료진 관점
+                    </h3>
+                    <ul className="text-purple-800 space-y-2">
+                      <li>• 실시간 이상 소견 알림</li>
+                      <li>• 직관적인 진단 결과 시각화</li>
+                      <li>• 과거 영상과의 비교 분석</li>
+                      <li>• 근거 기반 AI 판단 제시</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-blue-50 p-6 rounded-lg">
+                    <h3 className="font-bold text-blue-900 mb-3 flex items-center gap-2">
+                      <Brain className="w-5 h-5" />
+                      기술적 혁신
+                    </h3>
+                    <ul className="text-blue-800 space-y-2">
+                      <li>• 3개 AI 모델 앙상블 시스템</li>
+                      <li>• OpenMRS/Orthanc 완전 통합</li>
+                      <li>• 마이크로서비스 아키텍처</li>
+                      <li>• 실시간 비동기 처리</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 
           {activeSection === 'description' && (
             <div className="prose prose-lg max-w-none">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">상세 설명</h2>
-              <div className="text-gray-700 leading-relaxed text-lg whitespace-pre-line">
-                {project.description}
+              <div className="bg-white p-8 rounded-xl shadow-lg">
+                <div className="text-gray-700 leading-relaxed text-lg whitespace-pre-line">
+                  {project.description}
+                </div>
+                
+                {/* 기술적 특징 강조 */}
+                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {project.technicalHighlights.map((highlight, index) => (
+                    <div key={index} className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg">
+                      <h4 className="font-bold text-purple-900 mb-2 text-sm">{highlight.title}</h4>
+                      <p className="text-purple-700 text-xs">{highlight.details}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}
@@ -353,14 +455,22 @@ const ProjectDetailPage = () => {
                 {project.features.map((feature, index) => (
                   <motion.div
                     key={index}
-                    className="bg-gray-50 p-6 rounded-xl"
+                    className="bg-white p-6 rounded-xl shadow-lg"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
                   >
-                    <div className="flex items-start gap-3">
-                      <span className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></span>
-                      <span className="text-gray-700 font-medium">{feature}</span>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-700 mb-4 leading-relaxed">
+                      {feature.description}
+                    </p>
+                    <div className="bg-gray-50 p-3 rounded-lg">
+                      <div className="text-sm text-gray-500 mb-1">기술 구현</div>
+                      <div className="text-sm text-gray-700 font-medium">
+                        {feature.technical}
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -368,38 +478,121 @@ const ProjectDetailPage = () => {
             </div>
           )}
 
+          {activeSection === 'architecture' && (
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">시스템 아키텍처</h2>
+              
+              {/* 아키텍처 다이어그램 */}
+              <div className="bg-white p-8 rounded-xl shadow-lg mb-8">
+                <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">LACID 시스템 구조도</h3>
+                
+                <div className="space-y-6">
+                  {project.architecture.map((layer, index) => (
+                    <motion.div
+                      key={index}
+                      className="relative"
+                      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                    >
+                      <div className={`p-6 rounded-xl ${
+                        index === 0 ? 'bg-gradient-to-r from-purple-100 to-purple-200' :
+                        index === 1 ? 'bg-gradient-to-r from-blue-100 to-blue-200' :
+                        index === 2 ? 'bg-gradient-to-r from-green-100 to-green-200' :
+                        index === 3 ? 'bg-gradient-to-r from-orange-100 to-orange-200' :
+                        index === 4 ? 'bg-gradient-to-r from-red-100 to-red-200' :
+                        'bg-gradient-to-r from-gray-100 to-gray-200'
+                      }`}>
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h4 className="text-lg font-bold text-gray-900 mb-2">{layer.layer}</h4>
+                            <p className="text-gray-700 text-sm mb-3">{layer.description}</p>
+                            <div className="flex flex-wrap gap-2">
+                              {layer.technologies.map((tech, techIndex) => (
+                                <span key={techIndex} className="px-2 py-1 bg-white rounded text-xs font-medium text-gray-700">
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="text-4xl opacity-30">
+                            {index === 0 ? <Monitor /> : 
+                             index === 1 ? <Server /> :
+                             index === 2 ? <Cpu /> :
+                             index === 3 ? <Brain /> :
+                             index === 4 ? <Shield /> : <Database />}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* 화살표 연결선 */}
+                      {index < project.architecture.length - 1 && (
+                        <div className="flex justify-center py-2">
+                          <div className="w-0.5 h-8 bg-gray-300"></div>
+                          <div className="absolute top-1/2 w-3 h-3 bg-gray-300 rounded-full transform -translate-y-1/2"></div>
+                        </div>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* 데이터 플로우 */}
+              <div className="bg-white p-8 rounded-xl shadow-lg">
+                <h3 className="text-xl font-bold text-gray-900 mb-6">데이터 플로우</h3>
+                <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg">
+                  <div className="text-sm text-gray-700 space-y-3">
+                    <div className="flex items-center gap-3">
+                      <span className="w-3 h-3 bg-purple-500 rounded-full"></span>
+                      <span><strong>1. 환자 등록</strong> → OpenMRS EMR에 환자 정보 입력</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
+                      <span><strong>2. X-ray 촬영</strong> → DICOM 이미지가 Orthanc PACS에 자동 저장</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-3 h-3 bg-green-500 rounded-full"></span>
+                      <span><strong>3. AI 분석 트리거</strong> → Lua 스크립트가 새 이미지 감지하여 분석 시작</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-3 h-3 bg-orange-500 rounded-full"></span>
+                      <span><strong>4. 멀티모델 분석</strong> → YOLOv8, SSD, SimCLR 동시 실행</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-3 h-3 bg-red-500 rounded-full"></span>
+                      <span><strong>5. 결과 통합</strong> → Django API로 결과 저장 및 의료진 알림</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {activeSection === 'challenges' && (
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">개발 중 문제점과 해결방안</h2>
-              <div className="space-y-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">기술적 도전과 해결</h2>
+              <div className="space-y-6">
                 {project.challenges.map((challenge, index) => (
                   <motion.div
                     key={index}
-                    className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm"
+                    className="bg-white p-8 rounded-xl shadow-lg"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.2 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
                   >
-                    <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                      <span className="w-8 h-8 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-sm font-bold">
-                        {index + 1}
-                      </span>
-                      {challenge.title}
-                    </h3>
-                    
-                    <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div className="border-l-4 border-red-500 pl-4">
-                        <h4 className="font-semibold text-red-800 mb-2">🚨 문제상황</h4>
+                        <h4 className="font-semibold text-red-800 mb-2">문제점</h4>
                         <p className="text-gray-700">{challenge.problem}</p>
                       </div>
                       
                       <div className="border-l-4 border-green-500 pl-4">
-                        <h4 className="font-semibold text-green-800 mb-2">💡 해결방안</h4>
+                        <h4 className="font-semibold text-green-800 mb-2">해결방안</h4>
                         <p className="text-gray-700">{challenge.solution}</p>
                       </div>
                       
                       <div className="border-l-4 border-purple-500 pl-4">
-                        <h4 className="font-semibold text-purple-800 mb-2">📊 결과</h4>
+                        <h4 className="font-semibold text-purple-800 mb-2">결과</h4>
                         <p className="text-gray-700">{challenge.result}</p>
                       </div>
                     </div>
@@ -413,41 +606,113 @@ const ProjectDetailPage = () => {
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">나의 기여</h2>
               
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* 기여도 통계 */}
-                <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl">
-                  <h3 className="text-lg font-bold text-purple-900 mb-4">전체 기여도</h3>
-                  <div className="text-4xl font-bold text-purple-600 mb-2">
-                    {project.contribution.overall}
-                  </div>
-                  <div className="space-y-3">
-                    {project.contribution.achievements.map((achievement, index) => (
-                      <div key={index} className="flex justify-between items-center">
-                        <span className="text-sm text-purple-800">{achievement.metric}</span>
-                        <span className="font-semibold text-purple-900">{achievement.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* 담당 업무 */}
-                <div className="lg:col-span-2">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">주요 담당 업무</h3>
-                  <div className="space-y-3">
+              <div className="grid grid-cols-1 gap-8">
+                <div className="bg-white p-6 rounded-xl shadow-lg">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">주요 개발 담당 영역</h3>
+                  <div className="text-sm text-gray-600 mb-4">{project.contribution.role}</div>
+                  <div className="space-y-4">
                     {project.contribution.responsibilities.map((responsibility, index) => (
                       <motion.div
                         key={index}
                         className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
+                        transition={{ duration: 0.4, delay: index * 0.05 }}
                       >
-                        <span className="w-6 h-6 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
-                          {index + 1}
-                        </span>
-                        <span className="text-gray-700">{responsibility}</span>
+                        <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                          <span className="text-white text-xs font-bold">{index + 1}</span>
+                        </div>
+                        <p className="text-gray-700 text-sm leading-relaxed">
+                          {responsibility}
+                        </p>
                       </motion.div>
                     ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* 핵심 코드 기여사항 */}
+              <div className="mt-8 bg-white p-8 rounded-xl shadow-lg">
+                <h3 className="text-xl font-bold text-gray-900 mb-6">핵심 코드 기여사항</h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-blue-50 p-6 rounded-lg">
+                    <h4 className="font-bold text-blue-900 mb-3 flex items-center gap-2">
+                      <Database className="w-5 h-5" />
+                      백엔드 시스템 구축
+                    </h4>
+                    <ul className="text-blue-800 space-y-2 text-sm">
+                      <li>• OpenMRS/Orthanc API 통합 모듈 개발</li>
+                      <li>• 환자 매핑 및 동기화 시스템 구현</li>
+                      <li>• AI 분석 결과 저장/조회 API 설계</li>
+                      <li>• 다중 데이터베이스 라우팅 로직</li>
+                      <li>• LIS CDSS 결과 자동 EMR 전송</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-green-50 p-6 rounded-lg">
+                    <h4 className="font-bold text-green-900 mb-3 flex items-center gap-2">
+                      <Brain className="w-5 h-5" />
+                      AI 모델 통합
+                    </h4>
+                    <ul className="text-green-800 space-y-2 text-sm">
+                      <li>• SimCLR 추론 서비스 Django 통합</li>
+                      <li>• 패치 기반 이상 탐지 파이프라인</li>
+                      <li>• JSON 직렬화 안전성 보장</li>
+                      <li>• 대용량 이미지 처리 최적화</li>
+                      <li>• 모델 상태 모니터링 시스템</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-orange-50 p-6 rounded-lg">
+                    <h4 className="font-bold text-orange-900 mb-3 flex items-center gap-2">
+                      <Server className="w-5 h-5" />
+                      인프라 및 DevOps
+                    </h4>
+                    <ul className="text-orange-800 space-y-2 text-sm">
+                      <li>• Docker Compose 멀티서비스 설계</li>
+                      <li>• nginx 리버스 프록시 구성</li>
+                      <li>• Celery+Redis 비동기 큐 구축</li>
+                      <li>• GCP 환경 배포 자동화</li>
+                      <li>• 서비스 간 네트워크 설정</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-purple-50 p-6 rounded-lg">
+                    <h4 className="font-bold text-purple-900 mb-3 flex items-center gap-2">
+                      <Activity className="w-5 h-5" />
+                      의료 데이터 처리
+                    </h4>
+                    <ul className="text-purple-800 space-y-2 text-sm">
+                      <li>• DICOM 이미지 전처리 파이프라인</li>
+                      <li>• EMR-PACS 실시간 데이터 동기화</li>
+                      <li>• 의료진 대시보드 풀스택 개발</li>
+                      <li>• 혈액검사 CDSS 결과 처리</li>
+                      <li>• 의료영상 메타데이터 관리</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 성과 지표 */}
+              <div className="bg-white p-8 rounded-xl shadow-lg">
+                <h3 className="text-xl font-bold text-gray-900 mb-6">개발 성과 지표</h3>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+                    <div className="text-3xl font-bold text-blue-600 mb-2">150+</div>
+                    <div className="text-sm text-blue-800">코드 커밋</div>
+                  </div>
+                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                    <div className="text-3xl font-bold text-green-600 mb-2">8</div>
+                    <div className="text-sm text-green-800">Django 앱 개발</div>
+                  </div>
+                  <div className="text-center p-4 bg-orange-50 rounded-lg">
+                    <div className="text-3xl font-bold text-orange-600 mb-2">7</div>
+                    <div className="text-sm text-orange-800">서비스 컨테이너</div>
+                  </div>
+                  <div className="text-center p-4 bg-purple-50 rounded-lg">
+                    <div className="text-3xl font-bold text-purple-600 mb-2">20+</div>
+                    <div className="text-sm text-purple-800">API 엔드포인트</div>
                   </div>
                 </div>
               </div>
@@ -456,67 +721,44 @@ const ProjectDetailPage = () => {
         </motion.div>
       </div>
 
-      {/* 하단 액션 바 */}
-      <motion.div 
-        className="bg-gray-50 border-t border-gray-200 py-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-      >
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div>
-              <h3 className="font-bold text-gray-900 mb-1">더 자세한 정보가 필요하신가요?</h3>
-              <p className="text-gray-600">GitHub 레포지토리와 발표 자료를 확인해보세요.</p>
+      {/* 하단 액션 버튼 */}
+      <div className="bg-white border-t py-6">
+        <div className="max-w-6xl mx-auto px-4 flex justify-center">
+          <button
+            onClick={() => window.history.back()}
+            className="flex items-center gap-2 px-6 py-3 text-gray-600 hover:text-gray-800 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            목록으로 돌아가기
+          </button>
+        </div>
+      </div>
+
+      {/* PPT 모달 */}
+      {showPPT && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-hidden">
+            <div className="flex justify-between items-center p-4 border-b">
+              <h3 className="text-lg font-bold">LACID 프로젝트 발표자료</h3>
+              <button
+                onClick={closePPT}
+                className="text-gray-500 hover:text-gray-700 text-2xl"
+              >
+                ×
+              </button>
             </div>
-            <div className="flex gap-4">
-              <a 
-                href={project.githubLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors"
-              >
-                <Github className="w-5 h-5" />
-                GitHub에서 코드 보기
-              </a>
-              <a 
-                href={project.presentationLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-white px-6 py-3 rounded-lg transition-colors"
-                style={{
-                  background: 'linear-gradient(135deg, #8B5CF6, #A855F7)',
-                  boxShadow: '0 2px 10px rgba(139, 92, 246, 0.3)'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = '0 4px 15px rgba(139, 92, 246, 0.4)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = '0 2px 10px rgba(139, 92, 246, 0.3)';
-                }}
-              >
-                <FileText className="w-5 h-5" />
-                발표 자료 다운로드
-              </a>
-              {project.demoLink && (
-                <a 
-                  href={project.demoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
-                >
-                  <ExternalLink className="w-5 h-5" />
-                  Live Demo
-                </a>
-              )}
+            <div className="p-4 h-[80vh]">
+              <iframe
+                src="/files/lacid-presentation.pdf"
+                className="w-full h-full border-0"
+                title="LACID 프로젝트 PPT"
+              />
             </div>
           </div>
         </div>
-      </motion.div>
+      )}
     </div>
   );
 };
 
-export default ProjectDetailPage;
+export default ProjectDetailPage1;
