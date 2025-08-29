@@ -16,7 +16,7 @@ const IntroPage = ({ currentSection, profileImage }) => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-            안녕하세요, 파이어족을 꿈꾸는 개발자<br />
+            안녕하세요,
             <span 
               className="bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 bg-clip-text text-transparent"
               style={{
@@ -31,11 +31,12 @@ const IntroPage = ({ currentSection, profileImage }) => {
           </h2>
           
           <p className="text-xl md:text-2xl text-gray-600 mb-4">
-            풀스택 개발자로서 확장 가능하고 효율적인 시스템을 구축합니다.
+            끊임없이 배우고 도전하며, 사용자 중심의 서비스를 개발합니다.
           </p>
           
           <p className="text-lg text-gray-500 mb-8">
-            웹 개발부터 AI까지, 기술의 경계를 넘나드는 혁신적인 솔루션을 만듭니다.
+            Django와 React를 활용한 풀스택 개발부터 AI 모델 통합까지,<br />
+            새로운 기술에 대한 열정으로 개발합니다.
           </p>
           
           <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
@@ -46,13 +47,16 @@ const IntroPage = ({ currentSection, profileImage }) => {
                 boxShadow: '0 2px 10px rgba(139, 92, 246, 0.3)'
               }}
             >
-              Full Stack Developer
+              Junior Developer
             </span>
             <span className="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium">
-              Data Analyst
+              Django & React
             </span>
-            <span className="px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
-              AI Engineer
+            <span className="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+              Healthcare IT
+            </span>
+            <span className="px-4 py-2 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">
+              ML&DL
             </span>
           </div>
         </motion.div>

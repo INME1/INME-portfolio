@@ -162,7 +162,7 @@ React를 사용하여 동적이고 반응성 있는 사용자 인터페이스를
     ],
 
     contribution: {
-      role: "Full-Stack Developer (개인 프로젝트)",
+      role:  " 개인 프로젝트",
       responsibilities: [
         "Django REST API 설계 및 구현 (게임 로직 포함)",
         "React 기반 게임 인터페이스 개발",
@@ -257,21 +257,48 @@ React를 사용하여 동적이고 반응성 있는 사용자 인터페이스를
                 </div>
               </div>
 
-              {/* 기술 스택 */}
+              {/* 개선된 기술 스택 - 어두운 배경 글로우 스타일 */}
               <div className="mb-6">
-                <h3 className="text-sm font-medium text-gray-500 mb-3">사용 기술</h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, index) => (
-                    <span 
-                      key={index}
-                      className="px-3 py-1 rounded-full text-sm font-medium text-white"
-                      style={{
-                        background: 'linear-gradient(135deg, #8B5CF6, #A855F7)',
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                <h3 className="text-sm font-medium text-gray-500 mb-4">사용 기술</h3>
+                <div className="bg-white-900 p-6 rounded-2xl">
+                  <div className="flex flex-wrap gap-3">
+                    {project.technologies.map((tech, index) => {
+                      const getGlowStyle = (tech) => {
+                        const techStyles = {
+                          // Backend
+                          'Django': 'bg-white text-green-600 border border-green-200 shadow-lg shadow-green-500/20',
+                          'Django REST Framework': 'bg-white text-green-600 border border-green-200 shadow-lg shadow-green-500/20',
+                          
+                          // Frontend
+                          'React': 'bg-white text-cyan-600 border border-cyan-200 shadow-lg shadow-cyan-500/20',
+                          'JavaScript': 'bg-white text-yellow-600 border border-yellow-200 shadow-lg shadow-yellow-500/20',
+                          'HTML5': 'bg-white text-red-600 border border-red-200 shadow-lg shadow-red-500/20',
+                          'CSS3': 'bg-white text-blue-600 border border-blue-200 shadow-lg shadow-blue-500/20',
+                          
+                          // Database
+                          'SQLite': 'bg-white text-blue-600 border border-blue-200 shadow-lg shadow-blue-500/20',
+                          
+                          // Communication
+                          'CORS': 'bg-white text-purple-600 border border-purple-200 shadow-lg shadow-purple-500/20',
+                          'Axios': 'bg-white text-cyan-600 border border-cyan-200 shadow-lg shadow-cyan-500/20',
+                          
+                          // Tools
+                          'Git': 'bg-white text-orange-600 border border-orange-200 shadow-lg shadow-orange-500/20'
+                        };
+                        
+                        return techStyles[tech] || 'bg-white text-gray-600 border border-gray-200 shadow-lg shadow-gray-500/20';
+                      };
+
+                      return (
+                        <span 
+                          key={index}
+                          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 ${getGlowStyle(tech)}`}
+                        >
+                          {tech}
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
 
@@ -290,7 +317,7 @@ React를 사용하여 동적이고 반응성 있는 사용자 인터페이스를
                 )}
                 <button
                   onClick={handlePPTClick}
-                  className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-red-700 transition-colors"
                 >
                   <FileText className="w-4 h-4" />
                   Demo
@@ -581,7 +608,7 @@ React를 사용하여 동적이고 반응성 있는 사용자 인터페이스를
               
               <div className="grid grid-cols-1 gap-8">
                 <div className="bg-white p-6 rounded-xl shadow-lg">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">주요 개발 담당 영역</h3>
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">개발 영역</h3>
                   <div className="text-sm text-gray-600 mb-4">{project.contribution.role}</div>
                   <div className="space-y-4">
                     {project.contribution.responsibilities.map((responsibility, index) => (
@@ -642,7 +669,7 @@ React를 사용하여 동적이고 반응성 있는 사용자 인터페이스를
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="text-center p-4 bg-purple-50 rounded-lg">
                     <div className="text-3xl font-bold text-purple-600 mb-2">100%</div>
-                    <div className="text-sm text-purple-800">개인 구현도</div>
+                    <div className="text-sm text-purple-800">구현도</div>
                   </div>
                   <div className="text-center p-4 bg-green-50 rounded-lg">
                     <div className="text-3xl font-bold text-green-600 mb-2">6+</div>

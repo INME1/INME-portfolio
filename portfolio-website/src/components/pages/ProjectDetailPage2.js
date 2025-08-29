@@ -45,10 +45,10 @@ const ProjectDetailPage2 = () => {
   };
 
   const project = {
-    title: "Osteoporosis Risk Prediction System",
+    title: "골절 위험도 예측 웹",
     subtitle: "FRAX 알고리즘 기반 골다공증 위험도 예측 시스템",
-    period: "2025.03 - 2025.03",
-    team: "개인 프로젝트 (YangGo7)",
+    period: "2025.03 (4일)",
+    team: "6명",
     status: "완료",
     technologies: ["Django", "Python", "NumPy", "Chart.js", "Bootstrap", "SQLite", "HTML5", "CSS3", "JavaScript", "xhtml2pdf", "QR Code", "Ajax"],
     githubLink: "https://github.com/YangGo7/Osteoporosis_project-",
@@ -79,7 +79,7 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
     features: [
       {
         title: "FRAX 기반 위험도 예측",
-        description: "WHO 승인 FRAX 알고리즘을 활용한 과학적이고 정확한 골다공증 위험도 계산",
+        description: "WHO 승인 FRAX 알고리즘을 활용한 골다공증 위험도 계산",
         icon: Calculator,
         details: [
           "12개 위험 요소 종합 분석",
@@ -148,13 +148,13 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
 
     challenges: [
       {
-        problem: "복잡한 FRAX 알고리즘의 구현 및 의학적 타당성 확보",
+        problem: "복잡한 FRAX 알고리즘의 구현",
         solution: "WHO 공식 문서를 기반으로 로지스틱 회귀 모델 구현, NumPy를 활용한 수치 계산 최적화",
-        result: "의학적으로 검증된 정확한 위험도 예측 시스템 구축"
+        result: "FRAX 기반 위험도 예측 시스템 구축"
       },
       {
         problem: "일반 사용자가 이해하기 어려운 의료용어와 복잡한 설문 과정",
-        solution: "각 항목별 상세한 툴팁 제공, 직관적인 라디오 버튼 UI",
+        solution: "각 항목별 상세한 툴팁 제공, 단계별 설문 진행 가이드, 직관적인 라디오 버튼 UI",
         result: "사용자 친화성 향상, 접근성 개선"
       },
       {
@@ -170,7 +170,7 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
     ],
 
     contribution: {
-      role: "Full-Stack Developer & Healthcare System Designer (개인 프로젝트)",
+      role: "Full-Stack Developer",
       responsibilities: [
         "FRAX 알고리즘 Python 구현 및 최적화",
         "Django 기반 웹 애플리케이션 풀스택 개발",
@@ -187,7 +187,7 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
     technicalHighlights: [
       {
         title: "의학적 검증성",
-        details: "WHO 공인 FRAX 알고리즘 구현으로 임상적으로 검증된 정확한 위험도 예측"
+        details: "WHO 공인 FRAX 알고리즘 구현으로 임상적으로 검증된 위험도 예측"
       },
       {
         title: "사용자 중심 설계", 
@@ -266,21 +266,50 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
                 </div>
               </div>
 
-              {/* 기술 스택 */}
+              {/* 개선된 기술 스택 - 어두운 배경 글로우 스타일 */}
               <div className="mb-6">
-                <h3 className="text-sm font-medium text-gray-500 mb-3">사용 기술</h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, index) => (
-                    <span 
-                      key={index}
-                      className="px-3 py-1 rounded-full text-sm font-medium text-white"
-                      style={{
-                        background: 'linear-gradient(135deg, #8B5CF6, #A855F7)',
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                <h3 className="text-sm font-medium text-gray-500 mb-4">사용 기술</h3>
+                <div className="bg-white-900 p-6 rounded-2xl">
+                  <div className="flex flex-wrap gap-3">
+                    {project.technologies.map((tech, index) => {
+                      const getGlowStyle = (tech) => {
+                        const techStyles = {
+                          // Backend
+                          'Django': 'bg-white text-green-600 border border-green-200 shadow-lg shadow-green-500/20',
+                          'Python': 'bg-white text-yellow-600 border border-yellow-200 shadow-lg shadow-yellow-500/20',
+                          
+                          // Data Science
+                          'NumPy': 'bg-white text-orange-600 border border-orange-200 shadow-lg shadow-orange-500/20',
+                          
+                          // Frontend
+                          'Bootstrap': 'bg-white text-purple-600 border border-purple-200 shadow-lg shadow-purple-500/20',
+                          'Chart.js': 'bg-white text-cyan-600 border border-cyan-200 shadow-lg shadow-cyan-500/20',
+                          'HTML5': 'bg-white text-red-600 border border-red-200 shadow-lg shadow-red-500/20',
+                          'CSS3': 'bg-white text-blue-600 border border-blue-200 shadow-lg shadow-blue-500/20',
+                          'JavaScript': 'bg-white text-yellow-600 border border-yellow-200 shadow-lg shadow-yellow-500/20',
+                          
+                          // Database
+                          'SQLite': 'bg-white text-blue-600 border border-blue-200 shadow-lg shadow-blue-500/20',
+                          
+                          // Tools
+                          'xhtml2pdf': 'bg-white text-red-600 border border-red-200 shadow-lg shadow-red-500/20',
+                          'QR Code': 'bg-white text-indigo-600 border border-indigo-200 shadow-lg shadow-indigo-500/20',
+                          'Ajax': 'bg-white text-purple-600 border border-purple-200 shadow-lg shadow-purple-500/20'
+                        };
+                        
+                        return techStyles[tech] || 'bg-white text-gray-600 border border-gray-200 shadow-lg shadow-gray-500/20';
+                      };
+
+                      return (
+                        <span 
+                          key={index}
+                          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 ${getGlowStyle(tech)}`}
+                        >
+                          {tech}
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
 
@@ -299,10 +328,10 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
                 )}
                 <button
                   onClick={handlePPTClick}
-                  className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-red-700 transition-colors"
                 >
                   <FileText className="w-4 h-4" />
-                  Demo
+                  PPT
                 </button>
               </div>
             </div>
@@ -620,57 +649,57 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <h4 className="font-bold text-blue-900 mb-3 flex items-center gap-2">
-                      <Calculator className="w-5 h-5" />
-                      FRAX 알고리즘 개발
+                      <Users2 className="w-5 h-5" />
+                      Q&A 게시판 개발
                     </h4>
                     <ul className="text-blue-800 space-y-2 text-sm">
-                      <li>• WHO 공식 FRAX 모델 Python 구현</li>
-                      <li>• NumPy 기반 로지스틱 회귀 계산</li>
-                      <li>• BMI 자동 계산 및 보정 로직</li>
-                      <li>• 위험도 분류 시스템 (Normal/Caution/High)</li>
-                      <li>• 의학적 타당성 검증 및 테스트</li>
+                      <li>• Django 기반 CRUD 기능 구현</li>
+                      <li>• 문의사항 작성, 수정, 삭제 시스템</li>
+                      <li>• 관리자 답변 및 상태 관리 기능</li>
+                      <li>• 사용자별 문의 내역 조회</li>
+                      <li>• 검색 및 카테고리 필터링</li>
                     </ul>
                   </div>
                   
                   <div className="bg-green-50 p-6 rounded-lg">
                     <h4 className="font-bold text-green-900 mb-3 flex items-center gap-2">
                       <Monitor className="w-5 h-5" />
-                      웹 애플리케이션 개발
+                      광고 모달 시스템
                     </h4>
                     <ul className="text-green-800 space-y-2 text-sm">
-                      <li>• Django 기반 풀스택 웹 개발</li>
-                      <li>• Bootstrap 반응형 UI/UX 설계</li>
-                      <li>• Chart.js 데이터 시각화 구현</li>
-                      <li>• Ajax 기반 동적 사용자 인터페이스</li>
-                      <li>• PDF 리포트 자동 생성 시스템</li>
+                      <li>• JavaScript 기반 모달 팝업 구현</li>
+                      <li>• 쿠키를 활용한 팝업 제어</li>
+                      <li>• 사용자 경험을 고려한 타이밍 설정</li>
+                      <li>• 반응형 모달 디자인</li>
+                      <li>• 광고 효과 측정을 위한 클릭 트래킹</li>
                     </ul>
                   </div>
                   
                   <div className="bg-orange-50 p-6 rounded-lg">
                     <h4 className="font-bold text-orange-900 mb-3 flex items-center gap-2">
-                      <Database className="w-5 h-5" />
-                      데이터 관리 시스템
+                      <Calculator className="w-5 h-5" />
+                      예측 모델링
                     </h4>
                     <ul className="text-orange-800 space-y-2 text-sm">
-                      <li>• Django ORM 기반 데이터 모델링</li>
-                      <li>• 사용자 인증 및 권한 관리</li>
-                      <li>• 개인정보 보호 및 보안 구현</li>
-                      <li>• 진단 결과 히스토리 관리</li>
-                      <li>• 의료기관 데이터베이스 구축</li>
+                      <li>• FRAX 알고리즘 Python 구현</li>
+                      <li>• NumPy 기반 수치 계산 로직</li>
+                      <li>• 위험도 분류 및 예측 모델 구축</li>
+                      <li>• BMI 계산 및 위험 요소 가중치 적용</li>
+                      <li>• 모델 검증 및 정확도 테스트</li>
                     </ul>
                   </div>
                   
                   <div className="bg-purple-50 p-6 rounded-lg">
                     <h4 className="font-bold text-purple-900 mb-3 flex items-center gap-2">
-                      <Users2 className="w-5 h-5" />
-                      사용자 경험 최적화
+                      <BarChart3 className="w-5 h-5" />
+                      데이터 시각화
                     </h4>
                     <ul className="text-purple-800 space-y-2 text-sm">
-                      <li>• 의료용어 해설 툴팁 시스템</li>
-                      <li>• 단계별 설문 진행 가이드</li>
-                      <li>• 크로스 브라우저 호환성 확보</li>
-                      <li>• 모바일 터치 인터페이스 최적화</li>
-                      <li>• 접근성 및 사용성 테스트</li>
+                      <li>• Chart.js를 활용한 결과 시각화</li>
+                      <li>• 막대그래프 및 도넛차트 구현</li>
+                      <li>• 위험도별 색상 코딩 시스템</li>
+                      <li>• 동적 차트 업데이트 기능</li>
+                      <li>• 사용자 친화적 결과 표현</li>
                     </ul>
                   </div>
                 </div>
@@ -678,20 +707,20 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
                 {/* 프로젝트 성과 지표 */}
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="text-center p-4 bg-purple-50 rounded-lg">
-                    <div className="text-3xl font-bold text-purple-600 mb-2">12</div>
-                    <div className="text-sm text-purple-800">위험 요소 분석</div>
+                    <div className="text-3xl font-bold text-purple-600 mb-2">6명</div>
+                    <div className="text-sm text-purple-800">팀 프로젝트</div>
                   </div>
                   <div className="text-center p-4 bg-green-50 rounded-lg">
-                    <div className="text-3xl font-bold text-green-600 mb-2">100%</div>
-                    <div className="text-sm text-green-800">개인 개발</div>
+                    <div className="text-3xl font-bold text-green-600 mb-2">Q&A</div>
+                    <div className="text-sm text-green-800">게시판 CRUD</div>
                   </div>
                   <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <div className="text-3xl font-bold text-blue-600 mb-2">WHO</div>
-                    <div className="text-sm text-blue-800">공인 알고리즘</div>
+                    <div className="text-3xl font-bold text-blue-600 mb-2">FRAX</div>
+                    <div className="text-sm text-blue-800">예측 모델링</div>
                   </div>
                   <div className="text-center p-4 bg-orange-50 rounded-lg">
-                    <div className="text-3xl font-bold text-orange-600 mb-2">10+</div>
-                    <div className="text-sm text-orange-800">사용 기술</div>
+                    <div className="text-3xl font-bold text-orange-600 mb-2">5일</div>
+                    <div className="text-sm text-orange-800">개발 기간</div>
                   </div>
                 </div>
               </div>
@@ -713,12 +742,12 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
         </div>
       </div>
 
-      {/* Demo 모달 */}
+      {/* PPT 모달 */}
       {showPPT && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
+          <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-hidden">
             <div className="flex justify-between items-center p-4 border-b">
-              <h3 className="text-lg font-bold">Osteoporosis Risk Prediction Demo</h3>
+              <h3 className="text-lg font-bold">Osteoporosis 프로젝트 발표자료</h3>
               <button
                 onClick={closePPT}
                 className="text-gray-500 hover:text-gray-700 text-2xl"
@@ -727,31 +756,11 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
               </button>
             </div>
             <div className="p-4 h-[80vh]">
-              <div className="w-full h-full bg-gray-100 rounded-lg flex items-center justify-center">
-                <div className="text-center">
-                  <Heart className="w-16 h-16 text-purple-600 mx-auto mb-4" />
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">헬스케어 시스템 데모</h4>
-                  <p className="text-gray-600 mb-4">FRAX 알고리즘 기반 골다공증 위험도 예측을 체험해보세요!</p>
-                  <div className="space-y-4">
-                    <div className="bg-blue-50 p-4 rounded-lg">
-                      <p className="text-blue-800 text-sm">
-                        • 12개 위험 요소를 종합한 과학적 예측<br/>
-                        • Chart.js 기반 시각적 결과 표현<br/>
-                        • 개인 맞춤 건강 관리 추천
-                      </p>
-                    </div>
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-                    >
-                      <Github className="w-5 h-5" />
-                      GitHub에서 보기
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <iframe
+                src="/files/osteoporosis-presentation.pdf"
+                className="w-full h-full border-0"
+                title="Osteoporosis 프로젝트 PPT"
+              />
             </div>
           </div>
         </div>

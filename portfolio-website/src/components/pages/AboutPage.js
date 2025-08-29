@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download } from 'lucide-react';
+import { Download, FileText } from 'lucide-react';
 import aboutimg from '../../images/aboutme.jpg';
 
 const AboutPage = ({ currentSection }) => {
+  const [showResume, setShowResume] = useState(false);
+
+  const handleResumeClick = () => {
+    setShowResume(true);
+  };
+
+  const closeResume = () => {
+    setShowResume(false);
+  };
+
   return (
     <section className="h-screen bg-gray-50 flex items-center">
       <div className="max-w-6xl mx-auto px-4 w-full">
@@ -44,29 +54,30 @@ const AboutPage = ({ currentSection }) => {
             <div className="order-1 lg:order-2 space-y-6">
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  AI 모델의 API 연동 시스템과 자연어 처리에 깊은 관심을 가진 주니어 개발자입니다. 
-                  다양한 팀 프로젝트 경험을 통해 협업의 중요성과 소통의 가치를 배웠습니다.
+                  문제 해결에 대한 열정과 사용자 경험을 중시하는 주니어 개발자입니다. 
+                  Django와 React를 활용한 풀스택 개발 경험을 바탕으로, 
+                  의료 IT 분야에서 실제 사용자들에게 도움이 되는 시스템을 구축해왔습니다.
                 </p>
                 
                 <p>
-                  데이터 전처리 및 분석 분야에서의 경험을 바탕으로, 
-                  코드의 최적화와 성능 개선에 큰 관심을 가지고 있습니다. 
-                  복잡한 로직보다는 쉽고 읽기 좋은 코드를 작성하는 것을 목표로 합니다.
+                  팀 프로젝트를 통해 협업의 중요성을 배우고, OpenMRS와 Orthanc PACS 같은 
+                  의료 표준 시스템과의 통합 경험을 쌓았습니다. 
+                  복잡한 요구사항을 단순하고 직관적인 코드로 구현하는 것을 추구합니다.
                 </p>
                 
                 <p>
-                  사용자 중심 디자인을 바탕으로 한 개발을 지향하며, 
-                  최근에는 FastAPI와 LLM Fine-tuning에 특별한 관심을 가지고 
-                  지속적으로 학습하고 있습니다.
+                  AI 모델 통합과 웹 개발을 연결하는 분야에 특별한 관심을 가지고 있으며, 
+                  최신 기술 트렌드를 학습하고 프로젝트에 적용하는 것을 즐깁니다. 
+                  현재는 FastAPI와 LLM 파인튜닝 기술을 공부하고 있습니다.
                 </p>
                 
                 <p>
-                  기술의 발전과 함께 성장하는 개발자가 되기 위해 새로운 기술을 탐구하고, 
-                  사용자에게 가치 있는 경험을 제공하는 것을 목표로 하고 있습니다.
+                  사용자의 실제 문제를 해결하는 개발자가 되기 위해 끊임없이 학습하며, 
+                  코드 품질과 사용자 경험 모두를 고려한 균형 잡힌 개발을 지향합니다.
                 </p>
               </div>
               
-              {/* CV 다운로드 버튼 */}
+              {/* 이력서 보기 버튼 */}
               <motion.button
                 className="flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-white transition-all duration-300"
                 style={{
@@ -78,18 +89,51 @@ const AboutPage = ({ currentSection }) => {
                   boxShadow: '0 8px 25px rgba(139, 92, 246, 0.4)'
                 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => {
-                  // CV 다운로드 로직
-                  console.log('CV 다운로드');
-                }}
+                onClick={handleResumeClick}
               >
-                <Download className="w-4 h-4" />
-                이력서 다운로드
+                <FileText className="w-4 h-4" />
+                이력서 보기
               </motion.button>
             </div>
           </div>
         </motion.div>
       </div>
+
+      {/* 이력서 PDF 모달 */}
+      {showResume && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-hidden">
+            <div className="flex justify-between items-center p-4 border-b">
+              <h3 className="text-lg font-bold">김상묵 이력서</h3>
+              <div className="flex gap-2">
+                {/* 다운로드 버튼 */}
+                <a
+                  href="/files/resume-kimSangMuk.pdf"
+                  download="김상묵_이력서.pdf"
+                  className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
+                >
+                  <Download className="w-4 h-4" />
+                  다운로드
+                </a>
+                {/* 닫기 버튼 */}
+                <button
+                  onClick={closeResume}
+                  className="text-gray-500 hover:text-gray-700 text-2xl px-2"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+            <div className="p-4 h-[80vh]">
+              <iframe
+                src="/files/resume-kimSangMuk.pdf"
+                className="w-full h-full border-0"
+                title="김상묵 이력서"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

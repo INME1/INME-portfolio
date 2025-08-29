@@ -36,7 +36,7 @@ const TechPage = ({ currentSection, technologies }) => {
           }}
           transition={{ duration: 0.8 }}
         >
-          Skills & Technologies
+          Skills & Tech
         </motion.h3>
 
         {/* 메인 기술스택 그리드 */}
@@ -120,7 +120,7 @@ const TechPage = ({ currentSection, technologies }) => {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <h4 className="text-xl font-semibold text-gray-700 text-center mb-6">
-            Additional Technologies
+            ETC.
           </h4>
           
           <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-4">
@@ -161,13 +161,13 @@ const TechPage = ({ currentSection, technologies }) => {
           transition={{ duration: 0.8, delay: 0.8 }}
         >
           <p className="text-base text-gray-600 max-w-3xl mx-auto">
-            다양한 기술 스택을 활용하여 
+            다양한 기술 스택을 활용하여{" "}
             <span 
               className="font-semibold bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent"
             >
-              효율적이고 확장 가능한 솔루션
-            </span>
-            을 개발합니다.
+            효율적이고 확장 가능한 결과물
+            </span>{" "}
+             개발을 목표로 합니다.
           </p>
         </motion.div>
       </div>

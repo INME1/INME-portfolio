@@ -10,9 +10,8 @@ const ContactPage = ({ currentSection }) => {
       id: 'email',
       icon: Mail,
       title: '이메일',
-      subtitle: '언제든 연락주세요',
-      value: 'contact@inme.dev',
-      href: 'mailto:contact@inme.dev',
+      value: 'suisfan111@gmail.com',
+      href: 'mailto:suisfan111@gmail.com',
       color: 'from-purple-500 to-purple-600',
       bgColor: 'bg-purple-50',
       textColor: 'text-purple-600'
@@ -21,9 +20,8 @@ const ContactPage = ({ currentSection }) => {
       id: 'github',
       icon: Github,
       title: 'GitHub',
-      subtitle: '제 작업을 확인해보세요',
-      value: '@inme',
-      href: 'https://github.com/inme',
+      value: 'INME1',
+      href: 'https://github.com/INME1',
       color: 'from-gray-700 to-gray-900',
       bgColor: 'bg-gray-50',
       textColor: 'text-gray-700'
@@ -32,8 +30,7 @@ const ContactPage = ({ currentSection }) => {
       id: 'location',
       icon: MapPin,
       title: '위치',
-      subtitle: '현재 거주지',
-      value: '서울, 대한민국',
+      value: '대전, 대한민국',
       href: '#',
       color: 'from-purple-500 to-purple-600',
       bgColor: 'bg-purple-50',
@@ -77,8 +74,6 @@ const ContactPage = ({ currentSection }) => {
             </span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            새로운 기회나 흥미로운 프로젝트에 대해 이야기하거나, 
-            기술과 개발에 관한 대화를 나누는 것을 항상 기다리고 있습니다.
           </p>
         </motion.div>
 

@@ -823,7 +823,7 @@ Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소
             </div>
             <div className="p-4 h-[80vh]">
               <iframe
-                src="/files/lacid-presentation.pdf"
+                src="/files/LACID.pdf"
                 className="w-full h-full border-0"
                 title="LACID 프로젝트 PPT"
               />
