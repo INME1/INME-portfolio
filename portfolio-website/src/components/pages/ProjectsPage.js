@@ -21,7 +21,7 @@ const ProjectsPage = ({
       title: "LACID",
       subtitle: "흉부 X-ray 기반 이상탐지 CDSS 시스템",
       image: LACIDImg,
-      technologies: ["Django", "React", "OpenMRS", "Orthanc", "MySQL", "Docker", "Redis", "nginx", "Celery", "Python", "Keras", "Pytorch", "PostgreSQL"],
+      technologies: ["Django", "React", "OpenMRS", "Orthanc", "MySQL", "Docker", "Figma", "Node.js", "Flask", "Redis", "nginx", "Scikit-learn", "Celery", "Python", "TensorFlow", "Pytorch", "PostgreSQL"],
       githubLink: "https://github.com/INME1/medical_system",
       description: "OpenMRS와 Orthanc PACS를 완전 통합한 종합 의료 AI 플랫폼입니다. 3개의 AI 모델(YOLOv8, SSD, SimCLR)을 분석을 서비스하여 흉부 X-ray에서 폐 질환을 자동 탐지하며, 의료진의 판독을 지원하기 위해 Grad-CAM 히트맵으로 시각화합니다. Docker 기반 마이크로서비스 아키텍처와 STT를 활용한 음성 판독 자동화까지 지원하는 차세대 의료 정보 시스템입니다."
     },

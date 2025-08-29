@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import { motion } from 'framer-motion';
-import { Download, FileText } from 'lucide-react';
+import { FileText } from 'lucide-react';
 import aboutimg from '../../images/aboutme.jpg';
 
 const AboutPage = ({ currentSection }) => {
   const [showResume, setShowResume] = useState(false);
 
   const handleResumeClick = () => {
+    console.log('이력서 버튼 클릭됨');
+    console.log('현재 섹션:', currentSection);
     setShowResume(true);
   };
 
   const closeResume = () => {
+    console.log('이력서 모달 닫기');
     setShowResume(false);
   };
 
   return (
-    <section className="h-screen bg-gray-50 flex items-center">
+    <section className="h-screen bg-gray-50 flex items-center relative">
       <div className="max-w-6xl mx-auto px-4 w-full">
         <motion.h3 
           className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center"
@@ -99,30 +103,19 @@ const AboutPage = ({ currentSection }) => {
         </motion.div>
       </div>
 
-      {/* 이력서 PDF 모달 */}
-      {showResume && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+      {/* 이력서 PDF 모달 - React Portal을 사용하여 body에 렌더링 */}
+      {showResume && currentSection === 2 && ReactDOM.createPortal(
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" style={{ zIndex: 9999 }}>
           <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-hidden">
             <div className="flex justify-between items-center p-4 border-b">
               <h3 className="text-lg font-bold">김상묵 이력서</h3>
-              <div className="flex gap-2">
-                {/* 다운로드 버튼 */}
-                <a
-                  href="/files/resume-kimSangMuk.pdf"
-                  download="김상묵_이력서.pdf"
-                  className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
-                >
-                  <Download className="w-4 h-4" />
-                  다운로드
-                </a>
-                {/* 닫기 버튼 */}
-                <button
-                  onClick={closeResume}
-                  className="text-gray-500 hover:text-gray-700 text-2xl px-2"
-                >
-                  ×
-                </button>
-              </div>
+              {/* 닫기 버튼 */}
+              <button
+                onClick={closeResume}
+                className="text-gray-500 hover:text-gray-700 text-2xl px-2"
+              >
+                ×
+              </button>
             </div>
             <div className="p-4 h-[80vh]">
               <iframe
@@ -132,7 +125,8 @@ const AboutPage = ({ currentSection }) => {
               />
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

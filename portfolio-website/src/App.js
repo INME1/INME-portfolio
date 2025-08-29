@@ -53,7 +53,7 @@ const MainPortfolio = () => {
     }
   }, []);
 
-  // 데이터 정의
+  // 데이터 정의 - 슬라이드용 추가 프로젝트들 포함
   const projects = useMemo(() => [
     {
       id: 1,
@@ -78,6 +78,31 @@ const MainPortfolio = () => {
       image: coverImage,
       technologies: ["Django", "React", "JavaScript", "SQLite"],
       link: "#"
+    },
+    // 슬라이드용 추가 프로젝트들 (ID 4+)
+    {
+      id: 4,
+      title: "패스워드 생성기",
+      description: "안전한 패스워드 생성 및 관리 도구",
+      image: coverImage,
+      technologies: ["React", "JavaScript", "CSS3", "HTML5"],
+      link: "https://github.com/INME1/password-generator"
+    },
+    {
+      id: 5,
+      title: "날씨 대시보드",
+      description: "실시간 날씨 정보 제공 서비스",
+      image: coverImage,
+      technologies: ["React", "Node.js", "Express", "Weather API"],
+      link: "https://github.com/INME1/weather-dashboard"
+    },
+    {
+      id: 6,
+      title: "TODO 관리 앱",
+      description: "효율적인 할일 관리 웹 애플리케이션",
+      image: coverImage,
+      technologies: ["Vue.js", "Firebase", "Vuetify", "PWA"],
+      link: "https://github.com/INME1/todo-manager"
     }
   ], []);
 
@@ -96,7 +121,7 @@ const MainPortfolio = () => {
 
   const sections = useMemo(() => ['welcome', 'intro', 'about', 'tech', 'projects', 'contact'], []);
 
-  // 이벤트 핸들러들
+  // 이벤트 핸들러들 - 전체 프로젝트 배열 기준으로 슬라이드
   const nextProject = useCallback(() => {
     setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
   }, [projects.length]);

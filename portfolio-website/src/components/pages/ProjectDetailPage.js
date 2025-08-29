@@ -26,7 +26,7 @@ const ProjectDetailPage1 = () => {
       'Redux': 'bg-gradient-to-r from-cyan-500 to-cyan-600',
       'Material-UI': 'bg-gradient-to-r from-cyan-500 to-cyan-600',
       'Axios': 'bg-gradient-to-r from-cyan-500 to-cyan-600',
-      
+      "Node.js":'bg-gradient-to-r from-cyan-500 to-cyan-600',
       // Backend
       'Django': 'bg-gradient-to-r from-green-500 to-green-600',
       'REST API': 'bg-gradient-to-r from-green-500 to-green-600',
@@ -43,7 +43,8 @@ const ProjectDetailPage1 = () => {
       'PyTorch': 'bg-gradient-to-r from-orange-500 to-orange-600',
       'TensorFlow': 'bg-gradient-to-r from-orange-500 to-orange-600',
       'OpenCV': 'bg-gradient-to-r from-orange-500 to-orange-600',
-      
+      'Scikit-learn':'bg-gradient-to-r from-orange-500 to-orange-600',
+      'TensorFlow': 'bg-gradient-to-r from-orange-500 to-orange-600',
       // DevOps
       'Docker': 'bg-gradient-to-r from-indigo-500 to-indigo-600',
       'nginx': 'bg-gradient-to-r from-indigo-500 to-indigo-600',
@@ -62,7 +63,7 @@ const ProjectDetailPage1 = () => {
       'Lua': 'bg-gradient-to-r from-gray-500 to-gray-600',
       'CORS': 'bg-gradient-to-r from-gray-500 to-gray-600',
       'Load Balancer': 'bg-gradient-to-r from-gray-500 to-gray-600',
-      'Keras': 'bg-gradient-to-r from-orange-500 to-orange-600'
+      'Figma': 'bg-gradient-to-r from-orange-500 to-orange-600',
     };
     
     return techCategories[tech] || 'bg-gradient-to-r from-gray-400 to-gray-500';

@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 import pythonImg from '../../images/tech/python.png';
 import djangoImg from '../../images/tech/django.png';
 import reactImg from '../../images/tech/react.png';
-import javascriptImg from '../../images/tech/javascript.png';
+import javascriptImg from '../../images/tech/javascript.jpg';
 import htmlImg from '../../images/tech/html.png';
-import cssImg from '../../images/tech/css.png';
+import pytorchImg from '../../images/tech/pytorch.png';
 import mysqlImg from '../../images/tech/mysql.png';
 import dockerImg from '../../images/tech/docker.png';
 
@@ -18,10 +18,10 @@ const TechPage = ({ currentSection, technologies }) => {
     { name: "Django", image: djangoImg, color: "from-green-600 to-green-800", proficiency: 4 },
     { name: "React.js", image: reactImg, color: "from-cyan-400 to-purple-500", proficiency: 4 },
     { name: "JavaScript", image: javascriptImg, color: "from-yellow-400 to-yellow-600", proficiency: 4 },
-    { name: "HTML", image: htmlImg, color: "from-orange-500 to-red-600", proficiency: 5 },
-    { name: "CSS", image: cssImg, color: "from-purple-400 to-purple-600", proficiency: 4 },
-    { name: "MySQL", image: mysqlImg, color: "from-orange-500 to-purple-600", proficiency: 4 },
-    { name: "Docker", image: dockerImg, color: "from-purple-500 to-cyan-600", proficiency: 3 }
+    { name: "HTML", image: htmlImg, color: "from-orange-500 to-red-600", proficiency: 3 },
+    { name: "Pytorch", image: pytorchImg, color: "from-purple-400 to-purple-600", proficiency: 4 },
+    { name: "MySQL", image: mysqlImg, color: "from-orange-500 to-purple-600", proficiency: 3 },
+    { name: "Docker", image: dockerImg, color: "from-purple-500 to-cyan-600", proficiency: 4 }
   ];
 
   return (
@@ -120,12 +120,12 @@ const TechPage = ({ currentSection, technologies }) => {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <h4 className="text-xl font-semibold text-gray-700 text-center mb-6">
-            ETC.
+            Additional skills
           </h4>
           
           <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-4">
             {[
-              "R", "PyTorch", "Keras", "MariaDB", "Linux", 
+              "Pandas", "CSS", "TensorFlow", "MariaDB", "Linux", 
               "VS Code", "GitHub", "Redis", "Celery", "Nginx"
             ].map((tech, index) => (
               <motion.div
