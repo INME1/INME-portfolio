@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, Users, Award, Github, FileText, Database, Activity, Brain, Shield, Stethoscope, Monitor, Cpu, Server, Heart, Calculator, BarChart3, Users2 } from 'lucide-react';
+import { ArrowLeft, Calendar, Users, Award, Github, FileText, Database, Activity, Brain, Shield, Stethoscope, Monitor, Cpu, Server, Gamepad2, Code, Zap } from 'lucide-react';
 
-const ProjectDetailPage2 = () => {
+const ProjectDetailPage3 = () => {
   const { projectId } = useParams();
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState('overview');
@@ -20,19 +20,19 @@ const ProjectDetailPage2 = () => {
 
   const projectImages = [
     {
-      src: "/images/projects/osteoporosis-main.png",
-      alt: "골다공증 예측 메인 페이지",
-      caption: "사용자 친화적인 설문조사 인터페이스"
+      src: "/images/projects/webgame-main.png",
+      alt: "웹 지뢰찾기 메인 게임 화면",
+      caption: "React 기반 반응형 지뢰찾기 게임 인터페이스"
     },
     {
-      src: "/images/projects/osteoporosis-result.png", 
-      alt: "위험도 결과 시각화 화면",
-      caption: "Chart.js 기반 위험도 시각화 및 맞춤 추천"
+      src: "/images/projects/webgame-difficulty.png", 
+      alt: "난이도 선택 화면",
+      caption: "Easy, Medium, Hard 3단계 난이도 시스템"
     },
     {
-      src: "/images/projects/osteoporosis-hospital.png",
-      alt: "병원 검색 시스템",
-      caption: "지역별 의료기관 검색 및 연계 서비스"
+      src: "/images/projects/webgame-architecture.png",
+      alt: "시스템 아키텍처",
+      caption: "Django REST API와 React 프론트엔드 구조"
     }
   ];
 
@@ -45,80 +45,72 @@ const ProjectDetailPage2 = () => {
   };
 
   const project = {
-    title: "Osteoporosis Risk Prediction System",
-    subtitle: "FRAX 알고리즘 기반 골다공증 위험도 예측 시스템",
-    period: "2025.03 - 2025.03",
-    team: "개인 프로젝트 (YangGo7)",
+    title: "Web Minesweeper Game",
+    subtitle: "Django REST API & React 기반 웹 지뢰찾기 게임",
+    period: "2025.04 - 2025.04",
+    team: "개인 프로젝트",
     status: "완료",
-    technologies: ["Django", "Python", "NumPy", "Chart.js", "Bootstrap", "SQLite", "HTML5", "CSS3", "JavaScript", "xhtml2pdf", "QR Code", "Ajax"],
-    githubLink: "https://github.com/YangGo7/Osteoporosis_project-",
-    overview: "세계보건기구(WHO)에서 개발한 FRAX 알고리즘을 기반으로 골다공증 위험도를 예측하는 웹 기반 헬스케어 플랫폼입니다. 12개의 위험 요소를 종합 분석하여 개인별 맞춤형 건강 관리 솔루션을 제공하며, 예방 중심의 접근을 통해 골다공증의 조기 발견과 관리를 지원합니다. 진단부터 병원 검색, PDF 리포트 생성까지 원스톱 서비스를 제공하는 통합 헬스케어 시스템입니다.",
+    technologies: ["Django", "Django REST Framework", "React", "JavaScript", "HTML5", "CSS3", "SQLite", "CORS", "Axios", "Git"],
+    githubLink: "https://github.com/INME1/Web_game",
+    overview: "클래식한 지뢰찾기 게임을 현대적인 웹 기술로 구현한 풀스택 프로젝트입니다. Django REST API를 백엔드로, React를 프론트엔드로 사용하여 완전히 분리된 아키텍처를 구축했습니다. 게임 상태 관리, 실시간 상호작용, 난이도별 게임 로직을 모두 서버사이드에서 처리하며, 클린한 UI/UX와 반응형 디자인을 제공합니다.",
     
-    description: `Osteoporosis Risk Prediction System은 골다공증의 예방과 조기 발견을 목표로 개발된 웹 기반 헬스케어 플랫폼입니다. 증상이 나타나기 전에 위험도를 예측하여 예방 중심의 의료 서비스를 제공합니다.
+    description: `Web Minesweeper Game은 전통적인 지뢰찾기 게임을 웹 환경에 최적화하여 구현한 프로젝트입니다. 단순해 보이는 게임이지만, 복잡한 게임 로직과 상태 관리를 통해 풀스택 개발 역량을 종합적으로 보여주는 프로젝트입니다.
 
-FRAX 알고리즘 기반 예측
+백엔드 아키텍처 설계
 
-WHO에서 개발하고 의학적으로 검증된 FRAX(Fracture Risk Assessment Tool) 알고리즘을 Python으로 구현했습니다. 나이, 성별, BMI, 골절 병력, 흡연, 음주 등 12개의 위험 요소를 종합하여 주요 골절 위험도와 고관절 골절 위험도를 정확하게 계산합니다.
+Django와 Django REST Framework를 활용하여 RESTful API 서버를 구축했습니다. 게임 상태(Game)와 각 셀의 정보(Cell)를 모델링하여 데이터베이스에 저장하고, 게임의 모든 로직을 서버사이드에서 처리합니다. 이를 통해 게임의 무결성을 보장하고 클라이언트의 부정행위를 방지합니다.
 
-사용자 중심 인터페이스 설계
+프론트엔드 상호작용 구현
 
-복잡한 의료용어를 일반인이 이해하기 쉽도록 툴팁과 설명을 제공하며, 단계별 설문 진행으로 사용자 경험을 최적화했습니다. Bootstrap 기반의 반응형 디자인으로 모든 디바이스에서 접근 가능합니다.
+React를 사용하여 동적이고 반응성 있는 사용자 인터페이스를 구현했습니다. Axios를 통한 비동기 통신으로 서버와 실시간으로 데이터를 주고받으며, 게임 상태 변화에 따른 즉각적인 UI 업데이트를 제공합니다.
 
-개인 맞춤형 건강 관리 솔루션
+게임 로직의 복잡성
 
-위험도 수준에 따라 차별화된 운동법, 식단, 생활습관 개선 방안을 제공합니다. 또한 사용자의 과거 진단 결과를 추적하여 지속적인 건강 관리를 지원합니다.
-
-의료기관 연계 서비스
-
-지역별 의료기관 검색 기능을 통해 필요 시 즉시 전문의 상담을 받을 수 있도록 연계합니다. 진단 결과를 PDF로 생성하여 병원 방문 시 활용할 수 있습니다.
-
-통합 커뮤니티 플랫폼
-
-Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전문가의 답변을 통해 신뢰성 있는 정보를 제공합니다.`,
+단순해 보이는 지뢰찾기 게임 뒤에는 복잡한 알고리즘이 숨어있습니다. 지뢰 배치, 인접 지뢰 수 계산, 연쇄 열기 로직, 승리/패배 판정 등의 핵심 게임 로직을 모두 구현했습니다. 특히 빈 셀 클릭 시 연쇄적으로 열리는 기능은 재귀적 알고리즘을 활용하여 효율적으로 처리했습니다.`,
 
     features: [
       {
-        title: "FRAX 기반 위험도 예측",
-        description: "WHO 승인 FRAX 알고리즘을 활용한 과학적이고 정확한 골다공증 위험도 계산",
-        icon: Calculator,
+        title: "다단계 난이도 시스템",
+        description: "Easy(9x9, 10개 지뢰), Medium(16x16, 40개 지뢰), Hard(16x30, 99개 지뢰) 3가지 난이도를 지원합니다.",
+        icon: Gamepad2,
         details: [
-          "12개 위험 요소 종합 분석",
-          "주요 골절 및 고관절 골절 위험도 계산",
-          "로지스틱 회귀 모델 기반 예측",
-          "BMI 자동 계산 및 위험도 보정"
+          "난이도별 최적화된 격자 크기",
+          "지뢰 밀도 조절을 통한 게임 밸런스",
+          "반응형 디자인으로 모든 화면 크기 지원",
+          "난이도별 게임 통계 추적"
         ]
       },
       {
-        title: "시각적 결과 표현",
-        description: "Chart.js를 활용한 직관적인 위험도 시각화 및 맞춤형 추천 시스템",
-        icon: BarChart3,
+        title: "실시간 게임 상태 관리",
+        description: "서버에서 게임 상태를 완벽하게 관리하며, 클라이언트는 UI만 담당하는 분리된 아키텍처입니다.",
+        icon: Database,
         details: [
-          "막대그래프 및 도넛차트를 통한 위험도 표시",
-          "색상 코딩을 통한 위험 등급 구분",
-          "개인별 맞춤 운동 및 식단 추천",
-          "실시간 입력 상태 피드백"
+          "Django ORM을 통한 게임 상태 영속화",
+          "RESTful API 엔드포인트 설계",
+          "실시간 게임 상태 동기화",
+          "게임 세션 관리 및 복원 기능"
         ]
       },
       {
-        title: "개인 건강 관리",
-        description: "사용자별 진단 이력 관리 및 지속적인 모니터링 시스템",
-        icon: Heart,
+        title: "지능형 게임 로직",
+        description: "클래식 지뢰찾기의 모든 규칙을 완벽하게 구현한 게임 엔진입니다.",
+        icon: Brain,
         details: [
-          "과거 진단 결과 히스토리 추적",
-          "정기적 재진단 알림 기능",
-          "개인정보 보호 및 보안 강화",
-          "사용자 권한 기반 데이터 관리"
+          "랜덤 지뢰 배치 알고리즘",
+          "인접 지뢰 수 자동 계산",
+          "빈 셀 연쇄 열기 재귀 알고리즘",
+          "승리/패배 조건 자동 판정"
         ]
       },
       {
-        title: "의료기관 연계",
-        description: "지역별 병원 검색 및 PDF 리포트 생성을 통한 전문의 상담 지원",
-        icon: Stethoscope,
+        title: "직관적인 사용자 인터페이스",
+        description: "클린하고 직관적인 디자인으로 최적의 게임 경험을 제공합니다.",
+        icon: Monitor,
         details: [
-          "전국 의료기관 데이터베이스 구축",
-          "지역/진료과별 병원 검색",
-          "전문적인 PDF 진단서 자동 생성",
-          "QR 코드를 통한 결과 공유"
+          "클릭/우클릭을 통한 셀 조작",
+          "플래그 시스템으로 지뢰 표시",
+          "시각적 피드백과 애니메이션",
+          "게임 상태별 색상 구분"
         ]
       }
     ],
@@ -126,80 +118,79 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
     architecture: [
       {
         layer: "프론트엔드",
-        technologies: ["HTML5", "CSS3", "JavaScript", "Bootstrap", "Chart.js"],
-        description: "반응형 웹 인터페이스 및 데이터 시각화"
+        technologies: ["React", "JavaScript ES6+", "HTML5", "CSS3", "Axios"],
+        description: "반응형 게임 인터페이스 및 실시간 상호작용"
       },
       {
-        layer: "백엔드",
-        technologies: ["Django", "Python", "Django Forms"],
-        description: "웹 프레임워크 및 비즈니스 로직 처리"
-      },
-      {
-        layer: "데이터 분석",
-        technologies: ["NumPy", "FRAX Algorithm", "Logistic Regression"],
-        description: "위험도 계산 및 통계적 분석"
+        layer: "백엔드 API",
+        technologies: ["Django", "Django REST Framework", "Python"],
+        description: "게임 로직 처리 및 RESTful API 서비스"
       },
       {
         layer: "데이터베이스",
         technologies: ["SQLite", "Django ORM"],
-        description: "사용자 데이터 및 진단 결과 저장"
+        description: "게임 상태 및 셀 정보 영속화"
+      },
+      {
+        layer: "통신",
+        technologies: ["HTTP/HTTPS", "JSON", "CORS"],
+        description: "클라이언트-서버 간 비동기 데이터 통신"
       }
     ],
 
     challenges: [
       {
-        problem: "복잡한 FRAX 알고리즘의 구현 및 의학적 타당성 확보",
-        solution: "WHO 공식 문서를 기반으로 로지스틱 회귀 모델 구현, NumPy를 활용한 수치 계산 최적화",
-        result: "의학적으로 검증된 정확한 위험도 예측 시스템 구축"
+        problem: "복잡한 지뢰찾기 게임 로직을 서버사이드에서 완전히 구현",
+        solution: "Django 모델을 활용한 게임 상태 관리, 재귀 알고리즘을 통한 연쇄 열기 기능, 효율적인 지뢰 배치 및 인접 계산 로직 구현",
+        result: "100% 정확한 지뢰찾기 게임 로직 구현, 어떤 상황에서도 일관된 게임 규칙 적용"
       },
       {
-        problem: "일반 사용자가 이해하기 어려운 의료용어와 복잡한 설문 과정",
-        solution: "각 항목별 상세한 툴팁 제공, 직관적인 라디오 버튼 UI",
-        result: "사용자 친화성 향상, 접근성 개선"
+        problem: "React와 Django 간의 실시간 상태 동기화 문제",
+        solution: "Axios를 활용한 비동기 HTTP 통신, 게임 상태 변화에 따른 즉각적인 API 호출, 클라이언트 사이드 상태 관리 최적화",
+        result: "매끄러운 실시간 게임 플레이 경험, 서버와 클라이언트 간 완벽한 상태 동기화"
       },
       {
-        problem: "개인 의료정보 보안 및 개인정보 보호 문제",
-        solution: "Django CSRF 보호 기능 활용, 사용자 인증 기반 데이터 접근 제어, 최소한의 정보만 수집, 사용자 권한 기반 정보 관리",
-        result: "안전한 개인정보 처리 시스템 구축, 의료정보 보안 강화, 사용자 신뢰도 확보"
+        problem: "CORS 정책으로 인한 프론트엔드-백엔드 통신 제한",
+        solution: "django-cors-headers 라이브러리 설정, 개발/운영 환경별 CORS 정책 구성, 보안을 유지하면서도 필요한 통신 허용",
+        result: "안전하고 원활한 크로스 도메인 통신 구현, 개발 효율성 극대화"
       },
       {
-        problem: "다양한 디바이스에서의 최적화된 사용자 경험 제공",
-        solution: "Bootstrap 그리드 시스템을 활용한 반응형 디자인, 모바일 터치 인터페이스 최적화, 크로스 브라우저 호환성 확보",
-        result: "모든 디바이스에서 일관된 사용자 경험 제공"
+        problem: "다양한 화면 크기에서의 게임 보드 최적화",
+        solution: "CSS Grid와 Flexbox를 활용한 반응형 레이아웃, 모바일과 데스크톱 환경 모두 고려한 UI 설계, 동적 셀 크기 조정",
+        result: "모든 디바이스에서 완벽한 게임 경험 제공, 사용자 접근성 대폭 향상"
       }
     ],
 
     contribution: {
-      role: "Full-Stack Developer & Healthcare System Designer (개인 프로젝트)",
+      role: "Full-Stack Developer (개인 프로젝트)",
       responsibilities: [
-        "FRAX 알고리즘 Python 구현 및 최적화",
-        "Django 기반 웹 애플리케이션 풀스택 개발",
-        "사용자 친화적 설문조사 시스템 설계",
-        "Chart.js를 활용한 데이터 시각화 구현",
-        "개인정보 보호 및 보안 시스템 구축",
+        "Django REST API 설계 및 구현 (게임 로직 포함)",
+        "React 기반 게임 인터페이스 개발",
+        "게임 상태 관리 시스템 구축",
+        "지뢰찾기 핵심 알고리즘 구현 (지뢰 배치, 연쇄 열기 등)",
+        "RESTful API 엔드포인트 설계",
+        "CORS 설정 및 프론트엔드-백엔드 통신 구현",
         "반응형 웹 디자인 및 UI/UX 최적화",
-        "PDF 리포트 자동 생성 시스템 개발",
-        "의료기관 데이터베이스 구축 및 검색 기능",
-        "커뮤니티 게시판 및 사용자 관리 시스템"
+        "Git을 통한 버전 관리 및 프로젝트 문서화"
       ]
     },
 
     technicalHighlights: [
       {
-        title: "의학적 검증성",
-        details: "WHO 공인 FRAX 알고리즘 구현으로 임상적으로 검증된 정확한 위험도 예측"
+        title: "완전 분리형 아키텍처",
+        details: "Django REST API와 React 프론트엔드를 완전히 분리하여 확장성과 유지보수성 확보"
       },
       {
-        title: "사용자 중심 설계", 
-        details: "툴팁, 진행 가이드, 직관적 UI로 의료 비전문가도 쉽게 사용 가능"
+        title: "서버사이드 게임 로직", 
+        details: "모든 게임 규칙을 서버에서 처리하여 게임 무결성 보장, 클라이언트 조작 방지"
       },
       {
-        title: "통합 헬스케어 플랫폼",
-        details: "진단, 추천, 병원 검색, PDF 생성까지 원스톱 건강 관리 서비스"
+        title: "효율적인 알고리즘",
+        details: "재귀 기반 연쇄 열기, 최적화된 지뢰 배치, O(1) 시간복잡도의 인접 지뢰 계산"
       },
       {
-        title: "확장성 있는 아키텍처",
-        details: "Django 기반 모듈화 설계로 향후 기능 확장 및 모바일 앱 연동 대비"
+        title: "현대적 웹 기술 활용",
+        details: "ES6+ JavaScript, React Hooks, Django ORM, RESTful API 설계 원칙 준수"
       }
     ]
   };
@@ -317,10 +308,10 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
                   onError={(e) => {
                     e.target.style.display = 'none';
                     e.target.parentNode.innerHTML = `
-                      <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                      <div class="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
                         <div class="text-center">
-                          <div class="text-blue-600 text-6xl mb-4">🦴</div>
-                          <div class="text-blue-800 text-lg font-bold">Osteoporosis Risk Prediction</div>
+                          <div class="text-purple-600 text-6xl mb-4"><i class="fas fa-bomb"></i></div>
+                          <div class="text-purple-800 text-lg font-bold">Web Minesweeper</div>
                         </div>
                       </div>
                     `;
@@ -407,27 +398,27 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
                     <h3 className="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
-                      <Brain className="w-5 h-5" />
-                      기술적 혁신
+                      <Code className="w-5 h-5" />
+                      기술적 특징
                     </h3>
                     <ul className="text-blue-800 space-y-2">
-                      <li>• WHO 공인 FRAX 알고리즘 구현</li>
-                      <li>• NumPy 기반 수치 계산 최적화</li>
-                      <li>• 반응형 웹 디자인</li>
-                      <li>• Chart.js 데이터 시각화</li>
+                      <li>• Django REST API 기반 백엔드</li>
+                      <li>• React 기반 동적 프론트엔드</li>
+                      <li>• 완전 분리형 아키텍처</li>
+                      <li>• 실시간 게임 상태 동기화</li>
                     </ul>
                   </div>
                   
                   <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
                     <h3 className="text-lg font-bold text-green-900 mb-4 flex items-center gap-2">
-                      <Heart className="w-5 h-5" />
-                      헬스케어 특징
+                      <Gamepad2 className="w-5 h-5" />
+                      게임 특징
                     </h3>
                     <ul className="text-green-800 space-y-2">
-                      <li>• 예방 중심 접근법</li>
-                      <li>• 개인 맞춤형 건강 관리</li>
-                      <li>• 의료기관 연계 서비스</li>
-                      <li>• 지속적 모니터링 시스템</li>
+                      <li>• 3단계 난이도 시스템</li>
+                      <li>• 완벽한 지뢰찾기 로직</li>
+                      <li>• 반응형 게임 인터페이스</li>
+                      <li>• 직관적인 사용자 경험</li>
                     </ul>
                   </div>
                 </div>
@@ -518,30 +509,30 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
                   ))}
                 </div>
                 
-                {/* FRAX 알고리즘 플로우 */}
+                {/* 시스템 플로우 */}
                 <div className="mt-12">
-                  <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">FRAX 알고리즘 프로세스</h3>
+                  <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">게임 플로우</h3>
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-4 text-center">
                       <div className="flex items-center gap-3">
                         <span className="w-3 h-3 bg-purple-500 rounded-full"></span>
-                        <span><strong>1. 데이터 수집</strong> → 12개 위험 요소 설문조사</span>
+                        <span><strong>1. 게임 시작</strong> → 난이도 선택 및 게임 생성</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
-                        <span><strong>2. BMI 계산</strong> → 신장/체중 기반 자동 계산</span>
+                        <span><strong>2. 보드 생성</strong> → 지뢰 배치 및 격자 초기화</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="w-3 h-3 bg-green-500 rounded-full"></span>
-                        <span><strong>3. FRAX 적용</strong> → 로지스틱 회귀 모델 실행</span>
+                        <span><strong>3. 셀 클릭</strong> → API 호출을 통한 셀 열기/플래그</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="w-3 h-3 bg-orange-500 rounded-full"></span>
-                        <span><strong>4. 위험도 계산</strong> → 주요골절/고관절 위험도</span>
+                        <span><strong>4. 게임 로직</strong> → 서버에서 게임 상태 업데이트</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="w-3 h-3 bg-red-500 rounded-full"></span>
-                        <span><strong>5. 결과 제공</strong> → 시각화 및 맞춤 추천</span>
+                        <span><strong>5. 결과 반환</strong> → UI 업데이트 및 게임 완료 처리</span>
                       </div>
                     </div>
                   </div>
@@ -620,57 +611,29 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <h4 className="font-bold text-blue-900 mb-3 flex items-center gap-2">
-                      <Calculator className="w-5 h-5" />
-                      FRAX 알고리즘 개발
+                      <Database className="w-5 h-5" />
+                      백엔드 개발
                     </h4>
                     <ul className="text-blue-800 space-y-2 text-sm">
-                      <li>• WHO 공식 FRAX 모델 Python 구현</li>
-                      <li>• NumPy 기반 로지스틱 회귀 계산</li>
-                      <li>• BMI 자동 계산 및 보정 로직</li>
-                      <li>• 위험도 분류 시스템 (Normal/Caution/High)</li>
-                      <li>• 의학적 타당성 검증 및 테스트</li>
+                      <li>• Django Model 설계 (Game, Cell)</li>
+                      <li>• RESTful API 엔드포인트 구현</li>
+                      <li>• 지뢰찾기 핵심 알고리즘 개발</li>
+                      <li>• 게임 상태 관리 시스템</li>
+                      <li>• CORS 설정 및 보안 구현</li>
                     </ul>
                   </div>
                   
                   <div className="bg-green-50 p-6 rounded-lg">
                     <h4 className="font-bold text-green-900 mb-3 flex items-center gap-2">
                       <Monitor className="w-5 h-5" />
-                      웹 애플리케이션 개발
+                      프론트엔드 개발
                     </h4>
                     <ul className="text-green-800 space-y-2 text-sm">
-                      <li>• Django 기반 풀스택 웹 개발</li>
-                      <li>• Bootstrap 반응형 UI/UX 설계</li>
-                      <li>• Chart.js 데이터 시각화 구현</li>
-                      <li>• Ajax 기반 동적 사용자 인터페이스</li>
-                      <li>• PDF 리포트 자동 생성 시스템</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-orange-50 p-6 rounded-lg">
-                    <h4 className="font-bold text-orange-900 mb-3 flex items-center gap-2">
-                      <Database className="w-5 h-5" />
-                      데이터 관리 시스템
-                    </h4>
-                    <ul className="text-orange-800 space-y-2 text-sm">
-                      <li>• Django ORM 기반 데이터 모델링</li>
-                      <li>• 사용자 인증 및 권한 관리</li>
-                      <li>• 개인정보 보호 및 보안 구현</li>
-                      <li>• 진단 결과 히스토리 관리</li>
-                      <li>• 의료기관 데이터베이스 구축</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-purple-50 p-6 rounded-lg">
-                    <h4 className="font-bold text-purple-900 mb-3 flex items-center gap-2">
-                      <Users2 className="w-5 h-5" />
-                      사용자 경험 최적화
-                    </h4>
-                    <ul className="text-purple-800 space-y-2 text-sm">
-                      <li>• 의료용어 해설 툴팁 시스템</li>
-                      <li>• 단계별 설문 진행 가이드</li>
-                      <li>• 크로스 브라우저 호환성 확보</li>
-                      <li>• 모바일 터치 인터페이스 최적화</li>
-                      <li>• 접근성 및 사용성 테스트</li>
+                      <li>• React 컴포넌트 설계 및 구현</li>
+                      <li>• 게임 보드 UI/UX 개발</li>
+                      <li>• Axios를 통한 API 통신</li>
+                      <li>• 반응형 웹 디자인 구현</li>
+                      <li>• 게임 상태 동기화 로직</li>
                     </ul>
                   </div>
                 </div>
@@ -678,16 +641,16 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
                 {/* 프로젝트 성과 지표 */}
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="text-center p-4 bg-purple-50 rounded-lg">
-                    <div className="text-3xl font-bold text-purple-600 mb-2">12</div>
-                    <div className="text-sm text-purple-800">위험 요소 분석</div>
+                    <div className="text-3xl font-bold text-purple-600 mb-2">100%</div>
+                    <div className="text-sm text-purple-800">개인 구현도</div>
                   </div>
                   <div className="text-center p-4 bg-green-50 rounded-lg">
-                    <div className="text-3xl font-bold text-green-600 mb-2">100%</div>
-                    <div className="text-sm text-green-800">개인 개발</div>
+                    <div className="text-3xl font-bold text-green-600 mb-2">6+</div>
+                    <div className="text-sm text-green-800">API 엔드포인트</div>
                   </div>
                   <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <div className="text-3xl font-bold text-blue-600 mb-2">WHO</div>
-                    <div className="text-sm text-blue-800">공인 알고리즘</div>
+                    <div className="text-3xl font-bold text-blue-600 mb-2">3</div>
+                    <div className="text-sm text-blue-800">난이도 시스템</div>
                   </div>
                   <div className="text-center p-4 bg-orange-50 rounded-lg">
                     <div className="text-3xl font-bold text-orange-600 mb-2">10+</div>
@@ -718,7 +681,7 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
             <div className="flex justify-between items-center p-4 border-b">
-              <h3 className="text-lg font-bold">Osteoporosis Risk Prediction Demo</h3>
+              <h3 className="text-lg font-bold">Web Minesweeper Game Demo</h3>
               <button
                 onClick={closePPT}
                 className="text-gray-500 hover:text-gray-700 text-2xl"
@@ -729,27 +692,18 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
             <div className="p-4 h-[80vh]">
               <div className="w-full h-full bg-gray-100 rounded-lg flex items-center justify-center">
                 <div className="text-center">
-                  <Heart className="w-16 h-16 text-purple-600 mx-auto mb-4" />
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">헬스케어 시스템 데모</h4>
-                  <p className="text-gray-600 mb-4">FRAX 알고리즘 기반 골다공증 위험도 예측을 체험해보세요!</p>
-                  <div className="space-y-4">
-                    <div className="bg-blue-50 p-4 rounded-lg">
-                      <p className="text-blue-800 text-sm">
-                        • 12개 위험 요소를 종합한 과학적 예측<br/>
-                        • Chart.js 기반 시각적 결과 표현<br/>
-                        • 개인 맞춤 건강 관리 추천
-                      </p>
-                    </div>
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-                    >
-                      <Github className="w-5 h-5" />
-                      GitHub에서 보기
-                    </a>
-                  </div>
+                  <Gamepad2 className="w-16 h-16 text-purple-600 mx-auto mb-4" />
+                  <h4 className="text-xl font-bold text-gray-900 mb-2">게임 데모</h4>
+                  <p className="text-gray-600 mb-4">실제 게임을 플레이해보세요!</p>
+                  <a
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                  >
+                    <Github className="w-5 h-5" />
+                    GitHub에서 보기
+                  </a>
                 </div>
               </div>
             </div>
@@ -760,4 +714,4 @@ Q&A 게시판을 통해 사용자 간 정보 교환이 가능하며, 의료 전�
   );
 };
 
-export default ProjectDetailPage2;
+export default ProjectDetailPage3;

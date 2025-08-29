@@ -13,7 +13,7 @@ const ProjectsPage = ({
 }) => {
   const navigate = useNavigate();
 
-  // 샘플 프로젝트 데이터
+  // 업데이트된 프로젝트 데이터 - Osteoporosis 프로젝트 추가
   const featuredProjects = [
     {
       id: 1,
@@ -25,19 +25,21 @@ const ProjectsPage = ({
     },
     {
       id: 2,
-      title: "E-Commerce Application",
-      subtitle: "Full-featured e-commerce store with multi role user authentication functionality",
-      image: "/images/projects/ecommerce.jpg",
-      technologies: ["Django REST", "Python", "PostgreSQL"],
-      githubLink: "https://github.com/your-username/ecommerce"
+      title: "Osteoporosis Risk Prediction System",
+      subtitle: "FRAX 알고리즘 기반 골다공증 위험도 예측 시스템",
+      image: "/images/projects/osteoporosis-main.png",
+      technologies: ["Django", "Python", "NumPy", "Chart.js", "Bootstrap", "SQLite", "HTML5", "CSS3", "JavaScript"],
+      githubLink: "https://github.com/YangGo7/Osteoporosis_project-",
+      description: "WHO 공인 FRAX 알고리즘을 활용한 과학적인 골다공증 위험도 예측 시스템입니다. 12개 위험 요소를 분석하여 개인 맞춤형 건강 관리 솔루션을 제공합니다."
     },
     {
       id: 3,
-      title: "Expense Tracker Application",
-      subtitle: "Real time personal finance management tool with responsive reporting features",
-      image: "/images/projects/expense-tracker.jpg",
-      technologies: ["Django", "Chart.js", "MySQL"],
-      githubLink: "https://github.com/your-username/expense-tracker"
+      title: "Web Minesweeper Game",
+      subtitle: "Django REST API & React 기반 웹 지뢰찾기 게임",
+      image: "/images/projects/webgame-main.png",
+      technologies: ["Django", "Django REST", "React", "JavaScript", "HTML5", "CSS3", "SQLite", "CORS"],
+      githubLink: "https://github.com/INME1/Web_game",
+      description: "클래식한 지뢰찾기 게임을 현대적인 웹 기술로 구현한 풀스택 프로젝트입니다. 완전히 분리된 Django REST API와 React 프론트엔드로 구성되어 있으며, 3단계 난이도 시스템과 실시간 게임 상태 동기화를 지원합니다."
     }
   ];
 
@@ -94,11 +96,23 @@ const ProjectsPage = ({
                   className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
                   onError={(e) => {
                     e.target.style.display = 'none';
-                    e.target.parentNode.innerHTML = `
-                      <div class="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
-                        <div class="text-purple-600 text-4xl font-bold">${project.title.split(' ').map(w => w[0]).join('')}</div>
-                      </div>
-                    `;
+                    // Web Game 프로젝트용 특별 처리
+                    if (project.id === 3) {
+                      e.target.parentNode.innerHTML = `
+                        <div class="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
+                          <div class="text-center">
+                            <div class="text-purple-600 text-4xl mb-2">💣</div>
+                            <div class="text-purple-800 text-xl font-bold">Minesweeper</div>
+                          </div>
+                        </div>
+                      `;
+                    } else {
+                      e.target.parentNode.innerHTML = `
+                        <div class="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
+                          <div class="text-purple-600 text-4xl font-bold">${project.title.split(' ').map(w => w[0]).join('')}</div>
+                        </div>
+                      `;
+                    }
                   }}
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
@@ -128,6 +142,13 @@ const ProjectsPage = ({
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
                   {project.subtitle}
                 </p>
+
+                {/* 프로젝트 설명 (Web Game 프로젝트에만 추가) */}
+                {project.description && (
+                  <p className="text-gray-500 text-xs mb-4 leading-relaxed">
+                    {project.description}
+                  </p>
+                )}
 
                 {/* 기술 스택 */}
                 <div className="flex flex-wrap gap-2 mb-4">

@@ -1,7 +1,5 @@
-// App.js - React Router를 사용한 라우팅 설정
-
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 // 페이지 컴포넌트들 import
@@ -12,10 +10,28 @@ import TechPage from './components/pages/TechPage';
 import ProjectsPage from './components/pages/ProjectsPage';
 import ContactPage from './components/pages/ContactPage';
 import ProjectDetailPage from './components/pages/ProjectDetailPage';
+import ProjectDetailPage2 from './components/pages/ProjectDetailPage2'; // Osteoporosis 프로젝트용 상세 페이지
+import ProjectDetailPage3 from './components/pages/ProjectDetailPage3'; // Web Game 프로젝트용 상세 페이지
 
 // 이미지 import
 import coverImage from './images/projects/LACID.png';
 import profileImage from './images/김상묵사진.jpg';
+
+// 프로젝트 상세 페이지 라우터 컴포넌트
+const ProjectDetailRouter = () => {
+  const { projectId } = useParams();
+  const id = parseInt(projectId);
+
+  // 프로젝트 ID에 따라 다른 상세 페이지 컴포넌트 렌더링
+  if (id === 2) {
+    return <ProjectDetailPage2 />;
+  }
+  if (id === 3) {
+    return <ProjectDetailPage3 />;
+  }
+  // 기본적으로는 기존 ProjectDetailPage 사용 (LACID 등)
+  return <ProjectDetailPage />;
+};
 
 // 메인 포트폴리오 컴포넌트 (기존 single-page 방식)
 const MainPortfolio = () => {
@@ -57,10 +73,10 @@ const MainPortfolio = () => {
     },
     {
       id: 3,
-      title: "Personal Blog API",
-      description: "개인 블로그를 위한 RESTful API 시스템",
+      title: "Web Minesweeper Game",
+      description: "Django REST API & React 기반 웹 지뢰찾기 게임",
       image: coverImage,
-      technologies: ["Node.js", "Express", "MongoDB"],
+      technologies: ["Django", "React", "JavaScript", "SQLite"],
       link: "#"
     }
   ], []);
@@ -91,182 +107,130 @@ const MainPortfolio = () => {
 
   const goToSection = useCallback((index) => {
     console.log('goToSection called:', index);
-    if (index >= 0 && index < sections.length) {
+    if (index >= 0 && index < sections.length && !isScrolling) {
+      console.log(`Navigating to section ${index}: ${sections[index]}`);
       setCurrentSection(index);
+      setIsScrolling(true);
+      setTimeout(() => setIsScrolling(false), 1000);
     }
-  }, [sections.length]);
+  }, [sections, isScrolling]);
 
-  // 스크롤 처리 - 개선된 버전
-  useEffect(() => {
-    const handleWheel = (e) => {
-      e.preventDefault();
-      
-      const now = Date.now();
-      const timeDiff = now - lastScrollTime;
-      
-      // 스크롤 감도 조정 (더 엄격하게)
-      if (timeDiff < 150) return;
-      
-      setLastScrollTime(now);
-      
-      if (e.deltaY > 0 && currentSection < sections.length - 1) {
-        setCurrentSection(prev => prev + 1);
-      } else if (e.deltaY < 0 && currentSection > 0) {
-        setCurrentSection(prev => prev - 1);
-      }
-    };
-
-    document.addEventListener('wheel', handleWheel, { passive: false });
+  // 휠 스크롤 이벤트 핸들러
+  const handleWheel = useCallback((event) => {
+    event.preventDefault();
+    const currentTime = Date.now();
     
-    return () => {
-      document.removeEventListener('wheel', handleWheel);
-    };
-  }, [currentSection, lastScrollTime, sections.length]);
+    if (isScrolling || currentTime - lastScrollTime < 1000) {
+      return;
+    }
 
-  // 키보드 네비게이션
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-        e.preventDefault();
+    const deltaY = event.deltaY;
+    console.log('Wheel event:', { deltaY, currentSection, isScrolling });
+    
+    if (deltaY > 0 && currentSection < sections.length - 1) {
+      console.log('Scrolling down');
+      goToSection(currentSection + 1);
+      setLastScrollTime(currentTime);
+    } else if (deltaY < 0 && currentSection > 0) {
+      console.log('Scrolling up');
+      goToSection(currentSection - 1);
+      setLastScrollTime(currentTime);
+    }
+  }, [currentSection, goToSection, isScrolling, lastScrollTime, sections.length]);
+
+  // 키보드 이벤트 핸들러
+  const handleKeyDown = useCallback((event) => {
+    if (isScrolling) return;
+    
+    switch(event.key) {
+      case 'ArrowDown':
+      case ' ':
+        event.preventDefault();
         if (currentSection < sections.length - 1) {
-          setCurrentSection(prev => prev + 1);
+          goToSection(currentSection + 1);
         }
-      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-        e.preventDefault();
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
         if (currentSection > 0) {
-          setCurrentSection(prev => prev - 1);
+          goToSection(currentSection - 1);
         }
-      }
-    };
+        break;
+      default:
+        break;
+    }
+  }, [currentSection, goToSection, isScrolling, sections.length]);
 
-    document.addEventListener('keydown', handleKeyDown);
-    
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [currentSection, sections.length]);
-
-  // 브라우저 스크롤바 숨기기와 높이 고정
+  // 이벤트 리스너 등록
   useEffect(() => {
-    // 페이지 로드 시 스크롤 위치를 맨 위로 고정
-    window.scrollTo(0, 0);
-    
-    // body와 html의 스크롤을 완전히 차단
-    const originalStyle = window.getComputedStyle(document.body).overflow;
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.height = '100vh';
-    document.documentElement.style.height = '100vh';
-    document.body.style.position = 'fixed';
-    document.body.style.width = '100%';
-    
+    const handleWheelEvent = (e) => handleWheel(e);
+    const handleKeyDownEvent = (e) => handleKeyDown(e);
+
+    window.addEventListener('wheel', handleWheelEvent, { passive: false });
+    window.addEventListener('keydown', handleKeyDownEvent);
+
     return () => {
-      document.body.style.overflow = originalStyle;
-      document.documentElement.style.overflow = '';
-      document.body.style.height = '';
-      document.documentElement.style.height = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
+      window.removeEventListener('wheel', handleWheelEvent);
+      window.removeEventListener('keydown', handleKeyDownEvent);
     };
-  }, []);
+  }, [handleWheel, handleKeyDown]);
 
   return (
-    <div className="fixed inset-0 bg-black text-white overflow-hidden">
-      {/* Navigation Header */}
-      {currentSection > 0 && (
-        <motion.header 
-          className="fixed top-0 left-0 right-0 z-50"
-          initial={{ y: -100 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="bg-black/80 backdrop-blur-sm border-b border-gray-800">
-            <nav className="max-w-6xl mx-auto px-6 py-4">
-              {sections.map((section, index) => (
-                <button
-                  key={section}
-                  onClick={() => goToSection(index)}
-                  className={`mr-8 text-sm font-medium transition-colors ${
-                    currentSection === index 
-                      ? 'text-blue-400' 
-                      : 'text-gray-300 hover:text-white'
-                  }`}
-                >
-                  {section === 'welcome' ? 'Home' : section.charAt(0).toUpperCase() + section.slice(1)}
-                </button>
-              ))}
-            </nav>
-          </div>
-        </motion.header>
-      )}
-
-      {/* Section Indicators */}
-      <div className="fixed right-8 top-1/2 transform -translate-y-1/2 z-40 space-y-3">
-        {sections.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSection(index)}
-            className={`block w-3 h-3 rounded-full transition-all ${
-              currentSection === index 
-                ? 'bg-blue-600 scale-125' 
-                : 'bg-gray-300 hover:bg-gray-400'
-            }`}
-          />
-        ))}
-      </div>
-
-      {/* Main Container - 정확한 높이 제어 */}
+    <div className="h-screen overflow-hidden bg-white">
       <div 
-        className="w-full h-screen flex flex-col"
-        style={{
-          transform: `translateY(-${currentSection * 100}vh)`,
-          transition: 'transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-          height: `${sections.length * 100}vh`, // 전체 높이를 섹션 수만큼
+        className="h-full transition-transform duration-1000 ease-in-out"
+        style={{ 
+          transform: `translateY(-${currentSection * 100}vh)` 
         }}
       >
-        {/* 각 페이지 컴포넌트들 - 정확히 100vh씩 */}
-        <div className="w-full h-screen flex-shrink-0">
-          <WelcomePage currentSection={currentSection} goToSection={goToSection} />
-        </div>
-        <div className="w-full h-screen flex-shrink-0">
-          <IntroPage currentSection={currentSection} profileImage={profileImage} />
-        </div>
-        <div className="w-full h-screen flex-shrink-0">
-          <AboutPage currentSection={currentSection} />
-        </div>
-        <div className="w-full h-screen flex-shrink-0">
-          <TechPage currentSection={currentSection} technologies={technologies} />
-        </div>
-        <div className="w-full h-screen flex-shrink-0">
-          <ProjectsPage 
-            currentSection={currentSection} 
-            projects={projects}
-            currentProjectIndex={currentProjectIndex}
-            nextProject={nextProject}
-            prevProject={prevProject}
-          />
-        </div>
-        <div className="w-full h-screen flex-shrink-0">
-          <ContactPage currentSection={currentSection} />
-        </div>
+        <WelcomePage 
+          currentSection={currentSection}
+          goToSection={goToSection}
+        />
+        <IntroPage 
+          currentSection={currentSection}
+          profileImage={profileImage}
+        />
+        <AboutPage 
+          currentSection={currentSection}
+        />
+        <TechPage 
+          currentSection={currentSection}
+          technologies={technologies}
+        />
+        <ProjectsPage 
+          currentSection={currentSection}
+          projects={projects}
+          currentProjectIndex={currentProjectIndex}
+          nextProject={nextProject}
+          prevProject={prevProject}
+        />
+        <ContactPage 
+          currentSection={currentSection}
+        />
       </div>
     </div>
   );
 };
 
-// 메인 App 컴포넌트 (라우터 설정)
-const Portfolio = () => {
+// App 컴포넌트 - 라우터 설정
+function App() {
   return (
     <Router>
-      <Routes>
-        {/* 메인 포트폴리오 페이지 */}
-        <Route path="/" element={<MainPortfolio />} />
-        
-        {/* 프로젝트 상세 페이지들 */}
-        <Route path="/project/:projectId" element={<ProjectDetailPage />} />
-      </Routes>
+      <div className="App">
+        <Routes>
+          {/* 메인 포트폴리오 페이지 */}
+          <Route path="/" element={<MainPortfolio />} />
+          
+          {/* 프로젝트 상세 페이지 - ID에 따라 다른 컴포넌트 렌더링 */}
+          <Route 
+            path="/project/:projectId" 
+            element={<ProjectDetailRouter />} 
+          />
+        </Routes>
+      </div>
     </Router>
   );
-};
+}
 
-export default Portfolio;
+export default App;
