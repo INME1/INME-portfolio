@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, Users, Award, Github, FileText, Database, Activity, Brain, Shield, Stethoscope, Monitor, Cpu, Server } from 'lucide-react';
 
-const ProjectDetailPage1 = () => {
+const ProjectDetailPageTemplate = () => {
   const { projectId } = useParams();
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState('overview');
@@ -18,71 +18,21 @@ const ProjectDetailPage1 = () => {
     setShowPPT(false);
   };
 
-  // 기술 카테고리별 색상 정의
-  const getTechColor = (tech) => {
-    const techCategories = {
-      // Frontend
-      'React': 'bg-gradient-to-r from-cyan-500 to-cyan-600',
-      'Redux': 'bg-gradient-to-r from-cyan-500 to-cyan-600',
-      'Material-UI': 'bg-gradient-to-r from-cyan-500 to-cyan-600',
-      'Axios': 'bg-gradient-to-r from-cyan-500 to-cyan-600',
-      
-      // Backend
-      'Django': 'bg-gradient-to-r from-green-500 to-green-600',
-      'REST API': 'bg-gradient-to-r from-green-500 to-green-600',
-      'Celery': 'bg-gradient-to-r from-green-500 to-green-600',
-      
-      // Database
-      'PostgreSQL': 'bg-gradient-to-r from-blue-500 to-blue-600',
-      'MySQL': 'bg-gradient-to-r from-blue-500 to-blue-600',
-      'MariaDB': 'bg-gradient-to-r from-blue-500 to-blue-600',
-      'MongoDB': 'bg-gradient-to-r from-blue-500 to-blue-600',
-      'Redis': 'bg-gradient-to-r from-red-500 to-red-600',
-      
-      // AI/ML
-      'PyTorch': 'bg-gradient-to-r from-orange-500 to-orange-600',
-      'TensorFlow': 'bg-gradient-to-r from-orange-500 to-orange-600',
-      'OpenCV': 'bg-gradient-to-r from-orange-500 to-orange-600',
-      
-      // DevOps
-      'Docker': 'bg-gradient-to-r from-indigo-500 to-indigo-600',
-      'nginx': 'bg-gradient-to-r from-indigo-500 to-indigo-600',
-      
-      // Medical
-      'OpenMRS': 'bg-gradient-to-r from-teal-500 to-teal-600',
-      'Orthanc PACS': 'bg-gradient-to-r from-teal-500 to-teal-600',
-      'DICOM': 'bg-gradient-to-r from-teal-500 to-teal-600',
-      'HL7 FHIR': 'bg-gradient-to-r from-teal-500 to-teal-600',
-      
-      // Communication
-      'WebSocket': 'bg-gradient-to-r from-purple-500 to-purple-600',
-      'STT API': 'bg-gradient-to-r from-purple-500 to-purple-600',
-      
-      // Others
-      'Lua': 'bg-gradient-to-r from-gray-500 to-gray-600',
-      'CORS': 'bg-gradient-to-r from-gray-500 to-gray-600',
-      'Load Balancer': 'bg-gradient-to-r from-gray-500 to-gray-600',
-      'Keras': 'bg-gradient-to-r from-orange-500 to-orange-600'
-    };
-    
-    return techCategories[tech] || 'bg-gradient-to-r from-gray-400 to-gray-500';
-  };
-
   const projectImages = [
     {
-      src: "/images/projects/LACID-dashboard.png",
-      alt: "LACID 메인 대시보드",
-      caption: "의료진을 위한 통합 진단 대시보드"
+      src: "/images/projects/placeholder-1.png",
+      alt: "프로젝트 메인 화면",
+      caption: "프로젝트 메인 대시보드"
     },
     {
-      src: "/images/projects/LACID-ai-analysis.png", 
-      alt: "AI 분석 결과 화면",
-      caption: "AI 모델 분석 결과 및 히트맵 시각화"
+      src: "/images/projects/placeholder-2.png", 
+      alt: "기능 구현 화면",
+      caption: "핵심 기능 구현 결과"
     },
     {
-      src: "/images/projects/LACID-architecture.png",
+      src: "/images/projects/placeholder-3.png",
       alt: "시스템 아키텍처",
-      caption: "마이크로서비스 기반 시스템 구조"
+      caption: "전체 시스템 구조"
     }
   ];
 
@@ -94,152 +44,106 @@ const ProjectDetailPage1 = () => {
     setCurrentImageIndex((prev) => (prev - 1 + projectImages.length) % projectImages.length);
   };
 
+  // 프로젝트 데이터 - 템플릿용으로 내용 비움
   const project = {
-    title: "LACID",
-    subtitle: "흉부 X-ray 기반 이상탐지 CDSS 시스템",
-    period: "2025.05 - 2025.07",
-    team: "4명",
-    status: "완료",
-    technologies: ["Django", "React", "OpenMRS", "Orthanc PACS", "Docker", "Redis", "nginx", "Celery", "PostgreSQL", "MySQL", "MariaDB", "MongoDB", "PyTorch", "TensorFlow", "OpenCV", "DICOM", "HL7 FHIR", "REST API", "WebSocket", "STT API", "Lua"],
-    githubLink: "https://github.com/INME1/medical_system",
-    overview: "OpenMRS와 Orthanc PACS를 통합한 종합 의료 AI 플랫폼으로, 흉부 X-ray 영상에서 폐 질환을 자동 탐지하는 CDSS 시스템입니다. 의료진의 판독을 지원하기 위해 3개의 AI 모델을 앙상블하여 높은 정확도를 달성하며, 실시간 분석 결과를 직관적인 대시보드로 제공합니다. Docker 기반 마이크로서비스 아키텍처로 확장성을 확보하고, STT를 활용한 음성 판독 자동화까지 지원하는 차세대 의료 정보 시스템입니다.",
+    title: "프로젝트 제목",
+    subtitle: "프로젝트 부제목 또는 한줄 설명",
+    period: "YYYY.MM - YYYY.MM",
+    team: "N명",
+    status: "진행중/완료",
+    technologies: [
+      // 여기에 사용한 기술들을 나열하세요
+      "Django", "React", "PostgreSQL", "Docker", "PyTorch"
+    ],
+    githubLink: "https://github.com/username/project-name",
+    overview: "프로젝트 개요를 여기에 작성하세요. 프로젝트의 목적, 주요 기능, 기술적 특징을 간략하게 설명합니다.",
     
-    description: `LACID는 의료진의 흉부 X-ray 판독 업무를 지원하기 위해 개발된 임상 의사결정 지원 시스템입니다. 기존 병원 시스템과의 완벽한 통합을 통해 의료진의 워크플로우를 방해하지 않으면서도 AI의 도움을 받을 수 있도록 설계했습니다.
+    description: `프로젝트의 상세한 설명을 여기에 작성하세요.
 
-핵심 시스템 통합
+여러 단락으로 나누어서 작성할 수 있습니다.
 
-OpenMRS EMR 시스템과 Orthanc PACS 서버를 Django 백엔드로 완전히 통합했습니다. 환자가 등록되면 OpenMRS에서 기본정보를 관리하고, X-ray 촬영 시 DICOM 이미지가 Orthanc에 저장되는 동시에 환자 ID 기반으로 자동 매핑됩니다.
-
-AI 분석 워크플로우
-
-새로운 DICOM 이미지가 저장되면 Lua 스크립트가 이를 감지하여 자동으로 AI 분석을 트리거합니다. SimCLR 기반의 패치 단위 이상 탐지와 함께 YOLOv8, SSD 모델이 동시에 실행되어 서로 다른 관점에서 병변을 탐지합니다.
-
-의료진 중심 설계
-
-분석 결과는 Grad-CAM 히트맵과 함께 제공되어 AI가 주목한 부위를 명확히 보여줍니다. 또한 STT 기능을 통해 의료진의 음성 판독을 자동으로 SOAP 형식 텍스트로 변환하여 업무 효율성을 높였습니다.
-
-기술적 확장성
-
-Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소를 독립적으로 확장할 수 있으며, nginx 리버스 프록시를 통해 안정적인 서비스 운영이 가능합니다.`,
+프로젝트의 배경, 목표, 구현 과정, 결과 등을 상세히 설명하세요.`,
 
     features: [
       {
-        title: "통합 EMR/PACS 연동",
-        description: "OpenMRS와 Orthanc를 완전 통합하여 환자 정보와 의료 영상을 하나의 플랫폼에서 관리",
-        technical: "RESTful API 기반 실시간 데이터 동기화, 환자 ID 매핑 시스템"
+        title: "핵심 기능 1",
+        description: "첫 번째 핵심 기능에 대한 설명을 작성하세요.",
+        technical: "사용된 기술과 구현 방법을 설명"
       },
       {
-        title: "3중 AI 모델 앙상블",
-        description: "YOLOv8, SSD, SimCLR+EfficientNet-B2 모델을 동시 실행하여 높은 정확도와 신뢰성 확보",
-        technical: "PyTorch/TensorFlow 기반, Grad-CAM 시각화, 패치 기반 이상 탐지"
+        title: "핵심 기능 2",
+        description: "두 번째 핵심 기능에 대한 설명을 작성하세요.",
+        technical: "사용된 기술과 구현 방법을 설명"
       },
       {
-        title: "LIS 기반 혈액검사 AI 분석",
-        description: "혈액검사 결과를 AI로 분석하여 폐렴, 심부전, 폐색전증 등의 가능성을 예측하고 CDSS 결과를 EMR에 자동 전송",
-        technical: "CRP, NT-proBNP, D-Dimer 등 바이오마커 기반 예측, Django Signal을 통한 자동 EMR 연동"
+        title: "핵심 기능 3",
+        description: "세 번째 핵심 기능에 대한 설명을 작성하세요.",
+        technical: "사용된 기술과 구현 방법을 설명"
       },
       {
-        title: "STT 기반 음성 판독",
-        description: "의료진의 음성 판독을 실시간으로 텍스트화하여 SOAP 형식으로 자동 변환 및 저장",
-        technical: "STT API 연동, 음성 인식 후처리, SOAP 노트 자동 생성"
-      },
-      {
-        title: "Lua 스크립트 자동화",
-        description: "새로운 DICOM 이미지가 Orthanc에 저장될 때 자동으로 AI 분석을 트리거하는 스마트 워크플로우",
-        technical: "OnStoredInstance 이벤트 핸들링, 자동 분석 트리거, 상태 모니터링"
-      },
-      {
-        title: "정밀한 병변 위치 표시",
-        description: "AI가 탐지한 이상 부위를 정확한 좌표와 함께 시각화하여 의료진 진단 지원",
-        technical: "Bounding box 좌표, 히트맵 오버레이, 인터랙티브 뷰어"
+        title: "핵심 기능 4",
+        description: "네 번째 핵심 기능에 대한 설명을 작성하세요.",
+        technical: "사용된 기술과 구현 방법을 설명"
       }
     ],
 
     architecture: [
       {
         layer: "프론트엔드",
-        technologies: ["React", "Redux", "Axios", "Material-UI"],
-        description: "의료진이 사용하는 직관적인 웹 인터페이스"
+        technologies: ["React", "TypeScript"],
+        description: "사용자 인터페이스 계층"
       },
       {
-        layer: "API Gateway",
-        technologies: ["nginx", "CORS", "Load Balancer"],
-        description: "마이크로서비스들 간의 트래픽 라우팅 및 로드밸런싱"
-      },
-      {
-        layer: "백엔드 서비스",
-        technologies: ["Django REST", "Celery", "Redis"],
-        description: "비즈니스 로직, API 엔드포인트, 비동기 작업 처리"
-      },
-      {
-        layer: "AI 분석 엔진",
-        technologies: ["PyTorch", "TensorFlow", "Keras", "OpenCV"],
-        description: "딥러닝 모델 추론, 이미지 전처리, 결과 시각화"
-      },
-      {
-        layer: "의료 시스템",
-        technologies: ["OpenMRS", "Orthanc PACS", "DICOM"],
-        description: "전자의무기록 시스템과 의료영상저장통신시스템"
+        layer: "백엔드",
+        technologies: ["Django", "REST API"],
+        description: "비즈니스 로직 및 API 계층"
       },
       {
         layer: "데이터베이스",
-        technologies: ["PostgreSQL", "MySQL", "MariaDB", "MongoDB"],
-        description: "환자 데이터, 영상 메타데이터, AI 분석 결과 저장"
+        technologies: ["PostgreSQL", "Redis"],
+        description: "데이터 저장 및 캐싱 계층"
       }
     ],
 
     challenges: [
       {
-        problem: "Docker 기반 개발환경 구축 및 배포 최적화",
-        solution: "Docker Compose로 7개 서비스(Django, React, OpenMRS, Orthanc, AI-Service, 다중DB) 통합 관리, nginx 리버스 프록시를 통한 서비스간 통신 최적화",
-        result: "로컬 개발환경과 GCP 운영환경 완전 일치, 배포 시간 90% 단축"
+        problem: "해결한 기술적 문제 1",
+        solution: "문제 해결을 위해 적용한 방법",
+        result: "해결 결과 및 성과"
       },
       {
-        problem: "DICOM 이미지와 환자 데이터 관계 매핑",
-        solution: "OpenMRS 환자 UUID와 Orthanc Study UID를 연결하는 PatientMapping 모델 설계, 실시간 동기화 로직 구현",
-        result: "환자-영상 데이터 매핑 정확도 99.8%, 데이터 무결성 보장"
-      },
-      {
-        problem: "의사 대시보드 및 RIS/LIS 시스템 간 데이터 통신",
-        solution: "Django REST API 기반 통합 데이터 레이어 구축, WebSocket을 통한 실시간 알림, 각 시스템별 전용 API 엔드포인트 개발",
-        result: "RIS(영상의학과), LIS(진단검사의학과) 시스템과 완전 통합, 실시간 데이터 동기화 달성"
-      },
-      {
-        problem: "SimCLR 모델 학습 시 대용량 이미지 처리로 인한 메모리 부족 및 학습 중단",
-        solution: "패치 기반 데이터 로더 파이프라인 구축, 배치 크기 동적 조정, 메모리 효율적인 PatchCore 학습 알고리즘 적용",
-        result: "12GB+ 이미지 데이터셋 안정적 학습 완료, 메모리 사용량 60% 절약, 학습 중단 현상 완전 해결"
+        problem: "해결한 기술적 문제 2", 
+        solution: "문제 해결을 위해 적용한 방법",
+        result: "해결 결과 및 성과"
       }
     ],
 
     contribution: {
-      role: "Full-Stack Developer & AI Integration Lead",
+      role: "본인의 역할 (예: Full-Stack Developer)",
       responsibilities: [
-        "OpenMRS/Orthanc PACS 시스템 연동 및 API 개발",
-        "SimCLR, YOLOv8, SSD 모델 Django 백엔드 통합",
-        "Docker Compose 기반 마이크로서비스 아키텍처 구축",
-        "다중 데이터베이스 연동 및 데이터 동기화 로직 구현",
-        "Celery+Redis 비동기 AI 분석 파이프라인 개발",
-        "nginx 리버스 프록시 및 CORS 설정",
-        "의사 대시보드 풀스택 개발 (RIS/LIS 통합)"
+        "담당한 주요 업무 1",
+        "담당한 주요 업무 2", 
+        "담당한 주요 업무 3",
+        "담당한 주요 업무 4"
       ]
     },
 
     technicalHighlights: [
       {
-        title: "마이크로서비스 아키텍처",
-        details: "Docker Compose로 7개 서비스 오케스트레이션: Django, React, OpenMRS, Orthanc, AI-Service, 다중 DB"
+        title: "기술적 특징 1",
+        details: "특징에 대한 간단한 설명"
       },
       {
-        title: "AI 모델 통합 최적화", 
-        details: "PyTorch/TensorFlow 모델을 Django에 통합, Grad-CAM 시각화, JSON 직렬화 안전성 확보"
+        title: "기술적 특징 2", 
+        details: "특징에 대한 간단한 설명"
       },
       {
-        title: "의료 표준 완전 준수",
-        details: "DICOM, HL7 FHIR 표준 구현, OpenMRS 네이티브 API 활용, 의료 데이터 보안 강화"
+        title: "기술적 특징 3",
+        details: "특징에 대한 간단한 설명"
       },
       {
-        title: "비동기 처리 파이프라인",
-        details: "Celery+Redis 큐 시스템으로 AI 분석 비동기 처리, 실시간 결과 업데이트"
+        title: "기술적 특징 4",
+        details: "특징에 대한 간단한 설명"
       }
     ]
   };
@@ -306,53 +210,53 @@ Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소
                 </div>
               </div>
 
-              {/* 개선된 기술 스택 - 어두운 배경 글로우 스타일 */}
+              {/* 기술 스택 - 어두운 배경 글로우 스타일 */}
               <div className="mb-6">
                 <h3 className="text-sm font-medium text-gray-500 mb-4">사용 기술</h3>
-                <div className="bg-white-900 p-6 rounded-2xl">
+                <div className="bg-slate-900 p-6 rounded-2xl">
                   <div className="flex flex-wrap gap-3">
                     {project.technologies.map((tech, index) => {
                       const getGlowStyle = (tech) => {
                         const techStyles = {
                           // Frontend - 청록색
                           'React': 'bg-white text-cyan-600 border border-cyan-200 shadow-lg shadow-cyan-500/20',
-                          'Redux': 'bg-white text-cyan-600 border border-cyan-200 shadow-lg shadow-cyan-500/20',
-                          'Material-UI': 'bg-white text-cyan-600 border border-cyan-200 shadow-lg shadow-cyan-500/20',
-                          'Axios': 'bg-white text-cyan-600 border border-cyan-200 shadow-lg shadow-cyan-500/20',
+                          'Vue': 'bg-white text-cyan-600 border border-cyan-200 shadow-lg shadow-cyan-500/20',
+                          'Angular': 'bg-white text-cyan-600 border border-cyan-200 shadow-lg shadow-cyan-500/20',
+                          'TypeScript': 'bg-white text-cyan-600 border border-cyan-200 shadow-lg shadow-cyan-500/20',
+                          'JavaScript': 'bg-white text-cyan-600 border border-cyan-200 shadow-lg shadow-cyan-500/20',
                           
                           // Backend - 초록색
                           'Django': 'bg-white text-green-600 border border-green-200 shadow-lg shadow-green-500/20',
-                          'REST API': 'bg-white text-green-600 border border-green-200 shadow-lg shadow-green-500/20',
-                          'Celery': 'bg-white text-green-600 border border-green-200 shadow-lg shadow-green-500/20',
+                          'FastAPI': 'bg-white text-green-600 border border-green-200 shadow-lg shadow-green-500/20',
+                          'Spring Boot': 'bg-white text-green-600 border border-green-200 shadow-lg shadow-green-500/20',
+                          'Node.js': 'bg-white text-green-600 border border-green-200 shadow-lg shadow-green-500/20',
+                          'Express': 'bg-white text-green-600 border border-green-200 shadow-lg shadow-green-500/20',
+                          'Flask': 'bg-white text-green-600 border border-green-200 shadow-lg shadow-green-500/20',
                           
                           // Database - 파란색
                           'PostgreSQL': 'bg-white text-blue-600 border border-blue-200 shadow-lg shadow-blue-500/20',
                           'MySQL': 'bg-white text-blue-600 border border-blue-200 shadow-lg shadow-blue-500/20',
-                          'MariaDB': 'bg-white text-blue-600 border border-blue-200 shadow-lg shadow-blue-500/20',
                           'MongoDB': 'bg-white text-blue-600 border border-blue-200 shadow-lg shadow-blue-500/20',
+                          'SQLite': 'bg-white text-blue-600 border border-blue-200 shadow-lg shadow-blue-500/20',
                           'Redis': 'bg-white text-red-600 border border-red-200 shadow-lg shadow-red-500/20',
                           
                           // AI/ML - 보라색
                           'PyTorch': 'bg-white text-purple-600 border border-purple-200 shadow-lg shadow-purple-500/20',
                           'TensorFlow': 'bg-white text-purple-600 border border-purple-200 shadow-lg shadow-purple-500/20',
                           'OpenCV': 'bg-white text-purple-600 border border-purple-200 shadow-lg shadow-purple-500/20',
+                          'Scikit-learn': 'bg-white text-purple-600 border border-purple-200 shadow-lg shadow-purple-500/20',
+                          'Pandas': 'bg-white text-purple-600 border border-purple-200 shadow-lg shadow-purple-500/20',
                           
                           // DevOps - 주황색
                           'Docker': 'bg-white text-orange-600 border border-orange-200 shadow-lg shadow-orange-500/20',
+                          'Kubernetes': 'bg-white text-orange-600 border border-orange-200 shadow-lg shadow-orange-500/20',
+                          'AWS': 'bg-white text-orange-600 border border-orange-200 shadow-lg shadow-orange-500/20',
                           'nginx': 'bg-white text-orange-600 border border-orange-200 shadow-lg shadow-orange-500/20',
                           
                           // Medical - 청록색 진한 버전
                           'OpenMRS': 'bg-white text-teal-600 border border-teal-200 shadow-lg shadow-teal-500/20',
-                          'Orthanc PACS': 'bg-white text-teal-600 border border-teal-200 shadow-lg shadow-teal-500/20',
                           'DICOM': 'bg-white text-teal-600 border border-teal-200 shadow-lg shadow-teal-500/20',
-                          'HL7 FHIR': 'bg-white text-teal-600 border border-teal-200 shadow-lg shadow-teal-500/20',
-                          
-                          // Communication - 분홍색
-                          'WebSocket': 'bg-white text-pink-600 border border-pink-200 shadow-lg shadow-pink-500/20',
-                          'STT API': 'bg-white text-pink-600 border border-pink-200 shadow-lg shadow-pink-500/20',
-                          
-                          // Others - 회색
-                          'Lua': 'bg-white text-gray-600 border border-gray-200 shadow-lg shadow-gray-500/20'
+                          'HL7 FHIR': 'bg-white text-teal-600 border border-teal-200 shadow-lg shadow-teal-500/20'
                         };
                         
                         return techStyles[tech] || 'bg-white text-gray-600 border border-gray-200 shadow-lg shadow-gray-500/20';
@@ -361,7 +265,7 @@ Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소
                       return (
                         <span 
                           key={index}
-                          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 ${getGlowStyle(tech)}`}
+                          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 hover:brightness-110 ${getGlowStyle(tech)}`}
                         >
                           {tech}
                         </span>
@@ -405,7 +309,7 @@ Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소
                     e.target.style.display = 'none';
                     e.target.parentNode.innerHTML = `
                       <div class="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
-                        <div class="text-purple-600 text-4xl font-bold">LACID</div>
+                        <div class="text-purple-600 text-4xl font-bold">PROJECT</div>
                       </div>
                     `;
                   }}
@@ -497,13 +401,13 @@ Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소
                   <div className="bg-purple-50 p-6 rounded-lg">
                     <h3 className="font-bold text-purple-900 mb-3 flex items-center gap-2">
                       <Stethoscope className="w-5 h-5" />
-                      의료진 관점
+                      주요 특징
                     </h3>
                     <ul className="text-purple-800 space-y-2">
-                      <li>• 실시간 이상 소견 알림</li>
-                      <li>• 직관적인 진단 결과 시각화</li>
-                      <li>• 과거 영상과의 비교 분석</li>
-                      <li>• 근거 기반 AI 판단 제시</li>
+                      <li>• 특징 1</li>
+                      <li>• 특징 2</li>
+                      <li>• 특징 3</li>
+                      <li>• 특징 4</li>
                     </ul>
                   </div>
                   
@@ -513,10 +417,10 @@ Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소
                       기술적 혁신
                     </h3>
                     <ul className="text-blue-800 space-y-2">
-                      <li>• 3개 AI 모델 앙상블 시스템</li>
-                      <li>• OpenMRS/Orthanc 완전 통합</li>
-                      <li>• 마이크로서비스 아키텍처</li>
-                      <li>• 실시간 비동기 처리</li>
+                      <li>• 혁신 요소 1</li>
+                      <li>• 혁신 요소 2</li>
+                      <li>• 혁신 요소 3</li>
+                      <li>• 혁신 요소 4</li>
                     </ul>
                   </div>
                 </div>
@@ -581,7 +485,7 @@ Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소
               
               {/* 아키텍처 다이어그램 */}
               <div className="bg-white p-8 rounded-xl shadow-lg mb-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">LACID 시스템 구조도</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">시스템 구조도</h3>
                 
                 <div className="space-y-6">
                   {project.architecture.map((layer, index) => (
@@ -631,35 +535,6 @@ Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소
                       )}
                     </motion.div>
                   ))}
-                </div>
-              </div>
-
-              {/* 데이터 플로우 */}
-              <div className="bg-white p-8 rounded-xl shadow-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">데이터 플로우</h3>
-                <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg">
-                  <div className="text-sm text-gray-700 space-y-3">
-                    <div className="flex items-center gap-3">
-                      <span className="w-3 h-3 bg-purple-500 rounded-full"></span>
-                      <span><strong>1. 환자 등록</strong> → OpenMRS EMR에 환자 정보 입력</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
-                      <span><strong>2. X-ray 촬영</strong> → DICOM 이미지가 Orthanc PACS에 자동 저장</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="w-3 h-3 bg-green-500 rounded-full"></span>
-                      <span><strong>3. AI 분석 트리거</strong> → Lua 스크립트가 새 이미지 감지하여 분석 시작</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="w-3 h-3 bg-orange-500 rounded-full"></span>
-                      <span><strong>4. 멀티모델 분석</strong> → YOLOv8, SSD, SimCLR 동시 실행</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="w-3 h-3 bg-red-500 rounded-full"></span>
-                      <span><strong>5. 결과 통합</strong> → Django API로 결과 저장 및 의료진 알림</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -727,69 +602,6 @@ Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소
                   </div>
                 </div>
               </div>
-
-              {/* 핵심 코드 기여사항 */}
-              <div className="mt-8 bg-white p-8 rounded-xl shadow-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">핵심 코드 기여사항</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="bg-blue-50 p-6 rounded-lg">
-                    <h4 className="font-bold text-blue-900 mb-3 flex items-center gap-2">
-                      <Database className="w-5 h-5" />
-                      백엔드 시스템 구축
-                    </h4>
-                    <ul className="text-blue-800 space-y-2 text-sm">
-                      <li>• OpenMRS/Orthanc API 통합 모듈 개발</li>
-                      <li>• 환자 매핑 및 동기화 시스템 구현</li>
-                      <li>• AI 분석 결과 저장/조회 API 설계</li>
-                      <li>• 다중 데이터베이스 라우팅 로직</li>
-                      <li>• LIS CDSS 결과 자동 EMR 전송</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-green-50 p-6 rounded-lg">
-                    <h4 className="font-bold text-green-900 mb-3 flex items-center gap-2">
-                      <Brain className="w-5 h-5" />
-                      AI 모델 통합
-                    </h4>
-                    <ul className="text-green-800 space-y-2 text-sm">
-                      <li>• SimCLR 추론 서비스 Django 통합</li>
-                      <li>• 패치 기반 이상 탐지 파이프라인</li>
-                      <li>• JSON 직렬화 안전성 보장</li>
-                      <li>• 대용량 이미지 처리 최적화</li>
-                      <li>• 모델 상태 모니터링 시스템</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-orange-50 p-6 rounded-lg">
-                    <h4 className="font-bold text-orange-900 mb-3 flex items-center gap-2">
-                      <Server className="w-5 h-5" />
-                      인프라 및 DevOps
-                    </h4>
-                    <ul className="text-orange-800 space-y-2 text-sm">
-                      <li>• Docker Compose 멀티서비스 설계</li>
-                      <li>• nginx 리버스 프록시 구성</li>
-                      <li>• Celery+Redis 비동기 큐 구축</li>
-                      <li>• GCP 환경 배포 자동화</li>
-                      <li>• 서비스 간 네트워크 설정</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-purple-50 p-6 rounded-lg">
-                    <h4 className="font-bold text-purple-900 mb-3 flex items-center gap-2">
-                      <Activity className="w-5 h-5" />
-                      의료 데이터 처리
-                    </h4>
-                    <ul className="text-purple-800 space-y-2 text-sm">
-                      <li>• DICOM 이미지 전처리 파이프라인</li>
-                      <li>• EMR-PACS 실시간 데이터 동기화</li>
-                      <li>• 의료진 대시보드 풀스택 개발</li>
-                      <li>• 혈액검사 CDSS 결과 처리</li>
-                      <li>• 의료영상 메타데이터 관리</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
             </div>
           )}
         </motion.div>
@@ -813,7 +625,7 @@ Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-hidden">
             <div className="flex justify-between items-center p-4 border-b">
-              <h3 className="text-lg font-bold">LACID 프로젝트 발표자료</h3>
+              <h3 className="text-lg font-bold">프로젝트 발표자료</h3>
               <button
                 onClick={closePPT}
                 className="text-gray-500 hover:text-gray-700 text-2xl"
@@ -823,9 +635,9 @@ Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소
             </div>
             <div className="p-4 h-[80vh]">
               <iframe
-                src="/files/lacid-presentation.pdf"
+                src="/files/presentation.pdf"
                 className="w-full h-full border-0"
-                title="LACID 프로젝트 PPT"
+                title="프로젝트 PPT"
               />
             </div>
           </div>
@@ -835,4 +647,22 @@ Docker Compose 기반의 마이크로서비스 아키텍처로 각 구성 요소
   );
 };
 
-export default ProjectDetailPage1;
+export default ProjectDetailPageTemplate;
+
+/*
+📋 사용법:
+1. project 객체의 내용을 실제 프로젝트 정보로 변경
+2. technologies 배열에 사용한 기술 추가 (자동으로 카테고리별 색상 적용)
+3. projectImages 배열에 실제 이미지 경로 설정
+4. 각 섹션의 내용을 프로젝트에 맞게 수정
+
+🎨 기술 카테고리별 색상:
+- Frontend (청록): React, Vue, Angular, TypeScript, JavaScript 등
+- Backend (초록): Django, FastAPI, Node.js, Spring Boot, Flask 등  
+- Database (파랑): PostgreSQL, MySQL, MongoDB, SQLite 등
+- AI/ML (보라): PyTorch, TensorFlow, OpenCV, Scikit-learn 등
+- DevOps (주황): Docker, AWS, Kubernetes, nginx 등
+- Medical (청록 진한): OpenMRS, DICOM, HL7 FHIR 등
+
+💡 새로운 기술 추가 시 getGlowStyle 함수에 해당 기술과 색상을 추가하면 자동 적용됩니다.
+*/
